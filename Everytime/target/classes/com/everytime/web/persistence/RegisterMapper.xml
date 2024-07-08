@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.everytime.web.persistence.RegisterMapper">
+
+	<resultMap type="com.everytime.web.domain.RegisterVO"
+		id="registerResultMap">
+
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="password" column="PASSWORD" />
+		<result property="nickname" column="NICKNAME" />
+		<result property="name" column="NAME" />
+		<result property="email" column="EMAIL" />
+		<result property="phone" column="PHONE" />
+	</resultMap>
+	<!-- RegisterVO 클래스와 데이터베이스 테이블 간의 매핑 정보를 지정 RegisterVO 클래스의 각 프로퍼티와 데이터베이스 
+		테이블의 컬럼 간의 매핑을 정의 이를 통해 MyBatis는 데이터베이스에서 가져온 결과를 RegisterVO 객체로 매핑할 때 사용 -->
+
+	<insert id="insert">
+		INSERT INTO MEMBER
+		(MEMBER_ID, PASSWORD, NICKNAME, NAME, EMAIL, PHONE)
+		VALUES
+		(#{memberId}, #{password}, #{nickname}, #{name}, #{email}, #{phone})
+	</insert>
+
+	<select id="checkId" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE MEMBER_ID = #{memberId}
+	</select>
+
+	<select id="selectByRegisterId" resultMap="registerResultMap">
+		SELECT * FROM MEMBER WHERE MEMBER_ID = #{memberId}
+	</select>
+	
+	<select id="getNameById" resultType="String">
+		SELECT NAME FROM MEMBER WHERE MEMBER_ID = #{memberId}
+	</select>
+
+	<update id="update">
+		UPDATE MEMBER SET
+		PASSWORD = #{password},
+		NICKNAME = #{nickname},
+		NAME = #{name},
+		EMAIL = #{email},
+		PHONE = #{phone}
+		WHERE MEMBER_ID = #{memberId}
+	</update>
+
+	<delete id="delete">
+		DELETE MEMBER
+		WHERE MEMBER_ID = #{memberId}
+	</delete>
+
+	<update id="updatePassword">
+		UPDATE MEMBER SET
+		PASSWORD = #{password}
+		WHERE MEMBER_ID = #{memberId}
+	</update>
+
+	<update id="updateEmail">
+		UPDATE MEMBER SET
+		EMAIL = #{email}
+		WHERE MEMBER_ID = #{memberId}
+	</update>
+
+	<update id="updateNickname">
+		UPDATE MEMBER SET
+		NICKNAME = #{nickname}
+		WHERE MEMBER_ID = #{memberId}
+	</update>
+
+	<select id="verifyPw" resultType="int"> 
+		SELECT COUNT(*) FROM MEMBER
+		WHERE MEMBER_ID = #{memberId} AND PASSWORD = #{password} 
+	</select>
+
+</mapper>

@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f8f9fa;
+	color: #333;
+}
+
+.container {
+	width: 90%;
+	max-width: 600px;
+	margin: 50px auto;
+	background-color: #fff;
+	padding: 30px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+	text-align: center;
+	margin-bottom: 30px;
+	color: #007bff;
+}
+
+form {
+	text-align: center;
+}
+
+label {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 10px;
+	text-align: left;
+}
+
+input[type="text"], input[type="email"], textarea, input[type="file"] {
+	width: calc(100% - 20px);
+	padding: 10px;
+	margin-bottom: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+
+input[type="submit"] {
+	width: 100%;
+	padding: 15px;
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+	background-color: #0056b3;
+}
+
+#inquiryCheckLabel {
+	font-size: 14px;
+	text-align: left;
+	display: block;
+	margin-bottom: 20px;
+}
+
+#error-message {
+	color: red;
+	font-size: 14px;
+}
+
+.custom-file-upload {
+	border: 1px solid #ccc;
+	display: inline-block;
+	padding: 6px 12px;
+	cursor: pointer;
+	border-radius: 5px;
+	background-color: #f1f1f1;
+}
+
+input[type="file"] {
+	display: none;
+}

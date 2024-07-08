@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.everytime.web.persistence.InquiryMapper">
+	<resultMap type="com.everytime.web.domain.InquiryVO" id="InquiryResultMap">
+		<id property="inquiryId" column="INQUIRY_ID" />
+		<result property="inquiryBoard" column="INQUIRY_BOARD" />
+		<result property="inquiryFile" column="INQUIRY_FILE" />
+		<result property="email" column="EMAIL" />
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="inquiryCheck" column="INQUIRY_CHECK" />
+	</resultMap>
+	
+	<insert id="insert">
+		INSERT INTO INQUIRY 
+		VALUES (INQUIRY_SEQ.NEXTVAL, #{inquiryBoard}, #{inquiryFile, jdbcType=VARCHAR}, #{email}, #{memberId}, #{inquiryCheck})
+	</insert>
+</mapper>

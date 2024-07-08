@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.everytime.web.persistence.CourseMapper">
+
+	<resultMap type="com.everytime.web.domain.CourseVO"
+		id="courseResultMap">
+
+		<id property="courseId" column="COURSE_ID" />
+		<result property="major" column="MAJOR" />
+		<result property="field" column="FIELD" />
+		<result property="courseName" column="COURSE_NAME" />
+		<result property="professor" column="PROFESSOR" />
+		<result property="grade" column="GRADE" />
+		<result property="courseTime" column="COURSE_TIME" />
+		<result property="courseRoom" column="COURSE_ROOM" />
+		<result property="courseRate" column="COURSE_RATE" />
+
+	</resultMap>
+
+	<select id="courseName_search" resultMap="courseResultMap">
+		SELECT * FROM COURSE
+		WHERE COURSE_NAME like '%'||#{courseName}||'%'
+
+	</select>
+
+	<select id="professor_search" resultMap="courseResultMap">
+		SELECT * FROM COURSE
+		WHERE PROFESSOR like '%'||#{professor}||'%'
+	</select>
+	
+	<select id="selectOne" resultMap="courseResultMap">
+	 	SELECT * FROM COURSE WHERE COURSE_ID = #{courseId}
+	</select>
+	
+	
+	
+	
+
+
+</mapper>

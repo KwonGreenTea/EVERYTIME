@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.everytime.web.persistence.CalculatorMapper">
+
+	<resultMap type="com.everytime.web.domain.CalculatorVO"
+		id="calculatorResultMap">
+		
+		<result property="calNo" column="CAL_NUM" /> 
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="courseName" column="COURSE_NAME" />
+		<result property="credit" column="CREDIT" />
+		<result property="grade" column="GRADE" />
+		
+	</resultMap>
+    
+    <select id="selectAllDataByMemberId" resultMap="calculatorResultMap">
+        SELECT * FROM CALCULATOR
+        WHERE MEMBER_ID = #{memberId}
+    </select>
+    
+    <select id="selectFinalCalNo" resultType="int">
+        SELECT MAX(CAL_NUM) FROM CALCULATOR
+        WHERE MEMBER_ID = #{memberId}
+    </select>
+    
+    <insert id="insertTimeTable">
+        INSERT INTO CALCULATOR
+        VALUES (CAL_SEQ.NEXTVAL, #{memberId}, #{courseName}, 3, 'A+')
+    </insert>
+    
+    <insert id="insert">
+        INSERT INTO CALCULATOR
+        VALUES (CAL_SEQ.NEXTVAL, #{memberId}, #{courseName}, #{credit}, #{grade})
+    </insert>
+    
+    <update id="update" >
+        UPDATE CALCULATOR
+        SET COURSE_NAME = #{courseName},
+        	CREDIT = #{credit},
+        	GRADE = #{grade}
+        WHERE MEMBER_ID = #{memberId}
+        AND CAL_NUM = #{calNo}
+    </update>
+    
+    <delete id="delete" >
+        DELETE CALCULATOR
+        WHERE MEMBER_ID = #{memberId}
+    </delete>
+</mapper>

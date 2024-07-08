@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.everytime.web.persistence.ChatListMapper">
+
+   <resultMap type="com.everytime.web.domain.ChatListVO"
+      id="chatListResultMap">
+      
+      <result property="room_id" column="ROOM_ID" /> 
+       <result property="chat_title" column="CHAT_TITLE" />
+       <result property="chat_count" column="CHAT_COUNT" />
+   </resultMap>
+
+   <insert id="insert">
+      INSERT INTO CHAT_LIST 
+      VALUES (CHATLIST_SEQ.NEXTVAL, #{chat_title}, 0)
+   </insert>
+   
+    <select id="selectByName" resultType="Integer">
+       SELECT CHAT_COUNT FROM CHAT_LIST WHERE ROOM_ID = #{room_id}
+   </select>
+   
+    <select id="allRoom" resultMap="chatListResultMap">
+	 	SELECT * FROM CHAT_LIST ORDER BY ROOM_ID DESC
+	</select>
+
+	<update id="updateCount">
+      UPDATE CHAT_LIST 
+      SET CHAT_COUNT = #{chat_count}
+      WHERE ROOM_ID = #{room_id}
+   </update>
+
+</mapper>

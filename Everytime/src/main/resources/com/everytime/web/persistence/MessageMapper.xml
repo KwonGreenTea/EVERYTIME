@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.everytime.web.persistence.MessageMapper">
+
+   <resultMap type="com.everytime.web.domain.MessageVO"
+      id="messageResultMap">
+      
+      <result property="messageId" column="MESSAGE_ID" /> 
+       <result property="sendMemberId" column="SEND_MEMBER_ID" />
+       <result property="recvMemberId" column="RECV_MEMBER_ID" />
+       <result property="messageContent" column="MESSAGE_CONTENT" />
+       <result property="messageDate" column="MESSAGE_DATE"/>
+   </resultMap>
+
+   
+
+</mapper>

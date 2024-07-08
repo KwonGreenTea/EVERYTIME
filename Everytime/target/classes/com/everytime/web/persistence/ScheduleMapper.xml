@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.everytime.web.persistence.ScheduleMapper">
+
+	<resultMap type="com.everytime.web.domain.ScheduleVO"
+		id="scheduleResultMap">
+
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="courseName" column="COURSE_NAME" />
+		<result property="professor" column="PROFESSOR" />
+		<result property="weeks" column="WEEKS" />
+		<result property="startHour" column="START_HOUR" />
+		<result property="startMinute" column="START_MINUTE" />
+		<result property="endHour" column="END_HOUR" />
+		<result property="endMinute" column="END_MINUTE" />
+		<result property="courseRoom" column="COURSE_ROOM" />
+		
+	</resultMap>
+
+
+<!-- 예제 SQL 문 -->
+    <!-- 모든 강의 일정 가져오기 -->
+    <select id="selectAllSchedules" >
+        SELECT MEMBER_ID, COURSE_NAME, PROFESSOR, WEEKS, START_HOUR, START_MINUTE, END_HOUR, END_MINUTE, COURSE_ROOM
+        FROM schedule
+    </select>
+    
+    <!-- 특정 멤버의 강의 일정 가져오기 -->
+    <select id="selectSchedulesByMemberId" resultMap="scheduleResultMap">
+        SELECT MEMBER_ID, COURSE_NAME, PROFESSOR, WEEKS, START_HOUR, START_MINUTE, END_HOUR, END_MINUTE, COURSE_ROOM
+        FROM schedule
+        WHERE MEMBER_ID = #{memberId}
+    </select>
+    
+    <!-- 강의 일정 삽입 -->
+    <insert id="insert" >
+        INSERT INTO SCHEDULE (MEMBER_ID, COURSE_NAME, PROFESSOR, WEEKS, START_HOUR, START_MINUTE, END_HOUR, END_MINUTE, COURSE_ROOM)
+        VALUES (#{memberId}, #{courseName}, #{professor}, #{weeks}, #{startHour}, #{startMinute}, #{endHour}, #{endMinute}, #{courseRoom})
+    </insert>
+    
+    <!-- 강의 일정 업데이트 -->
+    <update id="updateSchedule" >
+        UPDATE schedule
+        SET COURSE_NAME = #{courseName},
+            PROFESSOR = #{professor},
+            WEEKS = #{weeks},
+            START_HOUR = #{startHour},
+            START_MINUTE = #{startMinute},
+            END_HOUR = #{endHour},
+            END_MINUTE = #{endMinute},
+            COURSE_ROOM = #{courseRoom}
+        WHERE MEMBER_ID = #{memberId}
+    </update>
+    
+    <!-- 강의 일정 삭제 -->
+    <delete id="deleteSchedule" >
+        DELETE schedule
+        WHERE MEMBER_ID = #{memberId}
+        AND WEEKS = #{weeks}
+        AND START_HOUR = #{startHour}
+        AND START_MINUTE = #{startMinute}
+        AND END_HOUR = #{endHour}
+        AND END_MINUTE = #{endMinute}
+    </delete>
+
+	<delete id="deleteUser" >
+        DELETE schedule
+        WHERE MEMBER_ID = #{memberId}
+    </delete>
+
+
+</mapper>

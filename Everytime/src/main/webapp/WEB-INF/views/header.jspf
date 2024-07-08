@@ -1,0 +1,24 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<nav>
+	<div class="wrap">
+		<div id="logo">
+			<a href="main"><img src="${pageContext.request.contextPath}/resources/images/soldesk.png" alt="Logo"></a>
+			<p>
+				<span class="name multiple">에브리타임</span><span class="subname">솔데스크대
+					강남캠</span>
+			</p>
+		</div>
+		<div id="account">
+			<a href="${pageContext.request.contextPath}/chat" title="쪽지함" class="icon message">쪽지함</a> <a
+				href="${pageContext.request.contextPath}/mypage" title="내 정보" class="icon my">내 정보</a>
+		</div>
+		<ul id="menu">
+			<li><a href="${pageContext.request.contextPath}/main">게시판</a></li>
+			<li><a href="${pageContext.request.contextPath}/time">시간표</a></li>
+			<li><a href="${pageContext.request.contextPath}/course">강의실</a></li>
+			<li><a href="${pageContext.request.contextPath}/calculator">학점계산기</a></li>
+			<li><a href="${pageContext.request.contextPath}/frd">친구</a></li>
+		</ul>
+	</div>
+</nav>

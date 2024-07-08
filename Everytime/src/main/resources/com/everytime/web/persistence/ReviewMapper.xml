@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.everytime.web.persistence.ReviewMapper">
+
+	<resultMap type="com.everytime.web.domain.ReviewVO"
+		id="reviewResultMap">
+
+		<result property="courseId" column="COURSE_ID" />
+		<result property="professor" column="PROFESSOR" />
+		<result property="review" column="REVIEW" />
+		<result property="semester" column="SEMESTER" />
+		<result property="project" column="PROJECT" />
+		<result property="team" column="TEAM" />
+		<result property="grade" column="GRADE" />
+		<result property="attend" column="ATTEND" />
+		<result property="exam" column="EXAM" />
+		<result property="courseRate" column="COURSE_RATE" />
+		<result property="reviewLike" column="REVIEW_LIKE" />
+
+	</resultMap>
+
+	<insert id="insertReview">
+
+		INSERT INTO COURSE_REVIEW VALUES
+		(#{courseId}, #{professor}, #{review}, #{semester}, #{project}, #{team}, #{grade},
+		#{attend}, #{exam}, #{courseRate},#{reviewLike})
+
+
+	</insert>
+
+
+	<select id="selectList" resultMap="reviewResultMap">
+		SELECT * FROM COURSE_REVIEW WHERE COURSE_ID = #{courseId}
+	</select>
+
+
+
+</mapper>

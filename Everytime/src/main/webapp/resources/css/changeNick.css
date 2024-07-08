@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f8f9fa; /* 연한 그레이 */
+}
+
+.container {
+	width: 50%;
+	margin: 20px auto;
+	background-color: #fff;
+	padding: 30px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+h2 {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+form {
+	text-align: center;
+}
+
+label {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+input[type="text"] {
+	width: calc(100% - 22px); /* input 너비 조정 */
+	padding: 10px;
+	margin-bottom: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box; /* padding과 border 포함하여 크기 설정 */
+}
+
+input[type="submit"] {
+	width: 100%;
+	padding: 15px;
+	background-color: #007bff; /* 파란색 */
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover {
+	background-color: #0056b3; /* 파란색 조금 진한 색 */
+}
+
+#error-message {
+	color: red;
+	font-size: 14px;
+}

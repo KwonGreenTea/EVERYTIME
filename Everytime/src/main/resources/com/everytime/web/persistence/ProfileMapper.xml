@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.everytime.web.persistence.ProfileMapper">
+
+	<resultMap type="com.everytime.web.domain.ProfileVO"
+		id="profileResultMap">
+		
+		<id property="profileId" column="PROFILE_ID" /> 
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="profilePath" column="PROFILE_PATH" />
+		<result property="profileRealName" column="PROFILE_REAL_NAME" />
+		<result property="profileChgName" column="PROFILE_CHG_NAME" />
+		<result property="profileExtension" column="PROFILE_EXTENSION"/>
+		<result property="profileDateCreated" column="PROFILE_DATE_CREATED"/>
+	</resultMap>
+
+	<insert id="insert">
+		INSERT INTO PROFILE 
+		(PROFILE_ID, MEMBER_ID, PROFILE_PATH, PROFILE_REAL_NAME, 
+		PROFILE_CHG_NAME, PROFILE_EXTENSION)
+		VALUES (PROFILE_SEQ.NEXTVAL, #{memberId}, #{profilePath}, #{profileRealName}, 
+		#{profileChgName}, #{profileExtension})
+	</insert>
+
+	<select id="selectByProfileId" resultMap="profileResultMap">
+		SELECT * FROM (
+		    SELECT PROFILE.*, ROW_NUMBER() OVER (ORDER BY PROFILE_ID DESC) AS rn
+		    FROM PROFILE
+		    WHERE MEMBER_ID = #{memberId}
+		) WHERE rn = 1
+	</select>
+
+	<select id="selectIdList" resultType="Integer">
+		SELECT PROFILE_ID FROM PROFILE
+	</select>
+
+	<update id="update">
+		UPDATE PROFILE
+		SET PROFILE_PATH = #{profilePath},
+    	PROFILE_REAL_NAME = #{profileRealName},
+    	PROFILE_CHG_NAME = #{profileChgName},
+    	PROFILE_EXTENSION = #{profileExtension}
+		WHERE PROFILE_ID = #{profileId}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM PROFILE
+		WHERE PROFILE_ID = #{profileId}
+	</delete>
+
+</mapper>

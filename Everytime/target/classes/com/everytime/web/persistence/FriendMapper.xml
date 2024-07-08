@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.everytime.web.persistence.FriendMapper">
+
+	<resultMap type="com.everytime.web.domain.FriendVO"
+		id="friendResultMap">
+
+		<result property="requestId" column="REQUEST_ID" />
+		<result property="responseId" column="RESPONSE_ID" />
+		<result property="status" column="STATUS" />
+		<result property="requestName" column="REQUEST_NAME" />
+		<result property="responseName" column="RESPONSE_NAME" />
+	</resultMap>
+
+	<!-- 친구 추가 기능 -->
+	<insert id="insert">
+		INSERT ALL
+		INTO FRIEND (REQUEST_ID,RESPONSE_ID,STATUS,REQUEST_NAME,RESPONSE_NAME) VALUES (#{requestId},
+		#{responseId}, 'ACCEPT', #{requestName}, #{responseName})
+		INTO FRIEND (REQUEST_ID,RESPONSE_ID,STATUS,REQUEST_NAME,RESPONSE_NAME)
+		VALUES (#{responseId},#{requestId}, 'WAITING', #{responseName}, #{requestName})
+		SELECT * FROM DUAL
+	</insert>
+
+	
+	<!-- 서로 친구 요청을 한 사람인지 -->
+	<select id ="checkFriend" resultMap ="friendResultMap">
+		SELECT * FROM FRIEND
+		WHERE REQUEST_ID = #{requestId} AND RESPONSE_ID = #{responseId} AND STATUS = 'ACCEPT'
+		or REQUEST_ID = #{responseId} AND RESPONSE_ID = #{requestId} AND STATUS = 'ACCEPT'
+	</select>
+
+	<!-- 친구 요청 조회기능 -->
+	<select id="checkRequest" resultMap="friendResultMap">
+		SELECT * FROM FRIEND 
+		WHERE REQUEST_ID = #{requestId} AND STATUS = 'WAITING'
+	</select>
+
+	<!-- 내가 수락한 친구 -->
+	<select id="UserAccept" resultType="String">
+		SELECT RESPONSE_ID FROM FRIEND
+		WHERE REQUEST_ID = #{requestId} AND STATUS = 'ACCEPT' 
+	</select>
+	<!-- 내가 수락한 친구가, 나를 수락한 친구 -->
+	<select id='FriendAccept' resultMap="friendResultMap">
+		SELECT * FROM FRIEND
+		WHERE REQUEST_ID = #{requestId} AND RESPONSE_ID = #{responseId} AND STATUS = 'ACCEPT'
+	</select>
+
+
+	<!-- 친구 요청 수락 -->
+	<update id="acceptFriend">
+		UPDATE FRIEND SET STATUS = 'ACCEPT' WHERE REQUEST_ID
+		= #{requestId} AND RESPONSE_ID = #{responseId} 
+	</update>
+	
+	<!-- 친구 요청 거절  -->
+	<delete id="deleteFriend">
+		DELETE FROM FRIEND
+		WHERE REQUEST_ID = #{requestId} AND RESPONSE_ID = #{responseId}
+		or REQUEST_ID = #{responseId} AND RESPONSE_ID = #{requestId}
+	</delete>
+	
+	<delete id="deleteUser">
+		DELETE FRIEND
+		WHERE REQUEST_ID = #{memberId} 
+		OR RESPONSE_ID = #{memberId}
+	</delete>
+
+</mapper>
