@@ -202,7 +202,21 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.3.3</version>
 		</dependency>
-
+		
+		<!-- Spring context support for JavaMailSender -->
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-context-support</artifactId>
+	        <version>5.3.29</version> <!-- 최신 버전으로 변경 가능 -->
+	    </dependency>
+	    
+	    <!-- JavaMail dependency -->
+	    <dependency>
+	        <groupId>com.sun.mail</groupId>
+	        <artifactId>javax.mail</artifactId>
+	        <version>1.6.2</version> <!-- 최신 버전으로 변경 가능 -->
+	    </dependency>
+	    
 	</dependencies>
 	<build>
 		<plugins>

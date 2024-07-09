@@ -10,6 +10,6 @@ public interface ProfileService {
     ProfileVO getProfileById(String memberId);
     List<Integer> getAllId();
     int updateProfile(ProfileVO attachVO);
-    int deleteProfile(int attachId);
+    int deleteProfile(String memberId);
 
 }

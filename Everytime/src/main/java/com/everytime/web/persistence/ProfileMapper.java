@@ -12,5 +12,5 @@ public interface ProfileMapper {
     ProfileVO selectByProfileId(String memberId);
     List<Integer> selectIdList();
     int update(ProfileVO attach);
-    int delete(int attachId);
+    int delete(String memberId);
 }

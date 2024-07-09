@@ -16,15 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.everytime.web.domain.InquiryVO;
 import com.everytime.web.domain.ProfileVO;
 import com.everytime.web.domain.RegisterVO;
-import com.everytime.web.service.FriendService;
-import com.everytime.web.service.InquiryService;
 import com.everytime.web.service.ProfileService;
 import com.everytime.web.service.RegisterService;
-import com.everytime.web.service.ScheduleService;
 import com.everytime.web.util.FileUploadUtil;
 
 import lombok.extern.log4j.Log4j;
@@ -35,28 +30,19 @@ public class MypageController {
 
 	@Autowired
 	private String uploadPath;
-	
+
 	@Autowired
 	private RegisterService registerService;
-	
+
 	@Autowired
-	private InquiryService inquiryService;
-	
-	@Autowired
-    private ScheduleService scheduleService;
-    
-    @Autowired
-    private FriendService friendService;
-    
-    @Autowired
-    private ProfileService profileService;
+	private ProfileService profileService;
 
 	@GetMapping("/mypage")
 	public String mypageGET(Model model, HttpServletRequest request, RedirectAttributes reAttr) throws Exception {
 		log.info("mypage()");
 		HttpSession session = request.getSession();
 		String memberId = (String) session.getAttribute("memberId");
-		
+
 		RegisterVO registerVO;
 		if (memberId == null) {
 			session.removeAttribute("memberId");
@@ -65,36 +51,62 @@ public class MypageController {
 		} else {
 			registerVO = registerService.getRegisterById(memberId);
 			ProfileVO profileVO = profileService.getProfileById(memberId);
-			
+
 			String imgSource;
-	        if (profileVO != null) {
-	            // 파일의 경로를 가져옴
-	        	// 파일 참조를 위해 "\" -> "/"로 수정
-	        	String profilePath = profileVO.getProfilePath();
-	        	 // 문자열을 분리
-	        	String[] parts = profilePath.split("\\\\");
-	        	String year = parts[0];
-	            String month = parts[1];
-	            String day = parts[2];
-	        	
-	        	// 파일의 확장명을 가져옴
-	            String profileExtension = profileVO.getProfileExtension();
-	            
-	            // 파일의 이름을 가져옴
-	            String profileName = profileVO.getProfileRealName();
-	            
-	            imgSource = "profileImage/" + year + "/" + month + "/" + day + "/" + profileName + "." + profileExtension;
-	        } else { 
-	        	// 기본 이미지 경로
-	            imgSource = "profileImage/profile/profile.png";
-	        }
-	        
+			if (profileVO != null) {
+				// 파일의 경로를 가져옴
+				// 파일 참조를 위해 "\" -> "/"로 수정
+				String profilePath = profileVO.getProfilePath();
+				// 문자열을 분리
+				String[] parts = profilePath.split("\\\\");
+				String year = parts[0];
+				String month = parts[1];
+				String day = parts[2];
+
+				// 파일의 확장명을 가져옴
+				String profileExtension = profileVO.getProfileExtension();
+
+				// 파일의 이름을 가져옴
+				String profileName = profileVO.getProfileRealName();
+
+				imgSource = "image/" + year + "/" + month + "/" + day + "/" + profileName + "." + profileExtension;
+			} else {
+				// 기본 이미지 경로
+				imgSource = "image/profile/profile.png";
+			}
+
 			model.addAttribute("imgSource", imgSource);
 			model.addAttribute("registerVO", registerVO);
 		}
 
 		return "mypage/mypage";
 	}
+
+	// 첨부 파일 업로드 처리(POST)
+	@PostMapping("/imgAttach")
+	public String imgAttachPOST(ProfileVO profileVO) {
+		log.info("imgAttachPOST()");
+		log.info("profileDTO = " + profileVO);
+		MultipartFile file = profileVO.getFile();
+
+		// UUID 생성
+		String chgName = UUID.randomUUID().toString();
+		// 파일 저장
+		FileUploadUtil.saveFile(uploadPath, file, chgName);
+
+		// 파일 경로 설정
+		profileVO.setProfilePath(FileUploadUtil.makeDatePath());
+		// 파일 실제 이름 설정
+		profileVO.setProfileRealName(FileUploadUtil.subStrName(file.getOriginalFilename()));
+		// 파일 변경 이름(UUID) 설정
+		profileVO.setProfileChgName(chgName);
+		// 파일 확장자 설정
+		profileVO.setProfileExtension(FileUploadUtil.subStrExtension(file.getOriginalFilename()));
+		// DB에 첨부 파일 정보 저장
+		log.info(profileService.createProfile(profileVO) + "행 등록");
+
+		return "redirect:/mypage";
+	} // end imgAttachPOST()
 
 	@PostMapping("/mypage/verifyPw")
 	public ResponseEntity<Integer> verifyPw(@RequestBody RegisterVO registerVO) {
@@ -206,89 +218,4 @@ public class MypageController {
 			return "redirect:/main";
 		}
 	}
-	
-	@GetMapping("inquiry")
-	public String inquiryGET(HttpServletRequest request, Model model) {
-		log.info("inquiryGET()");
-		
-		HttpSession session = request.getSession();
-		String memberId = (String) session.getAttribute("memberId");
-
-		if (memberId == null) {
-			session.removeAttribute("memberId");
-			session.invalidate();
-			return "redirect:/login";
-		} else {
-			RegisterVO registerVO = registerService.getRegisterById(memberId);
-			log.info(registerVO);
-			model.addAttribute("registerVO", registerVO);
-		}
-		return "mypage/inquiry";
-	}
-	
-	@PostMapping("inquiry")
-	public String inquiryPOST(InquiryVO inquiryVO, RedirectAttributes reAttr) throws Exception {
-		log.info("inquiryPOST()");
-		int result = inquiryService.createInquiry(inquiryVO);
-		 
-		return "redirect:/main";
-	}
-	
-	// 회원 탈퇴(GET)
-    @GetMapping("/unregister")
-    public String unregister() {
-    	log.info("unregisterGET()");
-    	return "mypage/unregister";
-    }
-    
-    // 회원 탈퇴(POST)
-    @PostMapping("/unregister")
-    public String unregisterPOST(String password, HttpSession session, RedirectAttributes reAttr) throws Exception {
-        log.info("unregisterPOST()");
-
-        // 세션에서 사용자 아이디 가져오기
-        String memberId = (String) session.getAttribute("memberId");
-        
-        boolean success = registerService.unregister(memberId, password);
-        if (success) {
-        	int result;
-        	result = friendService.deleteUser(memberId);
-        	result = scheduleService.deleteUser(memberId);
-        	
-        	log.info(result + "명의 회원 탈퇴");
-        	
-            session.invalidate(); // 세션 무효화
-            reAttr.addFlashAttribute("successMessage", "회원 탈퇴되었습니다.");
-            return "redirect:/login";
-        } else {
-            reAttr.addFlashAttribute("errorMessage", "계정 비밀번호가 올바르지 않습니다.");
-            return "redirect:/unregister";
-        }
-    }
-    
-    // 첨부 파일 업로드 처리(POST)
- 	@PostMapping("/imgAttach")
- 	public String imgAttachPOST(ProfileVO profileVO) {
- 		log.info("imgAttachPOST()");
- 		log.info("profileDTO = " + profileVO);
- 		MultipartFile file = profileVO.getFile();
- 		
- 		// UUID 생성
- 		String chgName = UUID.randomUUID().toString();
- 		// 파일 저장
- 		FileUploadUtil.saveFile(uploadPath, file, chgName);
-
- 		// 파일 경로 설정
- 		profileVO.setProfilePath(FileUploadUtil.makeDatePath());
- 		// 파일 실제 이름 설정
- 		profileVO.setProfileRealName(FileUploadUtil.subStrName(file.getOriginalFilename()));
- 		// 파일 변경 이름(UUID) 설정
- 		profileVO.setProfileChgName(chgName);
- 		// 파일 확장자 설정
- 		profileVO.setProfileExtension(FileUploadUtil.subStrExtension(file.getOriginalFilename()));
- 		// DB에 첨부 파일 정보 저장
- 		log.info(profileService.createProfile(profileVO) + "행 등록");
-
- 		return "redirect:/mypage";
- 	} // end imgAttachPOST()
 }

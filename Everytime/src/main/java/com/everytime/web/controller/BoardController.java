@@ -6,38 +6,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.everytime.web.domain.PostVO;
 import com.everytime.web.service.PostService;
+import com.everytime.web.util.PageMaker;
+import com.everytime.web.util.Pagination;
 
 import lombok.extern.log4j.Log4j;
 
 @Controller // @Component
-// - 클라이언트(JSP 페이지 등)와 service를 연결하는 역할
-@RequestMapping // url : /ex02/board
+// - �겢�씪�씠�뼵�듃(JSP �럹�씠吏� �벑)�� service瑜� �뿰寃고븯�뒗 �뿭�븷
+@RequestMapping
 @Log4j
 
+
+
 public class BoardController {
-
+	
 	@Autowired
-	private PostService postService;
+	private PostService postService; 
+	
+	// post_list.jsp �럹�씠吏� �샇異�
+	@GetMapping("/main")
+	public String postList(Model model) {
+		log.info("postList()");
 
-	// 메인화면(GET)
-	@GetMapping("main")
-	public String mainGET(Model model) {
-		log.info("mainGET()");
-
+		//
 		List<PostVO> postList = postService.getAllPosts(1);
 
-//			PageMaker pageMaker = new PageMaker();
-//			pageMaker.setPagination(pagination);
-//			pageMaker.setTotalCount(boardService.getTotalCount());
+//		PageMaker pageMaker = new PageMaker();
+//		pageMaker.setPagination(pagination);
+//		pageMaker.setTotalCount(boardService.getTotalCount());
 
-//			model.addAttribute("pageMaker", pageMaker);
-		model.addAttribute("postList", postList); // 클라이언트로 객체 전달
-
-		return "post_list";
+//		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("postList", postList); // �겢�씪�씠�뼵�듃濡� 媛앹껜 �쟾�떖
+		
+		return "board/post_list";
 	}
 
 }
