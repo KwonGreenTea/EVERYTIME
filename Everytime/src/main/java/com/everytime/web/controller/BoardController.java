@@ -19,7 +19,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller // @Component
 // - �겢�씪�씠�뼵�듃(JSP �럹�씠吏� �벑)�� service瑜� �뿰寃고븯�뒗 �뿭�븷
-@RequestMapping(value = "/board")
+@RequestMapping
 @Log4j
 
 
@@ -30,8 +30,8 @@ public class BoardController {
 	private PostService postService; 
 	
 	// post_list.jsp �럹�씠吏� �샇異�
-	@GetMapping("/post_list")
-	public void postList(Model model) {
+	@GetMapping("/main")
+	public String postList(Model model) {
 		log.info("postList()");
 
 		//
@@ -43,7 +43,8 @@ public class BoardController {
 
 //		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("postList", postList); // �겢�씪�씠�뼵�듃濡� 媛앹껜 �쟾�떖
-
+		
+		return "board/post_list";
 	}
 
 }
