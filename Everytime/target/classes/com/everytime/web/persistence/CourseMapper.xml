@@ -20,24 +20,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</resultMap>
 
-	<select id="courseName_search" resultMap="courseResultMap">
+	<select id="selectCourse" resultMap="courseResultMap">
 		SELECT * FROM COURSE
-		WHERE COURSE_NAME like '%'||#{courseName}||'%'
-
+		WHERE 1=1
+		<if test="type == 'courseName'">
+			AND COURSE_NAME LIKE '%' || #{keyword} || '%'
+		</if>
+		<if test="type == 'professor'">
+			AND PROFESSOR LIKE '%' || #{keyword} || '%'
+		</if>
 	</select>
 
-	<select id="professor_search" resultMap="courseResultMap">
-		SELECT * FROM COURSE
-		WHERE PROFESSOR like '%'||#{professor}||'%'
-	</select>
-	
+
+
+
 	<select id="selectOne" resultMap="courseResultMap">
-	 	SELECT * FROM COURSE WHERE COURSE_ID = #{courseId}
+		SELECT * FROM COURSE WHERE
+		COURSE_ID = #{courseId}
 	</select>
-	
-	
-	
-	
+
+	<update id="updateCourseRate">
+		UPDATE COURSE
+		SET COURSE_RATE =
+		CASE
+		WHEN COURSE_RATE = 0 THEN COURSE_RATE + #{courseRate}
+		ELSE (COURSE_RATE + #{courseRate}) / 2
+		END
+		WHERE COURSE_ID = #{courseId}
+	</update>
+
+
+
 
 
 </mapper>
