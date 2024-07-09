@@ -19,6 +19,8 @@ public class ReviewServiceImple implements ReviewService {
 	@Autowired ReviewMapper reviewMapper;
 	
 	@Autowired CourseMapper courseMapper;
+
+	
 	
 	@Override
 	public int insertReview(ReviewVO reviewVO) {
@@ -27,17 +29,37 @@ public class ReviewServiceImple implements ReviewService {
 		 return result ;
 	}
 
+	
 	@Override
-	public List<ReviewVO> selectAllReview(int courseId) {
-		log.info("getAllReview");
-		return reviewMapper.selectList(courseId);
+	public List<ReviewVO> selectReviewByCourseId(int courseId) {
+		log.info("selectReviewByCourseId");
+		return reviewMapper.selectReviewByCourseId(courseId);
 	}
 
+	
+	@Override
+	public List<ReviewVO> selectReview() {
+		log.info("selectReview");
+		return reviewMapper.selectReview();
+	}
+	
 	@Override
 	public CourseVO getCourseById(int courseId) {
 		log.info("getCourseById");
 		return courseMapper.selectOne(courseId);
 	}
+
+
+	@Override
+	public int updateReviewLike(int reviewId) {
+		log.info("updateReviewLike");
+		return reviewMapper.updateReviewLike(reviewId);
+	}
+
+
+	
+
+	
 
 
 

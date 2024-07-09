@@ -43,8 +43,8 @@ public class ProflieServiceImple implements ProfileService {
     }
 
     @Override
-    public int deleteProfile(int attachId) {
+    public int deleteProfile(String memberId) {
     	log.info("deleteProfile()");
-        return profileMapper.delete(attachId);
+        return profileMapper.delete(memberId);
     }
 }

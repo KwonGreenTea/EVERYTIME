@@ -79,3 +79,4 @@ public class RootConfig {
         return mailSender;
     }
 } // end RootConfig
+

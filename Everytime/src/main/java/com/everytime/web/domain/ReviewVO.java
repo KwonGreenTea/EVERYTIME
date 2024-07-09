@@ -12,10 +12,12 @@ import lombok.ToString;
 @ToString
 
 public class ReviewVO {
-
+	
+	private int reviewId;
 	private int courseId;
+	private String courseName;
 	private String professor;
-	private String review;
+	private String reviewContent;
 	private String semester;
 	private int project;
 	private int team;

@@ -41,6 +41,13 @@
 			<version>${org.aspectj-version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
+
+
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -184,10 +191,10 @@
 
 		<!-- Spring Socket 라이브러리 -->
 		<dependency>
-	        <groupId>org.springframework</groupId>
-	        <artifactId>spring-websocket</artifactId>
-	        <version>5.2.25.RELEASE</version>
-	    </dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>5.2.25.RELEASE</version>
+		</dependency>
 
 		<!-- Multipart File upload 라이브러리 -->
 		<dependency>
