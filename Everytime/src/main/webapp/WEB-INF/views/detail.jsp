@@ -46,7 +46,7 @@
 			<ul id="menu">
 				<li class="../active"><a href="main">게시판</a></li>
 				<li><a href="../time">시간표</a></li>
-				<li><a href="../course">강의실</a></li>
+				<li><a href="../lecture">강의실</a></li>
 				<!-- <li><a href="/calculator">학점계산기</a></li>-->
 				<li><a href="../frd">친구</a></li>
 			</ul>

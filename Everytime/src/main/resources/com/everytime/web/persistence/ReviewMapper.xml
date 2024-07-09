@@ -7,10 +7,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<resultMap type="com.everytime.web.domain.ReviewVO"
 		id="reviewResultMap">
-
+		<id property="reviewId" column="REVIEW_ID" />
 		<result property="courseId" column="COURSE_ID" />
+		<result property="courseName" column="COURSE_NAME" />
 		<result property="professor" column="PROFESSOR" />
-		<result property="review" column="REVIEW" />
+		<result property="reviewContent" column="REVIEW_CONTENT" />
 		<result property="semester" column="SEMESTER" />
 		<result property="project" column="PROJECT" />
 		<result property="team" column="TEAM" />
@@ -22,20 +23,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</resultMap>
 
+
 	<insert id="insertReview">
 
-		INSERT INTO COURSE_REVIEW VALUES
-		(#{courseId}, #{professor}, #{review}, #{semester}, #{project}, #{team}, #{grade},
+		INSERT INTO REVIEW VALUES
+		(REVIEW_ID_SEQ.NEXTVAL,#{courseId}, #{courseName}, #{professor},
+		#{reviewContent}, #{semester}, #{project}, #{team}, #{grade},
 		#{attend}, #{exam}, #{courseRate},#{reviewLike})
 
 
 	</insert>
 
 
-	<select id="selectList" resultMap="reviewResultMap">
-		SELECT * FROM COURSE_REVIEW WHERE COURSE_ID = #{courseId}
+	<select id="selectReviewByCourseId" resultMap="reviewResultMap">
+		SELECT * FROM
+		REVIEW WHERE COURSE_ID = #{courseId}
 	</select>
 
+	<select id="selectReview" resultMap="reviewResultMap">
+		SELECT * FROM REVIEW
+	</select>
+
+
+	<update id="updateReviewLike">
+		UPDATE REVIEW
+		SET REVIEW_LIKE = REVIEW_LIKE + 1
+		WHERE REVIEW_ID = #{reviewId}
+
+	</update>
 
 
 </mapper>

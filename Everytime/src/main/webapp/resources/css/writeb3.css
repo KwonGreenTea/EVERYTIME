@@ -1,0 +1,348 @@
+@charset "UTF-8";
+div.dialogmenu div.wrap[data-v-03849084] {
+    position: fixed;
+    z-index: 201;
+    padding: 8px 0;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2) ;
+    background-color: #FFF
+}
+
+@media (prefers-color-scheme: dark) {
+    div.dialogmenu div.wrap[data-v-03849084] {
+        box-shadow:0 0 8px rgba(0, 0, 0, 0.5) ;
+        background-color: #1F1F1F
+    }
+}
+
+div.dialogmenu .backdrop[data-v-03849084] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    width: 100%;
+    height: 100%
+}
+
+
+form.container[data-v-38263efc] {
+    margin-bottom: 24px
+}
+
+body.appwebview form.container[data-v-38263efc] {
+    padding-top: 0
+}
+
+@media only screen and (min-width: 780px) {
+    form.container[data-v-38263efc] {
+        padding-top:80px
+    }
+}
+
+@media only screen and (max-width: 779px) {
+    form.container[data-v-38263efc] {
+        padding-top:56px
+    }
+}
+
+@media only screen and (min-width: 780px) {
+    div#appOpen~form.container[data-v-38263efc] {
+        padding-top:128px
+    }
+}
+
+@media only screen and (max-width: 779px) {
+    div#appOpen~form.container[data-v-38263efc] {
+        padding-top:104px
+    }
+}
+
+@media only screen and (min-width: 780px) {
+    form.container[data-v-38263efc] {
+        margin:24px auto;
+        width: 480px
+    }
+}
+
+@media only screen and (max-width: 779px) {
+    form.container[data-v-38263efc] {
+        padding-right:24px;
+        padding-bottom: 24px;
+        padding-left: 24px
+    }
+}
+
+form.container div.items[data-v-38263efc] {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 24px
+}
+
+form.container div.items div.item[data-v-38263efc] {
+    display: flex;
+    flex-direction: column;
+    gap: 4px
+}
+
+form.container div.items div.item span.title[data-v-38263efc] {
+    line-height: 20px;
+    color: #292929 ;
+    font-size: 14px;
+    font-weight: bold
+}
+
+@media (prefers-color-scheme: dark) {
+    form.container div.items div.item span.title[data-v-38263efc] {
+        color:#F0F0F0
+    }
+}
+
+form.container div.items div.item span.subtitle[data-v-38263efc] {
+    line-height: 18px;
+    color: #A6A6A6 ;
+    font-size: 12px
+}
+
+@media (prefers-color-scheme: dark) {
+    form.container div.items div.item span.subtitle[data-v-38263efc] {
+        color:#6E6E6E
+    }
+}
+
+form.container div.items div.item select.menu[data-v-38263efc] {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 0 8px;
+    border-radius: 8px;
+    width: -moz-fit-content;
+    width: fit-content;
+    height: 30px;
+    line-height: 30px;
+    color: #737373 ;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #F2F2F2 ;
+    cursor: pointer
+}
+
+@media (prefers-color-scheme: dark) {
+    form.container div.items div.item select.menu[data-v-38263efc] {
+        color:#9A9A9A ;
+        background-color: #282828
+    }
+}
+
+form.container div.items div.item select.menu[data-v-38263efc]::after {
+    content: "";
+    display: inline-block;
+    margin-left: 4px;
+    width: 11px;
+    height: 6px;
+    background-image: url("/images/common/icn_s_arrow_mini_down_gray500_light.png") ;
+    background-size: cover
+}
+
+@media (prefers-color-scheme: dark) {
+    form.container div.items div.item select.menu[data-v-38263efc]::after {
+        background-image:url("/images/common/icn_s_arrow_mini_down_gray500_dark.png")
+    }
+}
+
+form.container div.items div.item div.buttons[data-v-38263efc] {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap
+}
+
+form.container div.items div.item div.buttons label.button input[type=radio][data-v-38263efc],form.container div.items div.item div.buttons label.button input[type=checkbox][data-v-38263efc] {
+    display: none
+}
+
+form.container div.items div.item div.buttons label.button input[type=radio]:checked~span[data-v-38263efc],form.container div.items div.item div.buttons label.button input[type=checkbox]:checked~span[data-v-38263efc] {
+    border-color: #F91F15 ;
+    color: #F91F15 ;
+    font-weight: bold
+}
+
+@media (prefers-color-scheme: dark) {
+    form.container div.items div.item div.buttons label.button input[type=radio]:checked~span[data-v-38263efc],form.container div.items div.item div.buttons label.button input[type=checkbox]:checked~span[data-v-38263efc] {
+        border-color:#EE3C35 ;
+        color: #EE3C35
+    }
+}
+
+form.container div.items div.item div.buttons label.button span[data-v-38263efc] {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 12px;
+    border: 1px solid #D6D6D6 ;
+    border-radius: 8px;
+    height: 30px;
+    color: #A6A6A6 ;
+    font-size: 12px;
+    cursor: pointer
+}
+
+@media (prefers-color-scheme: dark) {
+    form.container div.items div.item div.buttons label.button span[data-v-38263efc] {
+        border:1px solid #474747 ;
+        color: #6E6E6E
+    }
+}
+
+form.container textarea[data-v-38263efc] {
+    box-sizing: border-box;
+    padding: 8px;
+    border: 1px solid #EDEDED ;
+    border-radius: 8px;
+    width: 100%;
+    line-height: 20px;
+    color: #292929 ;
+    font-size: 14px;
+    background-color: #F9F9F9
+}
+
+@media (prefers-color-scheme: dark) {
+    form.container textarea[data-v-38263efc] {
+        border:1px solid #313131 ;
+        color: #F0F0F0 ;
+        background-color: #1F1F1F
+    }
+}
+
+form.container div.notification[data-v-38263efc] {
+    margin-bottom: 24px
+}
+
+form.container div.notification p[data-v-38263efc] {
+    line-height: 18px;
+    color: #737373 ;
+    font-size: 12px
+}
+
+@media (prefers-color-scheme: dark) {
+    form.container div.notification p[data-v-38263efc] {
+        color:#9A9A9A
+    }
+}
+
+form.container div.notification p strong[data-v-38263efc] {
+    color: #F91F15 ;
+    font-weight: bold
+}
+
+@media (prefers-color-scheme: dark) {
+    form.container div.notification p strong[data-v-38263efc] {
+        color:#EE3C35
+    }
+}
+
+form.container input[type=submit][data-v-38263efc] {
+    border-radius: 12px;
+    width: 100%;
+    height: 40px;
+    color: #FFFFFF ;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #F91F15 ;
+    cursor: pointer
+}
+
+@media (prefers-color-scheme: dark) {
+    form.container input[type=submit][data-v-38263efc] {
+        color:#111111 ;
+        background-color: #EE3C35
+    }
+}
+
+div.menu_item[data-v-38263efc] {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    height: 36px;
+    cursor: pointer
+}
+
+div.menu_item span.title[data-v-38263efc] {
+    line-height: 20px;
+    color: #292929 ;
+    font-size: 14px
+}
+
+@media (prefers-color-scheme: dark) {
+    div.menu_item span.title[data-v-38263efc] {
+        color:#F0F0F0
+    }
+}
+
+@media only screen and (max-width: 779px) {
+    form.container[data-v-38263efc] {
+        margin-top:8px
+    }
+}
+
+form.container div.rate[data-v-38263efc] {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px
+}
+
+form.container div.rate div.stars[data-v-38263efc] {
+    margin-right: 8px
+}
+
+form.container div.rate div.stars span.star[data-v-38263efc] {
+    display: inline-block;
+    margin-right: 4px;
+    width: 36px;
+    height: 36px;
+    background-image: url("../images/bigstaroff.png") ;
+    background-size: cover;
+    cursor: pointer
+}
+
+@media (prefers-color-scheme: dark) {
+    form.container div.rate div.stars span.star[data-v-38263efc] {
+        background-image:url("../images/bigstaroff.png")
+    }
+}
+
+form.container div.rate div.stars span.star.on[data-v-38263efc] {
+    background-image: url("../images/bigstar.svg")
+}
+
+@media (prefers-color-scheme: dark) {
+    form.container div.rate div.stars span.star.on[data-v-38263efc] {
+        background-image:url("../images/bigstar.svg")
+    }
+}
+
+form.container div.rate span.text[data-v-38263efc] {
+    line-height: 20p;
+    color: #737373 ;
+    font-size: 14px
+}
+
+@media (prefers-color-scheme: dark) {
+    form.container div.rate span.text[data-v-38263efc] {
+        color:#9A9A9A
+    }
+}
+
+form.container div.text[data-v-38263efc] {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #EDEDED
+}
+
+@media (prefers-color-scheme: dark) {
+    form.container div.text[data-v-38263efc] {
+        border-bottom:1px solid #313131
+    }
+}
+
+form.container div.text textarea[data-v-38263efc] {
+    height: 176px
+}

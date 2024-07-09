@@ -9,32 +9,32 @@ import com.everytime.web.domain.RegisterVO;
 
 @Mapper
 public interface RegisterMapper {
-	int insert(RegisterVO registerVO); // ȸ�� ����
+   int insert(RegisterVO registerVO); // ȸ       
 
-	RegisterVO selectByRegisterId(String memberId); // ���̵� ��ȸ
+   RegisterVO selectByRegisterId(String memberId); //    ̵    ȸ
 
-	List<Integer> selectIdList(); //
+   List<Integer> selectIdList(); //
 
-	int update(RegisterVO registerVO); // ȸ�� ����
+   int update(RegisterVO registerVO); // ȸ       
 
-	int delete(String memberId); // ȸ�� Ż��
+   int delete(String memberId); // ȸ   Ż  
 
-	int updatePassword(RegisterVO registerVO);
+   int updatePassword(RegisterVO registerVO);
 
-	int updateEmail(RegisterVO registerVO);
+   int updateEmail(RegisterVO registerVO);
 
-	int updateNickname(RegisterVO registerVO);
+   int updateNickname(RegisterVO registerVO);
 
-	int checkId(String memberId);
+   int checkId(String memberId);
 
-	int verifyPw(RegisterVO registerVO);
+   int verifyPw(RegisterVO registerVO);
 
-	int updatePassword(@Param("memberId") String memberId, @Param("password") String password);
+   int updatePassword(@Param("memberId") String memberId, @Param("password") String password);
 
-	int updateEmail(@Param("memberId") String memberId, @Param("email") String email);
+   int updateEmail(@Param("memberId") String memberId, @Param("email") String email);
 
-	int updateNickname(@Param("memberId") String memberId, @Param("nickname") String nickname);
+   int updateNickname(@Param("memberId") String memberId, @Param("nickname") String nickname);
 
-	String getNameById(String memberId);
+   String getNameById(String memberId);
 
 }

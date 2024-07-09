@@ -41,17 +41,15 @@ public class CourseController {
       
       model.addAttribute("courseList", courseList);
       // model - keyword, type , list결과를 보내줌
-      return "search";
+      return "lecture/search";
    }
    
    @GetMapping("/search")
    public void searchGET() { // keyword,type,list를 받고
       log.info("searchGET");
-      
+     
       
    }
-   
-   
    
    
    
