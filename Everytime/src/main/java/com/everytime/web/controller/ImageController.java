@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/profileImage")
+@RequestMapping("/image")
 public class ImageController {
 
 	@Autowired
