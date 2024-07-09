@@ -6,7 +6,7 @@
 			wsocket.close();
 		}
 
-		wsocket = new WebSocket("ws://192.168.0.107:8081/web/chat/message-ws/"
+		wsocket = new WebSocket("ws://192.168.0.174:8080/web/chat/message-ws/"
 				+ chatRoomId);
 		wsocket.onopen = onOpen;
 		wsocket.onmessage = onMessage;

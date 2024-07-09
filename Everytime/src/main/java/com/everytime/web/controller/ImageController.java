@@ -19,7 +19,7 @@ public class ImageController {
 	private String uploadPath;
 
 	@GetMapping("/{year}/{month}/{day}/{profileName}.{profileExtension}")
-	public Resource getImage(@PathVariable String year, @PathVariable String month, @PathVariable String day,
+	public Resource getProfileImageToDirectory(@PathVariable String year, @PathVariable String month, @PathVariable String day,
 			@PathVariable String profileName, @PathVariable String profileExtension) throws IOException {
 
 		File file = new File(uploadPath + File.separator + year + File.separator + month + File.separator + day
@@ -28,7 +28,7 @@ public class ImageController {
 	}
 
 	@GetMapping("/{profilePath}/{profileName}.{profileExtension}")
-	public Resource getImageOrigin(@PathVariable String profilePath, @PathVariable String profileName,
+	public Resource getProfileOriginImageToDirectory(@PathVariable String profilePath, @PathVariable String profileName,
 			@PathVariable String profileExtension) throws IOException {
 
 		File file = new File(
