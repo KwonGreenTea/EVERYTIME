@@ -31,7 +31,7 @@ public class FriendController {
 	private FriendService friendService;
 
 	@GetMapping("/frd")
-	public String mainGET(HttpServletRequest request, Model model) {
+	public String frdmainGET(HttpServletRequest request, Model model) {
 		log.info("frdMainGET");
 
 		HttpSession session = request.getSession();

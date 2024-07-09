@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.everytime.web.persistence.ReviewLikeMapper">
+
+	<resultMap type="com.everytime.web.domain.ReviewLikeVO"
+		id="reviewLikeResultMap">
+		<id property="likeNO" column="LIKE_NO" /> 
+		<result property="reviewId" column="REVIEW_ID" />
+		<result property="memberId" column="MEMBER_ID" />
+
+	</resultMap>
+
+
+	<insert id="insert">
+		INSERT INTO REVIEW_LIKE VALUES
+		(LIKE_NO_SEQ.NEXTVAL, #{reviewId}, #{memberId})
+	</insert>
+	
+	 <select id="selectLikeCountByReviewId" resultType="Integer">
+		SELECT COUNT(*) AS likeCount
+		FROM REVIEW_LIKE
+		WHERE REVIEW_ID = #{reviewId}
+		
+	</select>
+	
+	 <select id="checkIfLiked" resultType="Integer">
+     SELECT COUNT(*) AS likeCount
+     FROM REVIEW_LIKE
+     WHERE REVIEW_ID = #{reviewId} AND MEMBER_ID = #{memberId}
+	</select>
+
+	
+	<!-- <delete id="deleteLike">
+    	DELETE FROM REVIEW_LIKE
+    	WHERE reviewId = #{reviewId} AND memberId = #{memberId}
+	</delete>  -->
+
+
+
+</mapper>

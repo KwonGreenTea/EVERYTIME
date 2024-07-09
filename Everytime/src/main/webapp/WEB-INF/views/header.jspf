@@ -16,7 +16,7 @@
 		<ul id="menu">
 			<li><a href="${pageContext.request.contextPath}/main">게시판</a></li>
 			<li><a href="${pageContext.request.contextPath}/time">시간표</a></li>
-			<li><a href="${pageContext.request.contextPath}/course">강의실</a></li>
+			<li><a href="${pageContext.request.contextPath}/lecture">강의실</a></li>
 			<li><a href="${pageContext.request.contextPath}/calculator">학점계산기</a></li>
 			<li><a href="${pageContext.request.contextPath}/frd">친구</a></li>
 		</ul>
