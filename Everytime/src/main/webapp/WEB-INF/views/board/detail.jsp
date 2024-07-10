@@ -224,10 +224,11 @@
 						<input type="text" name="replyContent" maxlength="300"
 							autocomplete="off" placeholder="댓글을 입력하세요." class="text">
 						<input type="hidden" name="boardId" id="boardId"
-							value="${param.boardId}"> <input type="hidden"
-							name="postId" id="postId" value="${param.postId}"> <input
-							type="hidden" name="memberId" id="memberId" value="test">
-
+							value="${param.boardId}">
+						<input type="hidden" name="postId" id="postId" value="${param.postId}">
+						<input type="hidden" name="memberId" id="memberId" value="test">
+						<input type="hidden" name="memberId" id="memberId" value="test">
+						<input type="hidden" name="memberId" id="memberId" value="test">
 
 						<ul class="option">
 							<li title="익명" class="anonym"></li>

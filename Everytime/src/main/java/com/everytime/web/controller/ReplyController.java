@@ -19,7 +19,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller // @Component
 //- 클라이언트(JSP 페이지 등)와 service를 연결하는 역할	
-@RequestMapping(value = "/reply")
+@RequestMapping(value = "/createReply")
 @Log4j
 public class ReplyController {
 
