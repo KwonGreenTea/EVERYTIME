@@ -57,6 +57,13 @@ public class ReviewServiceImple implements ReviewService {
 	}
 
 
+	@Override
+	public int updateCourseRate(int courseId, int courseRate) {
+		log.info("updateCourseRate");
+		return courseMapper.updateCourseRate(courseId, courseRate);
+	}
+
+
 	
 
 	

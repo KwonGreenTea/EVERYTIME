@@ -24,33 +24,7 @@
 
 <body>
 
-	<nav>
-		<div class="wrap">
-			<div id="logo">
-				<a href="/"><img src="/images/nav.logo.png"></a>
-				<p>
-					<span class="name multiple">에브리타임</span><span class="subname">한양대
-						ERICA캠</span>
-				</p>
-			</div>
-			<div id="account">
-				<a href="/message" title="쪽지함" class="icon message">쪽지함</a> <a
-					href="/my" title="내 정보" class="icon my">내 정보</a> <input
-					type="hidden" id="userUserid" value="iparknoori"> <input
-					type="hidden" id="userSchool" value="4"> <input
-					type="hidden" id="userCampus" value="23">
-			</div>
-			<ul id="menu">
-				<li class="active"><a href="/">게시판</a></li>
-				<li><a href="/timetable">시간표</a></li>
-				<li><a href="/lecture">강의실</a></li>
-				<li><a href="/calculator">학점계산기</a></li>
-				<li><a href="/friend">친구</a></li>
-				<li><a href="https://bookstore.everytime.kr">책방</a></li>
-				<li><a href="https://www.campuspick.com/">캠퍼스픽</a></li>
-			</ul>
-		</div>
-	</nav>
+	<%@ include file="../header.jspf" %>
 	<div id="submenu">
 		<div class="wrap">
 			<div class="divider"></div>

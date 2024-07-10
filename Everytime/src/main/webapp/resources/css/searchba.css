@@ -139,7 +139,7 @@ div.container div.header form.searchbar input[type=submit][data-v-4713bb84] {
     width: 48px;
     height: 48px;
     font-size: 0;
-    background-image: url("/images/common/icn_m_search_gray800_light.png") ;
+    background-image: url("../images/search.png") ;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 24px 24px;
@@ -175,13 +175,13 @@ div.container div.header div.filters div.categories label input[type=radio][data
 }
 
 div.container div.header div.filters div.categories label input[type=radio]:checked~span.icon[data-v-4713bb84] {
-    background-image: url("/images/common/icn_e_radio_mini_on_light.svg")
+    background-image: url("../images/redbutton.svg")
 }
 
 @media (prefers-color-scheme: dark) {
     div.container div.header div.filters div.categories label input[type=radio]:checked~span.icon[data-v-4713bb84] {
         background-image:url("/images/common/icn_e_radio_mini_on_dark.svg")
-    }
+    }	
 }
 
 div.container div.header div.filters div.categories label input[type=radio]:checked~span.title[data-v-4713bb84] {
@@ -200,7 +200,7 @@ div.container div.header div.filters div.categories label span.icon[data-v-4713b
     margin-right: 4px;
     width: 12px;
     height: 12px;
-    background-image: url("/images/common/icn_e_radio_mini_off_light.png") ;
+    background-image: url("../images/greybutton.png") ;
     background-size: cover
 }
 
@@ -326,13 +326,13 @@ div.container div.lectures div.lecture div.rate span.star[data-v-4713bb84] {
     display: inline-block;
     width: 60px;
     height: 12px;
-    background-image: url("images/star.svg") ;
+    background-image: url("../images/staroff.png") ;
     background-size: 12px 12px
 }
 
 @media (prefers-color-scheme: dark) {
     div.container div.lectures div.lecture div.rate span.star[data-v-4713bb84] {
-        background-image:url("images/off.star.png")
+        background-image:url("../images/off.star.png")
     }
 }
 
@@ -340,13 +340,13 @@ div.container div.lectures div.lecture div.rate span.star .on[data-v-4713bb84] {
     display: inline-block;
     width: 60px;
     height: 12px;
-    background-image: url("images/star.svg") ;
+    background-image: url("../images/star.svg") ;
     background-size: 12px 12px
 }
 
 @media (prefers-color-scheme: dark) {
     div.container div.lectures div.lecture div.rate span.star .on[data-v-4713bb84] {
-        background-image:url("images/off.star.png")
+        background-image:url("../images/off.star.png")
     }
 }
 

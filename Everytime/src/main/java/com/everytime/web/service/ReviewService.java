@@ -17,5 +17,8 @@ public interface ReviewService {
 	
 	CourseVO getCourseById(int courseId);
 	
+	// 리뷰 좋아요 수 업데이트
 	int updateReviewLike(int reviewId);
+	
+	int updateCourseRate(int courseid, int courseRate);
 }

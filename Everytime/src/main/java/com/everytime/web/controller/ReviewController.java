@@ -61,7 +61,17 @@ public class ReviewController {
 		log.info("writePOST()");
 		log.info("ReviewVO : " + reviewVO.toString());
 
+		// review 테이블에 리뷰 삽입
 		int result = reviewService.insertReview(reviewVO);
+		
+		// course 테이블에 courseRate값 업데이트
+		int courseId = reviewVO.getCourseId();
+		int courseRate = reviewVO.getCourseRate();
+		
+		log.info("courseId");
+		log.info("courseRate");
+		reviewService.updateCourseRate(courseId, courseRate);
+		
 		log.info(result + "행 등록");
 
 		return "redirect:/view?courseId=" + reviewVO.getCourseId();

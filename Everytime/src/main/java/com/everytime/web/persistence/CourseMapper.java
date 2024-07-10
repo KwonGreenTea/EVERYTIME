@@ -3,19 +3,19 @@ package com.everytime.web.persistence;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-
+import org.apache.ibatis.annotations.Param;
 
 import com.everytime.web.domain.CourseVO;
+
 
 @Mapper
 public interface CourseMapper {
     
-    // 과목명으로 검색
-    List<CourseVO> courseName_search(String courseName);
+    // 검색 기능
+    List<CourseVO> selectCourse(@Param("type") String type ,@Param("keyword") String keyword);
 
-    // 교수명으로 검색
-    List<CourseVO> professor_search(String professor);
-
+    
     CourseVO selectOne(int courseId);
     
+    int updateCourseRate(@Param("courseId") int courseId, @Param("courseRate") int courseRate);
 }

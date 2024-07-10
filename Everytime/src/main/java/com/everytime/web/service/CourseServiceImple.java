@@ -20,16 +20,11 @@ public class CourseServiceImple implements CourseService{
 	
 	
 	@Override
-	public List<CourseVO> courseName_search(String courseName) {
-		log.info("courseName_search");
-		log.info(courseName);
-		return courseMapper.courseName_search(courseName) ;
+	public List<CourseVO> selectCourse(String type , String keyword) {
+		log.info("selectCourse()");
+		log.info(keyword);
+		return courseMapper.selectCourse(type,keyword) ;
 	}
 
-	@Override
-	public List<CourseVO> professor_search(String professor) {
-		log.info("professor_search");
-		return courseMapper.professor_search(professor);
-	}
 
 }

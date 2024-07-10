@@ -61,6 +61,7 @@ public class CalculController {
 		            if (courseNames.add(scheduleVO.getCourseName())) {
 		                scheduleList.add(scheduleVO);
 		                int result = calculatorService.insertTimeTable(scheduleVO);
+		                log.info(result + "개 시간표 입력 성공");
 		            }
 		        }
 		        ArrayList<CalculatorVO> calculatorList = calculatorService.selectAllDataByMemberId(memberId);
@@ -78,7 +79,8 @@ public class CalculController {
 		String memberId = (String) session.getAttribute("memberId");
 		
 		calculatorVO.setMemberId(memberId);
-		int num, result;
+		int num, result = 0;
+		log.info(result);
 		if(calculatorVO.getCalNo() == 0) {
 			result = calculatorService.insert(calculatorVO);
 			num = calculatorService.selectFinalCalNo(memberId);

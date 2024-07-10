@@ -17,7 +17,7 @@
 	href="https://everytime.kr/css/container.community.css" />
 <link rel="stylesheet"
 	href="https://everytime.kr/css/container.modal.css" />
-	
+
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
 <link rel="stylesheet" type="text/css" href="resources/css/course6c.css">
@@ -26,17 +26,19 @@
 </head>
 
 <body>
-	<%@ include file="../header.jspf" %>
-	
+	<%@ include file="../header.jspf"%>
+
 	<div class="container" data-v-f688a188="">
-	
-	
+
+
 		<div data-v-f688a188="" class="side">
 			<div data-v-f688a188="" class="searchbox">
-				<form data-v-f688a188="" class="searchbar" action ="search" method="POST">
-					<input value="courseName" name ="type" type = hidden>
-					<input data-v-f688a188="" type="search" name=keyword placeholder="과목명, 교수명으로 검색">
-					<input data-v-f688a188="" type="submit" class="submit">
+				<form data-v-f688a188="" class="searchbar" action="search"
+					method="POST">
+					<input value="courseName" name="type" type=hidden> <input
+						data-v-f688a188="" type="search" name=keyword
+						placeholder="과목명, 교수명으로 검색"> <input data-v-f688a188=""
+						type="submit" class="submit">
 				</form>
 			</div>
 			<!---->
@@ -59,9 +61,8 @@
 						<div class="articlename" data-v-f688a188="">${reviewVO.courseName}</div>
 						<div class="professor" data-v-f688a188="">${reviewVO.professor}</div>
 						<div class="rate" data-v-f688a188="">
-							<span class="star" data-v-f688a188=""> 
-							<span class="on" style ="width :${20 * reviewVO.courseRate}%;" 
-							data-v-f688a188="" ></span>
+							<span class="star" data-v-f688a188=""> <span class="on"
+								style="width :${20 * reviewVO.courseRate}%;" data-v-f688a188=""></span>
 							</span>
 						</div>
 						<div class="info" data-v-f688a188="">
@@ -75,8 +76,15 @@
 			</c:forEach>
 		</div>
 	</div>
-	
 
+	<script type="text/javascript">
+		window.onload = function() {
+			var error = '<c:out value="${errorMessage}" default=""/>';
+			if (error) {
+				alert(error);
+			}
+		}
+	</script>
 
 
 </body>

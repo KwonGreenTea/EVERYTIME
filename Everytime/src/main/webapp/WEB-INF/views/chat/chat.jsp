@@ -19,8 +19,7 @@
 <script type="text/javascript" src="resources/js/chat.js"></script>
 <meta charset="UTF-8">
 <title>에브리타임</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
 	<%@ include file="../header.jspf"%>
@@ -37,7 +36,7 @@
 			<input type="button" id="newChatBtn" value="채팅방 만들기">
 		</div>
 		<div id="chatSection">
-			<div id="chatHeader">채팅방을 선택하세요</div>
+			<div id="chatHeader"></div>
 			<div id="chatArea">
 				<div id="chatMessageArea"></div>
 			</div>
