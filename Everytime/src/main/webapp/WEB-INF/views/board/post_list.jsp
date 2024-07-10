@@ -135,7 +135,7 @@
 
 		<div class="wrap articles">
 			<a id="writeArticleButton">새 글을 작성해주세요!</a>
-			<form id="write" action="/post/create" method="post"
+			<form id="write" action="/web/post/create" method="post"
 				class="write" style="display: none">
 
 				<input type="hidden" name="boardId" id="boardId" value="1"> <input

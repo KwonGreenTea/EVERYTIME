@@ -18,14 +18,7 @@
 	href="https://everytime.kr/css/container.community.css" />
 <link rel="stylesheet"
 	href="https://everytime.kr/css/container.modal.css" />
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#writeArticleButton").click(function() {
-			$("#write_form").show();
-			$("#writeArticleButton").hide();
-		});
-	});
-</script>
+
 
 </head>
 
@@ -247,25 +240,27 @@
 							placeholder="대댓글을 입력하세요." class="text">
 						<ul class="option">
 							<li title="익명" class="anonym"></li>
-							<li title="완료" class="submit"></li>
+							<li title="대댓글 작성 완료" class="submit"></li>
 						</ul>
 						<div class="clearBothOnly"></div>
 					</form>
 
 					<!-- #####################댓글 작성##################### -->
-					<form class="writecomment" action="/reply/create" method="post">
-						<input type="text" name="replyContent" maxlength="300" autocomplete="off" placeholder="댓글을 입력하세요." class="text">
-            			<input type="hidden" name="boardId" id="boardId" value="${param.boardId}">
-           				<input type="hidden" name="postId" id="postId" value="${param.postId}">
-           				<input type="hidden" name="memberId" id="memberId" value="test">
+					<form class="writecomment" id = "writecomment" action="/web/reply/create" method="post">
+						<input type="text" name="replyContent" maxlength="300"
+							autocomplete="off" placeholder="댓글을 입력하세요." class="text">
+						<input type="hidden" name="boardId" id="boardId"
+							value="${param.boardId}"> <input type="hidden"
+							name="postId" id="postId" value="${param.postId}"> <input
+							type="hidden" name="memberId" id="memberId" value="test">
 
 
-							<ul class="option">
-								<li title="익명" class="anonym"></li>
-								<li title="완료" class="submit" id="submitBtn"></li>
+						<ul class="option">
+							<li title="익명" class="anonym"></li>
+							<li title="댓글 작성 완료" class="submit" id="submitBtn"></li>
 
-							</ul>
-							<div class="clearBothOnly"></div>
+						</ul>
+						<div class="clearBothOnly"></div>
 					</form>
 
 					</ul>
@@ -344,7 +339,16 @@
 		</form>
 	</div>
 
-	<script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#writeArticleButton").click(function() {
+				$("#write_form").show();
+				$("#writeArticleButton").hide();
+			});
+		});
+	</script>
+
+	<script type="text/javascript">
 		document.getElementById('writeArticleButton').addEventListener('click',
 				function() {
 					document.getElementById('write').style.display = 'block';
