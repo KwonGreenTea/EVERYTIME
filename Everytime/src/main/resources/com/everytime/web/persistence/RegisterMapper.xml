@@ -33,6 +33,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM MEMBER WHERE MEMBER_ID = #{memberId}
 	</select>
 	
+	<select id="getMemberIdByEmail" parameterType="String" resultType="String">
+        SELECT MEMBER_ID FROM MEMBER WHERE EMAIL = #{email}
+    </select>
+   
+    <select id="checkEmail" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM MEMBER WHERE EMAIL = #{email}
+    </select>
+	
 	<select id="getNameById" resultType="String">
 		SELECT NAME FROM MEMBER WHERE MEMBER_ID = #{memberId}
 	</select>

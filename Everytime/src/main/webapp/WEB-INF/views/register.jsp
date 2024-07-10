@@ -306,8 +306,8 @@
                     if (data.status === "success") {
                         confirmNumber = data.confirmNumber;
                         alert("인증번호가 전송되었습니다.");
-                    } else {
-                        alert("인증번호 전송에 실패했습니다.");
+                    } else if (data.status === "exists") {
+                        alert("인증번호 전송에 실패했습니다. 이미 존재하는 이메일입니다.");
                     }
                 },
                 error: function(xhr, status, error) {
