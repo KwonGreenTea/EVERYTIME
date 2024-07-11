@@ -1,12 +1,22 @@
 package com.everytime.web.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -22,6 +32,9 @@ public class RegisterController {
     
     @Autowired
     private RegisterService registerService;
+    
+    @Autowired
+    private JavaMailSender mailSender;
     
     // 회원가입 페이지 이동(GET)
     @GetMapping("/register")
@@ -100,6 +113,55 @@ public class RegisterController {
     public void forgotPwGET() {
     	log.info("forgotPwGET()");
     }
+    
+ // 이메일 인증 및 이메일 중복 확인
+ 	@RequestMapping(value = "/sendConfirmNumber", method = RequestMethod.POST)
+     @ResponseBody
+     public Map emailSend(RegisterVO registerVO, Model model) {
+         Map map= new HashMap();
+     	log.info("emailSend()");
+        
+         String tomail = registerVO.getEmail();
+
+         log.info(tomail);
+         int result = registerService.checkEmail(tomail);
+         if(result > 0) {
+         	map.put("status", "exists");
+         	map.put("message", "이미 사용 중인 이메일입니다. 아이디 찾기로 이동하시겠습니까?");
+         	return map;
+         } else {
+         	
+         	Random random = new Random();
+             int confirmNumber = random.nextInt(999999);
+             
+         	StringBuilder stringBuilder = new StringBuilder();
+             String setFrom = "soldeskedu@gmail.com";
+     		String title = "[에브리타임] 이메일 인증 안내";
+             stringBuilder.append(String.format("안녕하세요, 에브리타임입니다.\n"));
+             stringBuilder.append(String.format("이메일 인증 번호는 %06d입니다.", confirmNumber));
+             String content = stringBuilder.toString();
+             log.info(confirmNumber);
+         	try {
+         		MimeMessage msg = mailSender.createMimeMessage();
+         		MimeMessageHelper msgHelper = new MimeMessageHelper(msg, true, "UTF-8");
+                 
+         		msgHelper.setFrom(setFrom);
+         		msgHelper.setTo(tomail);
+         		msgHelper.setSubject(title);
+         		msgHelper.setText(content);
+
+         		mailSender.send(msg); // 이메일 보내기
+         	} catch (Exception e) {
+         		System.out.println(e.getMessage());
+         	}
+         	
+         	map.put("status", "success");
+         	map.put("confirmNumber", confirmNumber);
+         	
+         	return map;
+         }
+         
+     } // end emailSend()
     
 	
 }

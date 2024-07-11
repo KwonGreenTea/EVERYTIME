@@ -22,4 +22,7 @@ public interface RegisterService {
 	int updateNickname(String memberId, String nickname);
 	
 	String getNameById(String memberId);
+	
+	int checkEmail(String email);
+	String getMemberIdByEmail(String email);
 }

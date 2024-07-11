@@ -109,4 +109,17 @@ public class RegisterServiceImple implements RegisterService {
 		log.info("getNameById()");
 		return registerMapper.getNameById(memberId);
 	}
+	
+	@Override
+	public int checkEmail(String email) {
+		int result = registerMapper.checkEmail(email);
+		log.info("checkEmail()");
+		return result;
+	}
+	
+	@Override
+	public String getMemberIdByEmail(String email) {
+		log.info("getMemberIdByEmail()");
+		return registerMapper.getMemberIdByEmail(email);
+	}
 }
