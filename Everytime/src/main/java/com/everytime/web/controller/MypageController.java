@@ -55,9 +55,8 @@ public class MypageController {
 			String imgSource;
 			if (profileVO != null) {
 				// 파일의 경로를 가져옴
-				// 파일 참조를 위해 "\" -> "/"로 수정
 				String profilePath = profileVO.getProfilePath();
-				// 문자열을 분리
+				// 파일 참조를 위해 파일 경로 파싱
 				String[] parts = profilePath.split("\\\\");
 				String year = parts[0];
 				String month = parts[1];
