@@ -71,6 +71,20 @@ public class ReviewServiceImple implements ReviewService {
 	}
 
 
+	@Override
+	public List<ReviewVO> selectRateFilterdReview(int courseId, int courseRate) {
+		log.info("selectRateFilterdReview");
+		return reviewMapper.rateFilterdReview(courseId, courseRate);
+	}
+
+
+	@Override
+	public List<ReviewVO> selectSortFilterReview(int courseId, String sortCondition) {
+		log.info("selectSortFilterReview()");
+		return reviewMapper.sortFilterReview(courseId, sortCondition);
+	}
+
+
 	
 
 	

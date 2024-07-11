@@ -210,14 +210,15 @@
 							</div>
 						</div>
 					</div>
-				</a> <a data-v-191ba81a="" href="" id="item-link">
+				</a> <a data-v-191ba81a="" href="write?courseId=${courseVO.courseId}"
+					id="item-link">
 					<div class="item" data-v-191ba81a="">
 						<div data-v-191ba81a="" class="rectangle">
 							<figure data-v-191ba81a="" class="article"></figure>
 							<span data-v-191ba81a="" class="title">강의 평가 하러 가기</span>
 						</div>
 					</div>
-				</a> 
+				</a>
 			</div>
 			<!---->
 			<!---->
@@ -266,7 +267,7 @@
 									<div data-v-cb953552="" class="gauge"
 										style="width: ${courseRate5Count / courseRateSum * 100}%;"></div>
 								</div>
-								<div data-v-cb953552="" class="vote winner">${courseRate5Count / courseRateSum * 100}%</div>
+								<div data-v-cb953552="" class="vote part">${courseRate5Count / courseRateSum * 100}%</div>
 							</div>
 							<div data-v-cb953552="" class="rate">
 								<span data-v-cb953552="" class="value"> 4 </span>
@@ -274,7 +275,7 @@
 									<div data-v-cb953552="" class="gauge"
 										style="width: ${courseRate4Count / courseRateSum * 100}%;"></div>
 								</div>
-								<div data-v-cb953552="" class="vote">${courseRate4Count / courseRateSum * 100}%</div>
+								<div data-v-cb953552="" class="vote part">${courseRate4Count / courseRateSum * 100}%</div>
 							</div>
 							<div data-v-cb953552="" class="rate">
 								<span data-v-cb953552="" class="value"> 3 </span>
@@ -282,7 +283,7 @@
 									<div data-v-cb953552="" class="gauge"
 										style="width: ${courseRate3Count / courseRateSum * 100}%;"></div>
 								</div>
-								<div data-v-cb953552="" class="vote">${courseRate3Count / courseRateSum * 100}%</div>
+								<div data-v-cb953552="" class="vote part">${courseRate3Count / courseRateSum * 100}%</div>
 							</div>
 							<div data-v-cb953552="" class="rate">
 								<span data-v-cb953552="" class="value"> 2 </span>
@@ -290,7 +291,7 @@
 									<div data-v-cb953552="" class="gauge"
 										style="width: ${courseRate2Count / courseRateSum * 100}%;"></div>
 								</div>
-								<div data-v-cb953552="" class="vote">${courseRate2Count / courseRateSum * 100}%</div>
+								<div data-v-cb953552="" class="vote part">${courseRate2Count / courseRateSum * 100}%</div>
 							</div>
 							<div data-v-cb953552="" class="rate">
 								<span data-v-cb953552="" class="value"> 1 </span>
@@ -298,7 +299,7 @@
 									<div data-v-cb953552="" class="gauge"
 										style="width: ${courseRate1Count / courseRateSum * 100}%;"></div>
 								</div>
-								<div data-v-cb953552="" class="vote">${courseRate1Count / courseRateSum * 100}%</div>
+								<div data-v-cb953552="" class="vote part">${courseRate1Count / courseRateSum * 100}%</div>
 							</div>
 						</div>
 					</div>
@@ -308,12 +309,12 @@
 							<div data-v-cb953552="" class="items">
 								<div data-v-cb953552="" class="item">
 									<div data-v-cb953552="" class="bar">
-										<div data-v-cb953552="" class="winner positive gauge"
+										<div data-v-cb953552="" class="winner positive gauge "
 											style="width: ${project0Count / projectSum * 100}%;">
-											<span data-v-cb953552="" class="winner"> 없음 </span>
+											<span data-v-cb953552="" class="winner "> 없음 </span>
 										</div>
 									</div>
-									<div data-v-cb953552="" class="winner positive vote">
+									<div data-v-cb953552="" class="winner positive vote part ">
 										${project0Count / projectSum * 100}%</div>
 
 								</div>
@@ -324,7 +325,7 @@
 											<span data-v-cb953552="" class=""> 보통 </span>
 										</div>
 									</div>
-									<div data-v-cb953552="" class="neutral vote">${project1Count / projectSum * 100}%</div>
+									<div data-v-cb953552="" class="neutral vote part">${project1Count / projectSum * 100}%</div>
 								</div>
 								<div data-v-cb953552="" class="item">
 									<div data-v-cb953552="" class="bar">
@@ -333,7 +334,7 @@
 											<span data-v-cb953552="" class=""> 많음 </span>
 										</div>
 									</div>
-									<div data-v-cb953552="" class="negative vote">${project2Count / projectSum * 100}%</div>
+									<div data-v-cb953552="" class="negative vote part">${project2Count / projectSum * 100}%</div>
 								</div>
 							</div>
 						</div>
@@ -347,7 +348,7 @@
 											<span data-v-cb953552="" class="winner"> 없음 </span>
 										</div>
 									</div>
-									<div data-v-cb953552="" class="winner positive vote">
+									<div data-v-cb953552="" class="winner positive vote part">
 										${team0Count / teamSum * 100}%</div>
 								</div>
 								<div data-v-cb953552="" class="item">
@@ -357,7 +358,7 @@
 											<span data-v-cb953552="" class=""> 보통 </span>
 										</div>
 									</div>
-									<div data-v-cb953552="" class="neutral vote">${team1Count / teamSum * 100}%</div>
+									<div data-v-cb953552="" class="neutral vote part">${team1Count / teamSum * 100}%</div>
 								</div>
 								<div data-v-cb953552="" class="item">
 									<div data-v-cb953552="" class="bar">
@@ -366,7 +367,7 @@
 											<span data-v-cb953552="" class=""> 많음 </span>
 										</div>
 									</div>
-									<div data-v-cb953552="" class="negative vote">${team2Count / teamSum * 100}%</div>
+									<div data-v-cb953552="" class="negative vote part">${team2Count / teamSum * 100}%</div>
 								</div>
 							</div>
 						</div>
@@ -380,7 +381,7 @@
 											<span data-v-cb953552="" class="winner"> 너그러움 </span>
 										</div>
 									</div>
-									<div data-v-cb953552="" class="winner positive vote">
+									<div data-v-cb953552="" class="winner positive vote part">
 										${grade0Count / gradeSum * 100}%</div>
 								</div>
 								<div data-v-cb953552="" class="item">
@@ -390,17 +391,17 @@
 											<span data-v-cb953552="" class=""> 보통 </span>
 										</div>
 									</div>
-									<div data-v-cb953552="" class="neutral vote">
+									<div data-v-cb953552="" class="neutral vote part">
 										${grade1Count / gradeSum * 100}%</div>
 								</div>
 								<div data-v-cb953552="" class="item">
 									<div data-v-cb953552="" class="bar">
-										<div data-v-cb953552="" class="negative gauge"
+										<div data-v-cb953552="" class="negative gauge "
 											style="width:  ${grade2Count / gradeSum * 100}%;">
 											<span data-v-cb953552="" class=""> 깐깐함 </span>
 										</div>
 									</div>
-									<div data-v-cb953552="" class="negative vote">
+									<div data-v-cb953552="" class="negative vote part">
 										${grade2Count / gradeSum * 100}%</div>
 								</div>
 							</div>
@@ -427,9 +428,10 @@
 						<c:forEach var="reviewVO" items="${topLikeReviewList}">
 							<div data-v-cb953552="" class="article">
 								<div data-v-cb953552="" class="rate">
-									<span data-v-cb953552="" class="star"><span
+									<span data-v-cb953552="" class="star"> <span
 										data-v-cb953552="" class="on"
-										style="width:${reviewVO.courseRate / 5 * 100}%;"></span></span>
+										style="width:${reviewVO.courseRate / 5 * 100}%;"></span>
+									</span>
 								</div>
 								<div data-v-cb953552="" class="info">
 									<span data-v-cb953552="" class="semester">
@@ -468,6 +470,19 @@
 			}
 		}); // end document
 	</script>
+
+	<script>
+		// 모든 .vote 요소를 찾아서 정수로 변환하기
+		document.querySelectorAll(".part").forEach(function(vote) {
+			vote.textContent = Math.floor(parseFloat(vote.textContent)) + "%";
+		});
+
+		document.querySelectorAll(".average").forEach(function(avg) {
+			avg.textContent = parseFloat(avg.textContent).toFixed(1);
+		});
+	</script>
+
+
 
 </body>
 </html>
