@@ -88,6 +88,7 @@ public class ReviewController {
 			topLikeReviewList = reviewService.selectTopLikeReviewByCourseId(courseId);
 			log.info("courseVO : " + courseVO);
 			log.info("reviewVO : " + reviewListByCourseId);
+			log.info("topLike : " + topLikeReviewList);
 
 			log.info(reviewListByCourseId.size());
 
@@ -112,7 +113,7 @@ public class ReviewController {
 
 		log.info("courseId : " + courseId);
 		List<ReviewVO> reviewListByCourseId = reviewService.selectReviewByCourseId(courseId);
-
+		
 		CourseVO courseVO = reviewService.getCourseById(courseId);
 		model.addAttribute("courseVO", courseVO);
 		model.addAttribute("reviewListByCourseId", reviewListByCourseId);
@@ -121,5 +122,48 @@ public class ReviewController {
 	}
 
 	
+	@PostMapping("/rateFilter")
+	public String rateFilterPOST(Model model, Integer courseId, Integer courseRate,RedirectAttributes reAttr) {
+		log.info("rateFilterPOST()");
+		log.info("courseId : " + courseId + " courseRate : " + courseRate);
+		
+		if(courseRate == 0) {
+			return "redirect:/review?courseId=" + courseId; 
+		} 
+		
+		List<ReviewVO> reviewListByCourseId = reviewService.selectRateFilterdReview(courseId, courseRate);
+		log.info("reviewListBycourseId : " + reviewListByCourseId);
+		
+		if(reviewListByCourseId.isEmpty()) {
+			log.info("데이터없음");
+			reAttr.addFlashAttribute("errorMessage", "조건에 맞는 데이터가 없습니다.");
+			return "redirect:/review?courseId=" + courseId; 
+		}
+		
+		CourseVO courseVO = reviewService.getCourseById(courseId);
+		
+		model.addAttribute("courseVO", courseVO);
+		model.addAttribute("reviewListByCourseId", reviewListByCourseId);
+		
+		
+		return "course/review";
+	}
+	
+	
+	@PostMapping("/sortFilter")
+	public String sortFilterPOST(Model model, Integer courseId, String sortCondition) {
+		log.info("sortFilterPOST()");
+		
+		log.info("courseId : " + courseId + " sortCondtion : " + sortCondition);
+		
+		List<ReviewVO> reviewListByCourseId = reviewService.selectSortFilterReview(courseId, sortCondition);
+		CourseVO courseVO = reviewService.getCourseById(courseId);
+		
+		model.addAttribute("courseVO", courseVO);
+		model.addAttribute("reviewListByCourseId", reviewListByCourseId);
+		
+		return "course/review";
+		
+	}
 	
 }

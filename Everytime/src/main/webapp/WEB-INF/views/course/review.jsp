@@ -33,7 +33,8 @@
 		<div data-v-191ba81a="" class="bottombar">
 			<div data-v-191ba81a="" class="title">${courseVO.courseName}</div>
 			<div data-v-191ba81a="" class="tabbar">
-				<a data-v-191ba81a="" href="" id="item-link">
+				<a data-v-191ba81a="" href="write?courseId=${courseVO.courseId}"
+					id="item-link">
 					<div class="item" data-v-191ba81a="">
 						<div data-v-191ba81a="" class="rectangle">
 							<figure data-v-191ba81a="" class="article"></figure>
@@ -45,8 +46,8 @@
 			<!---->
 			<!---->
 		</div>
-		<c:set var="couseRateValueSum" value="0" />
-		<c:set var="courseRate0Count" value="0" />
+
+
 		<c:set var="courseRate1Count" value="0" />
 		<c:set var="courseRate2Count" value="0" />
 		<c:set var="courseRate3Count" value="0" />
@@ -85,20 +86,25 @@
 			value="${courseRate0Count + courseRate1Count + courseRate2Count +courseRate3Count + courseRate4Count + courseRate5Count}" />
 		<c:set var="average"
 			value="${courseRateValueSum / reviewListByCourseId.size()}" />
-
+		<c:set var="courseRate0Count" value="0" />
+		<c:set var="courseRate1Count" value="0" />
+		<c:set var="courseRate2Count" value="0" />
+		<c:set var="courseRate3Count" value="0" />
+		<c:set var="courseRate4Count" value="0" />
+		<c:set var="courseRate5Count" value="0" />
 
 		<div data-v-d5c5d8d6="" data-v-191ba81a="" class="pane">
 			<div data-v-d5c5d8d6="" class="article_tab">
 				<div data-v-d5c5d8d6="" class="header">
 					<div data-v-d5c5d8d6="" class="average">
-						<span data-v-d5c5d8d6="" class="title">${average}</span> <span
+						<span data-v-d5c5d8d6="" class="title averageRate">${average}</span> <span
 							data-v-d5c5d8d6="" class="star"><span data-v-d5c5d8d6=""
 							class="on" style="width: ${average / 5 * 100}%;"></span></span>
 					</div>
 					<!-- <form action = "" method="POST">-->
 					<div data-v-d5c5d8d6="" class="buttons">
-						<button	  data-v-d5c5d8d6="" class="filter" id="allButton">전체</button>
-						<button   data-v-d5c5d8d6="" class="filter" id="orderButton">등록순</button>
+						<button data-v-d5c5d8d6="" class="filter" id="allButton">전체</button>
+						<button data-v-d5c5d8d6="" class="filter" id="orderButton">등록순</button>
 					</div>
 					<!-- </form>  -->
 				</div>
@@ -133,77 +139,140 @@
 							<div data-v-d5c5d8d6="" class="text">${reviewVO.reviewContent }</div>
 						</div>
 						<!---->
-						
+
 					</c:forEach>
 
 				</div>
+
 			</div>
 			<!---->
 			<!---->
-			<div id="menu1" data-v-03849084="" data-v-d5c5d8d6="" class="dialogmenu">
-        <div data-v-03849084="" class="backdrop"></div>
-        <div data-v-03849084="" class="wrap" style="right: 214.5px; top: 142px;">
-            <div data-v-03849084="" class="item">
-                <div data-v-d5c5d8d6="" data-v-03849084="" class="menu_item">
-                    <span data-v-d5c5d8d6="" data-v-03849084="" class="title">등록순</span>
-                </div>
-            </div>
-            <div data-v-03849084="" class="item">
-                <div data-v-d5c5d8d6="" data-v-03849084="" class="menu_item">
-                    <span data-v-d5c5d8d6="" data-v-03849084="" class="title">추천순</span>
-                </div>
-            </div>
-        </div>
-    </div>
+			<c:set var="reviewCount" value="${reviewListByCourseId.size()}" />
+			<c:forEach var="reviewVO" items="${reviewListByCourseId}">
+				<c:set var="number" value="${number + 1}" />
+				<c:choose>
+					<c:when test="${reviewVO.courseRate eq 1}">
+						<c:set var="courseRate1Count" value="${courseRate1Count + 1}" />
+					</c:when>
+					<c:when test="${reviewVO.courseRate eq 2}">
+						<c:set var="courseRate2Count" value="${courseRate2Count + 1}" />
+					</c:when>
+					<c:when test="${reviewVO.courseRate eq 3}">
+						<c:set var="courseRate3Count" value="${courseRate3Count + 1}" />
+					</c:when>
+					<c:when test="${reviewVO.courseRate eq 4}">
+						<c:set var="courseRate4Count" value="${courseRate4Count + 1}" />
+					</c:when>
+					<c:when test="${reviewVO.courseRate eq 5}">
+						<c:set var="courseRate5Count" value="${courseRate5Count + 1}" />
+					</c:when>
 
-    <div id="menu2" data-v-03849084="" data-v-d5c5d8d6="" class="dialogmenu">
-        <div data-v-03849084="" class="backdrop"></div>
-        <div data-v-03849084="" class="wrap" style="left: 836.5px; top: 142px;">
-            <div data-v-03849084="" class="item">
-                <div data-v-d5c5d8d6="" data-v-03849084="" class="menu_item rate_filter">
-                    <span data-v-d5c5d8d6="" data-v-03849084="" class="title">전체</span>
-                    <span data-v-d5c5d8d6="" data-v-03849084="" class="count">(166)</span>
-                </div>
-            </div>
-            <div data-v-03849084="" class="item">
-                <div data-v-d5c5d8d6="" data-v-03849084="" class="menu_item rate_filter">
-                    <span data-v-d5c5d8d6="" data-v-03849084="" class="title rate">5</span>
-                    <span data-v-d5c5d8d6="" data-v-03849084="" class="count">(126)</span>
-                </div>
-            </div>
-            <div data-v-03849084="" class="item">
-                <div data-v-d5c5d8d6="" data-v-03849084="" class="menu_item rate_filter">
-                    <span data-v-d5c5d8d6="" data-v-03849084="" class="title rate">4</span>
-                    <span data-v-d5c5d8d6="" data-v-03849084="" class="count">(23)</span>
-                </div>
-            </div>
-            <div data-v-03849084="" class="item">
-                <div data-v-d5c5d8d6="" data-v-03849084="" class="menu_item rate_filter">
-                    <span data-v-d5c5d8d6="" data-v-03849084="" class="title rate">3</span>
-                    <span data-v-d5c5d8d6="" data-v-03849084="" class="count">(15)</span>
-                </div>
-            </div>
-            <div data-v-03849084="" class="item">
-                <div data-v-d5c5d8d6="" data-v-03849084="" class="menu_item rate_filter">
-                    <span data-v-d5c5d8d6="" data-v-03849084="" class="title rate">2</span>
-                    <span data-v-d5c5d8d6="" data-v-03849084="" class="count">(1)</span>
-                </div>
-            </div>
-            <div data-v-03849084="" class="item">
-                <div data-v-d5c5d8d6="" data-v-03849084="" class="menu_item rate_filter">
-                    <span data-v-d5c5d8d6="" data-v-03849084="" class="title rate">1</span>
-                    <span data-v-d5c5d8d6="" data-v-03849084="" class="count">(1)</span>
-                </div>
-            </div>
-        </div>
-    </div>
+				</c:choose>
+			</c:forEach>
+			<div id="menu1" data-v-03849084="" data-v-d5c5d8d6=""
+				class="dialogmenu">
+				<div data-v-03849084="" class="backdrop"></div>
+				<div data-v-03849084="" class="wrap">
+					<div data-v-03849084="" class="item">
+						<div data-v-d5c5d8d6="" data-v-03849084=""
+							class="menu_item sortButton" data-sort="earlist">
+							<span data-v-d5c5d8d6="" data-v-03849084="" class="title">등록순</span>
+						</div>
+					</div>
+					<div data-v-03849084="" class="item ">
+						<div data-v-d5c5d8d6="" data-v-03849084=""
+							class="menu_item sortButton" data-sort="topLike">
+							<span data-v-d5c5d8d6="" data-v-03849084="" class="title">추천순</span>
+						</div>
+					</div>
+				</div>
+				<form id="sortForm" action="sortFilter" method="POST">
+					<input type="hidden" name="courseId"
+						value="${reviewListByCourseId.get(0).getCourseId() }"> <input
+						type="hidden" id="sortValue" name="sortCondition">
+				</form>
+
+			</div>
+
+			<div id="menu2" data-v-03849084="" data-v-d5c5d8d6=""
+				class="dialogmenu">
+				<div data-v-03849084="" class="backdrop"></div>
+				<div data-v-03849084="" class="wrap">
+					<div data-v-03849084="" class="item">
+						<div data-v-d5c5d8d6="" data-v-03849084=""
+							class="menu_item rate_filter rateButton" data-rate="0">
+							<span data-v-d5c5d8d6="" data-v-03849084="" class="title">전체</span>
+							<span data-v-d5c5d8d6="" data-v-03849084="" class="count">(${reviewCount })</span>
+						</div>
+					</div>
+					<div data-v-03849084="" class="item">
+						<div data-v-d5c5d8d6="" data-v-03849084=""
+							class="menu_item rate_filter rateButton" data-rate="5">
+							<span data-v-d5c5d8d6="" data-v-03849084="" class="title rate">5</span>
+							<span data-v-d5c5d8d6="" data-v-03849084="" class="count">(${courseRate5Count })</span>
+						</div>
+					</div>
+					<div data-v-03849084="" class="item">
+						<div data-v-d5c5d8d6="" data-v-03849084=""
+							class="menu_item rate_filter rateButton" data-rate="4">
+							<span data-v-d5c5d8d6="" data-v-03849084="" class="title rate">4</span>
+							<span data-v-d5c5d8d6="" data-v-03849084="" class="count">(${courseRate4Count })</span>
+						</div>
+					</div>
+					<div data-v-03849084="" class="item">
+						<div data-v-d5c5d8d6="" data-v-03849084=""
+							class="menu_item rate_filter rateButton" data-rate="3">
+							<span data-v-d5c5d8d6="" data-v-03849084="" class="title rate">3</span>
+							<span data-v-d5c5d8d6="" data-v-03849084="" class="count">(${courseRate3Count })</span>
+						</div>
+					</div>
+					<div data-v-03849084="" class="item">
+						<div data-v-d5c5d8d6="" data-v-03849084=""
+							class="menu_item rate_filter rateButton" data-rate="2">
+							<span data-v-d5c5d8d6="" data-v-03849084="" class="title rate">2</span>
+							<span data-v-d5c5d8d6="" data-v-03849084="" class="count">(${courseRate2Count})</span>
+						</div>
+					</div>
+					<div data-v-03849084="" class="item">
+						<div data-v-d5c5d8d6="" data-v-03849084=""
+							class="menu_item rate_filter rateButton" data-rate="1">
+							<span data-v-d5c5d8d6="" data-v-03849084="" class="title rate">1</span>
+							<span data-v-d5c5d8d6="" data-v-03849084="" class="count">(${courseRate1Count })</span>
+						</div>
+					</div>
+				</div>
+				<form id="rateForm" action="rateFilter" method="POST">
+					<input type="hidden" name="courseId"
+						value="${reviewListByCourseId.get(0).getCourseId() }"> <input
+						type="hidden" id="rateValue" name="courseRate">
+				</form>
+			</div>
+
 		</div>
 	</div>
+
+
 
 
 	<script type="text/javascript">
 		$(document).ready(function() {
 			updateLikeVisibility();
+
+			$('.rateButton').click(function() {
+				console.log("hi")
+				var courseRate = $(this).data('rate'); // data-rate 속성에서 평가 값을 가져옴
+				console.log(courseRate);
+				$('#rateValue').val(courseRate); // hidden input에 평가 값을 설정
+				$('#rateForm').submit(); // 평가 값이 설정된 form을 서버로 제출
+			});
+
+			$('.sortButton').click(function() {
+				console.log("sort")
+				var sortCondition = $(this).data('sort'); // data-rate 속성에서 평가 값을 가져옴
+				console.log(sortCondition);
+				$('#sortValue').val(sortCondition); // hidden input에 평가 값을 설정
+				$('#sortForm').submit(); // 평가 값이 설정된 form을 서버로 제출
+			});
 
 			$(".posvote").click(function() {
 				var reviewId = $(this).data('review-id'); // 클릭된 버튼의 data-review-id 값을 가져옴
@@ -241,7 +310,7 @@
 				}); // and ajax
 			} // end addLike
 
-			function increaseLikeCount(reviewId) {
+			function increaseLikeCount(reviewId) { // 추천 1개 증가시키기
 				console.log(reviewId);
 				var likeElement = $("#" + reviewId); // 추천 수를 표시하는 span 요소를 가져옴
 				var currentLikes = parseInt(likeElement.text()); // 현재 추천 수를 가져와 정수로 변환
@@ -264,54 +333,69 @@
 					}
 				});
 			}
-			
-			
-			document.addEventListener('DOMContentLoaded', function() {
-			    // 버튼과 메뉴 요소를 가져옵니다
-			    var allButton = document.getElementById('allButton');
-			    var orderButton = document.getElementById('orderButton');
-			    var menu1 = document.getElementById('menu1');
-			    var menu2 = document.getElementById('menu2');
 
-			    // 모든 메뉴를 숨기는 함수
-			    function hideMenus() {
-			        menu1.style.display = 'none';
-			        menu2.style.display = 'none';
-			    }
+			var allButton = $('#allButton');
+			var orderButton = $('#orderButton');
+			var menu1 = $('#menu1');
+			var menu2 = $('#menu2');
 
-			    // 전체 버튼을 클릭했을 때
-			    allButton.addEventListener('click', function(event) {
-			        event.stopPropagation(); // 클릭 이벤트 전파를 막음
-			        hideMenus(); // 모든 메뉴를 숨김
-			        menu2.style.display = 'block'; // menu2를 표시
-			    });
+			// 초기 로드 시 menu1과 menu2를 숨깁니다
+			menu1.hide();
+			menu2.hide();
 
-			    // 등록순 버튼을 클릭했을 때
-			    orderButton.addEventListener('click', function(event) {
-			        event.stopPropagation(); // 클릭 이벤트 전파를 막음
-			        hideMenus(); // 모든 메뉴를 숨김
-			        menu1.style.display = 'block'; // menu1을 표시
-			    });
+			// 모든 메뉴를 숨기는 함수
+			function hideMenus() {
+				menu1.hide();
+				menu2.hide();
+			}
 
-			    // 문서 전체를 클릭했을 때
-			    document.addEventListener('click', function() {
-			        hideMenus(); // 모든 메뉴를 숨김
-			    });
-
-			    // 메뉴를 클릭했을 때 이벤트 전파를 막음
-			    menu1.addEventListener('click', function(event) {
-			        event.stopPropagation();
-			    });
-			    menu2.addEventListener('click', function(event) {
-			        event.stopPropagation();
-			    });
+			// 전체 버튼을 클릭했을 때
+			allButton.click(function(event) {
+				event.stopPropagation(); // 이벤트 전파 막기
+				hideMenus(); // 모든 메뉴 숨기기
+				// 버튼의 위치를 가져와서 menu2의 wrap 요소 위치를 설정합니다
+				var buttonPosition = allButton.offset();
+				menu2.find('.wrap').css({
+					'left' : buttonPosition.left,
+					'top' : buttonPosition.top + allButton.outerHeight()
+				});
+				menu2.show(); // menu2 표시
 			});
-			
+
+			orderButton.click(function(event) {
+				event.stopPropagation(); // 이벤트 전파 막기
+				hideMenus(); // 모든 메뉴 숨기기
+				// 버튼의 위치를 가져와서 menu1의 wrap 요소 위치를 설정합니다
+				var buttonPosition = orderButton.offset();
+				menu1.find('.wrap').css({
+					'left' : buttonPosition.left,
+					'top' : buttonPosition.top + orderButton.outerHeight()
+				});
+				menu1.show(); // menu1 표시
+			});
+
+			// 문서 전체를 클릭했을 때
+			$(document).click(function() {
+				hideMenus(); // 모든 메뉴를 숨김
+			});
+
 		}); // end document
-		
-		
+	</script>
+	<script type="text/javascript">
+		window.onload = function() {
+			console.log("페이지업로드");
+			var errorMessage = "${errorMessage}";
+			if (errorMessage) {
+				alert(errorMessage); // 또는 다른 방식으로 에러 메시지를 표시할 수 있습니다.
+			}
+		};
 	</script>
 
+	<script type="text/javascript">
+		document.querySelectorAll(".averageRate").forEach(function(avg) {
+			avg.textContent = parseFloat(avg.textContent).toFixed(1);
+		});
+	</script>
 
 </body>
 </html>

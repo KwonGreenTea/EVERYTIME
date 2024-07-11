@@ -446,7 +446,7 @@ div.menu_item.rate_filter span.rate[data-v-d5c5d8d6]::before {
     margin-right: 4px;
     width: 12px;
     height: 12px;
-    background-image: url("/images/pages/lecture/icn_e_rating_star_yellow700_light.svg") ;
+    background-image: url("../images/star.svg") ;
     background-size: cover
 }
 

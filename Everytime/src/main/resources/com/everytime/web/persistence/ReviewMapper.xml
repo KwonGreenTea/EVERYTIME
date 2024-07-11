@@ -57,7 +57,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     ]]>
 	</select>
 
+	<select id="rateFilterdReview" resultMap="reviewResultMap">
+		SELECT * FROM REVIEW
+		WHERE COURSE_ID = #{courseId} AND COURSE_RATE = #{courseRate}	
+	</select>
+	
 
+	<select id="sortFilterReview" resultMap="reviewResultMap">
+		<choose>
+        <when test="sortCondition == 'earlist'">
+            SELECT *
+            FROM REVIEW
+            WHERE COURSE_ID = #{courseId}
+            ORDER BY REVIEW_ID DESC
+        </when>
+        <when test="sortCondition == 'topLike'">
+            SELECT *
+            FROM REVIEW
+            WHERE COURSE_ID = #{courseId}
+            ORDER BY REVIEW_LIKE DESC
+        </when>
+    </choose>
+	
+	</select>
+	
+	
 	<update id="updateReviewLike">
 		UPDATE REVIEW
 		SET REVIEW_LIKE = REVIEW_LIKE + 1

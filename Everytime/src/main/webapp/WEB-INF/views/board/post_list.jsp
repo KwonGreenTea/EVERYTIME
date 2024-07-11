@@ -17,14 +17,7 @@
 	href="https://everytime.kr/css/container.community.css" />
 <link rel="stylesheet"
 	href="https://everytime.kr/css/container.modal.css" />
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#writeArticleButton").click(function() {
-			$("#write_form").show();
-			$("#writeArticleButton").hide();
-		});
-	});
-</script>
+
 </head>
 
 <body>
@@ -193,6 +186,15 @@
 					document.getElementById('write').submit();
 				});
 	</script>
+	
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("#writeArticleButton").click(function() {
+			$("#write_form").show();
+			$("#writeArticleButton").hide();
+		});
+	});
+</script>
 
 </body>
 </html>
