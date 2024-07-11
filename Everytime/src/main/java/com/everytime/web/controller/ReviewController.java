@@ -81,10 +81,11 @@ public class ReviewController {
 	public String viewGET(Model model, Integer courseId) { // 강의 이름을 입력받아서 조회
 		log.info("viewGET()");
 		List<ReviewVO> reviewListByCourseId = new ArrayList<ReviewVO>();
-
+		List<ReviewVO> topLikeReviewList = new ArrayList<ReviewVO>();
 		if (courseId != null) {
 			CourseVO courseVO = reviewService.getCourseById(courseId);
 			reviewListByCourseId = reviewService.selectReviewByCourseId(courseId);
+			topLikeReviewList = reviewService.selectTopLikeReviewByCourseId(courseId);
 			log.info("courseVO : " + courseVO);
 			log.info("reviewVO : " + reviewListByCourseId);
 
@@ -93,7 +94,7 @@ public class ReviewController {
 			if (courseVO != null) {
 				model.addAttribute("courseVO", courseVO);
 				model.addAttribute("reviewListByCourseId", reviewListByCourseId);
-				
+				model.addAttribute("topLikeReviewList", topLikeReviewList);
 				return "course/view";
 			} else {
 				log.info("존재하지않는 강의");
@@ -112,7 +113,8 @@ public class ReviewController {
 		log.info("courseId : " + courseId);
 		List<ReviewVO> reviewListByCourseId = reviewService.selectReviewByCourseId(courseId);
 
-		
+		CourseVO courseVO = reviewService.getCourseById(courseId);
+		model.addAttribute("courseVO", courseVO);
 		model.addAttribute("reviewListByCourseId", reviewListByCourseId);
 	
 		return "course/review";

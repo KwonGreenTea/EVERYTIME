@@ -64,6 +64,13 @@ public class ReviewServiceImple implements ReviewService {
 	}
 
 
+	@Override
+	public List<ReviewVO> selectTopLikeReviewByCourseId(int courseId) {
+		log.info("selectTopReviewByLike");
+		return reviewMapper.selectTopLikeReviewByCourseId(courseId);
+	}
+
+
 	
 
 	

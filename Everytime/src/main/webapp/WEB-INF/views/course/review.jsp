@@ -29,27 +29,22 @@
 
 	<%@ include file="../header.jspf"%>
 	<div data-v-191ba81a="" class="container">
+
 		<div data-v-191ba81a="" class="bottombar">
-			<div data-v-191ba81a="" class="title">학술영어1:통합</div>
+			<div data-v-191ba81a="" class="title">${courseVO.courseName}</div>
 			<div data-v-191ba81a="" class="tabbar">
-				<a data-v-191ba81a="" href="" class="item"><div
-						data-v-191ba81a="" class="rectangle active">
-						<figure data-v-191ba81a="" class="info"></figure>
-						<span data-v-191ba81a="" class="title">개요</span>
-					</div></a><a data-v-191ba81a="" href=""
-					class="item"><div data-v-191ba81a="" class="rectangle">
-						<figure data-v-191ba81a="" class="article"></figure>
-						<span data-v-191ba81a="" class="title">강의평</span>
-					</div></a><a data-v-191ba81a="" href=""
-					class="item"><div data-v-191ba81a="" class="rectangle">
-						<figure data-v-191ba81a="" class="exam"></figure>
-						<span data-v-191ba81a="" class="title">시험 정보</span>
-					</div></a>
+				<a data-v-191ba81a="" href="" id="item-link">
+					<div class="item" data-v-191ba81a="">
+						<div data-v-191ba81a="" class="rectangle">
+							<figure data-v-191ba81a="" class="article"></figure>
+							<span data-v-191ba81a="" class="title">강의 평가 하러 가기</span>
+						</div>
+					</div>
+				</a>
 			</div>
 			<!---->
 			<!---->
 		</div>
-
 		<c:set var="couseRateValueSum" value="0" />
 		<c:set var="courseRate0Count" value="0" />
 		<c:set var="courseRate1Count" value="0" />
@@ -100,10 +95,12 @@
 							data-v-d5c5d8d6="" class="star"><span data-v-d5c5d8d6=""
 							class="on" style="width: ${average / 5 * 100}%;"></span></span>
 					</div>
+					<!-- <form action = "" method="POST">-->
 					<div data-v-d5c5d8d6="" class="buttons">
-						<button data-v-d5c5d8d6="" class="">전체</button>
-						<button data-v-d5c5d8d6="">등록순</button>
+						<button	  data-v-d5c5d8d6="" class="filter" id="allButton">전체</button>
+						<button   data-v-d5c5d8d6="" class="filter" id="orderButton">등록순</button>
 					</div>
+					<!-- </form>  -->
 				</div>
 
 
@@ -130,19 +127,76 @@
 								<div data-v-d5c5d8d6="" class="buttons">
 									<button data-v-d5c5d8d6="" class="posvote"
 										data-review-id="${reviewVO.reviewId}">추천</button>
-									<button data-v-d5c5d8d6="">신고</button>
+
 								</div>
 							</div>
 							<div data-v-d5c5d8d6="" class="text">${reviewVO.reviewContent }</div>
 						</div>
 						<!---->
+						
 					</c:forEach>
-
 
 				</div>
 			</div>
 			<!---->
 			<!---->
+			<div id="menu1" data-v-03849084="" data-v-d5c5d8d6="" class="dialogmenu">
+        <div data-v-03849084="" class="backdrop"></div>
+        <div data-v-03849084="" class="wrap" style="right: 214.5px; top: 142px;">
+            <div data-v-03849084="" class="item">
+                <div data-v-d5c5d8d6="" data-v-03849084="" class="menu_item">
+                    <span data-v-d5c5d8d6="" data-v-03849084="" class="title">등록순</span>
+                </div>
+            </div>
+            <div data-v-03849084="" class="item">
+                <div data-v-d5c5d8d6="" data-v-03849084="" class="menu_item">
+                    <span data-v-d5c5d8d6="" data-v-03849084="" class="title">추천순</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="menu2" data-v-03849084="" data-v-d5c5d8d6="" class="dialogmenu">
+        <div data-v-03849084="" class="backdrop"></div>
+        <div data-v-03849084="" class="wrap" style="left: 836.5px; top: 142px;">
+            <div data-v-03849084="" class="item">
+                <div data-v-d5c5d8d6="" data-v-03849084="" class="menu_item rate_filter">
+                    <span data-v-d5c5d8d6="" data-v-03849084="" class="title">전체</span>
+                    <span data-v-d5c5d8d6="" data-v-03849084="" class="count">(166)</span>
+                </div>
+            </div>
+            <div data-v-03849084="" class="item">
+                <div data-v-d5c5d8d6="" data-v-03849084="" class="menu_item rate_filter">
+                    <span data-v-d5c5d8d6="" data-v-03849084="" class="title rate">5</span>
+                    <span data-v-d5c5d8d6="" data-v-03849084="" class="count">(126)</span>
+                </div>
+            </div>
+            <div data-v-03849084="" class="item">
+                <div data-v-d5c5d8d6="" data-v-03849084="" class="menu_item rate_filter">
+                    <span data-v-d5c5d8d6="" data-v-03849084="" class="title rate">4</span>
+                    <span data-v-d5c5d8d6="" data-v-03849084="" class="count">(23)</span>
+                </div>
+            </div>
+            <div data-v-03849084="" class="item">
+                <div data-v-d5c5d8d6="" data-v-03849084="" class="menu_item rate_filter">
+                    <span data-v-d5c5d8d6="" data-v-03849084="" class="title rate">3</span>
+                    <span data-v-d5c5d8d6="" data-v-03849084="" class="count">(15)</span>
+                </div>
+            </div>
+            <div data-v-03849084="" class="item">
+                <div data-v-d5c5d8d6="" data-v-03849084="" class="menu_item rate_filter">
+                    <span data-v-d5c5d8d6="" data-v-03849084="" class="title rate">2</span>
+                    <span data-v-d5c5d8d6="" data-v-03849084="" class="count">(1)</span>
+                </div>
+            </div>
+            <div data-v-03849084="" class="item">
+                <div data-v-d5c5d8d6="" data-v-03849084="" class="menu_item rate_filter">
+                    <span data-v-d5c5d8d6="" data-v-03849084="" class="title rate">1</span>
+                    <span data-v-d5c5d8d6="" data-v-03849084="" class="count">(1)</span>
+                </div>
+            </div>
+        </div>
+    </div>
 		</div>
 	</div>
 
@@ -210,8 +264,52 @@
 					}
 				});
 			}
+			
+			
+			document.addEventListener('DOMContentLoaded', function() {
+			    // 버튼과 메뉴 요소를 가져옵니다
+			    var allButton = document.getElementById('allButton');
+			    var orderButton = document.getElementById('orderButton');
+			    var menu1 = document.getElementById('menu1');
+			    var menu2 = document.getElementById('menu2');
 
+			    // 모든 메뉴를 숨기는 함수
+			    function hideMenus() {
+			        menu1.style.display = 'none';
+			        menu2.style.display = 'none';
+			    }
+
+			    // 전체 버튼을 클릭했을 때
+			    allButton.addEventListener('click', function(event) {
+			        event.stopPropagation(); // 클릭 이벤트 전파를 막음
+			        hideMenus(); // 모든 메뉴를 숨김
+			        menu2.style.display = 'block'; // menu2를 표시
+			    });
+
+			    // 등록순 버튼을 클릭했을 때
+			    orderButton.addEventListener('click', function(event) {
+			        event.stopPropagation(); // 클릭 이벤트 전파를 막음
+			        hideMenus(); // 모든 메뉴를 숨김
+			        menu1.style.display = 'block'; // menu1을 표시
+			    });
+
+			    // 문서 전체를 클릭했을 때
+			    document.addEventListener('click', function() {
+			        hideMenus(); // 모든 메뉴를 숨김
+			    });
+
+			    // 메뉴를 클릭했을 때 이벤트 전파를 막음
+			    menu1.addEventListener('click', function(event) {
+			        event.stopPropagation();
+			    });
+			    menu2.addEventListener('click', function(event) {
+			        event.stopPropagation();
+			    });
+			});
+			
 		}); // end document
+		
+		
 	</script>
 
 

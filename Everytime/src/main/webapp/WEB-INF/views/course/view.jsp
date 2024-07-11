@@ -199,28 +199,25 @@
 
 	<div data-v-191ba81a class="container">
 		<div data-v-191ba81a="" class="bottombar">
-			<div data-v-191ba81a="" class="title">과학기술의철학적이해</div>
+			<div data-v-191ba81a="" class="title">${courseVO.courseName}</div>
 			<div data-v-191ba81a="" class="tabbar">
-				<div data-v-191ba81a="" href="/lecture/view/2719235" class="item">
-					<div data-v-191ba81a="" class="rectangle active">
-						<figure data-v-191ba81a="" class="info"></figure>
-						<span data-v-191ba81a="" class="title">개요</span>
+				<a data-v-191ba81a="" href="" id="item-link">
+					<div>
+						<div class="item" data-v-191ba81a="">
+							<div data-v-191ba81a="" class="rectangle active">
+								<figure data-v-191ba81a="" class="info"></figure>
+								<span data-v-191ba81a="" class="title">개요</span>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div data-v-191ba81a="" href="/lecture/view/2719235?tab=article"
-					class="item">
-					<div data-v-191ba81a="" class="rectangle">
-						<figure data-v-191ba81a="" class="article"></figure>
-						<span data-v-191ba81a="" class="title">강의평</span>
+				</a> <a data-v-191ba81a="" href="" id="item-link">
+					<div class="item" data-v-191ba81a="">
+						<div data-v-191ba81a="" class="rectangle">
+							<figure data-v-191ba81a="" class="article"></figure>
+							<span data-v-191ba81a="" class="title">강의 평가 하러 가기</span>
+						</div>
 					</div>
-				</div>
-				<div data-v-191ba81a="" href="/lecture/view/2719235?tab=exam"
-					class="item">
-					<div data-v-191ba81a="" class="rectangle">
-						<figure data-v-191ba81a="" class="exam"></figure>
-						<span data-v-191ba81a="" class="title">시험 정보</span>
-					</div>
-				</div>
+				</a> 
 			</div>
 			<!---->
 			<!---->
@@ -427,7 +424,7 @@
 
 
 					<div data-v-cb953552="" class="articles">
-						<c:forEach var="reviewVO" items="${reviewListByCourseId}">
+						<c:forEach var="reviewVO" items="${topLikeReviewList}">
 							<div data-v-cb953552="" class="article">
 								<div data-v-cb953552="" class="rate">
 									<span data-v-cb953552="" class="star"><span

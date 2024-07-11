@@ -4,6 +4,7 @@ package com.everytime.web.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,16 +53,6 @@ public class ReviewLikeRestController {
 		
 	}
 
-	/*
-	 * @GetMapping("/getLike/{reviewId}") public ResponseEntity<Integer>
-	 * selectLike(@PathVariable("reviewId") int reviewId){ log.info("selectLike()");
-	 * log.info("reviewId : " + reviewId);
-	 * 
-	 * int likeCount = reviewLikeService.selectLikeCountByReveiwId(reviewId);
-	 * 
-	 * return new ResponseEntity<Integer>(likeCount,HttpStatus.OK);
-	 * 
-	 * }
-	 */
+	
 
 }

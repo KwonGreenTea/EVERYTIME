@@ -216,7 +216,7 @@
             event.preventDefault();
 
             // 각 항목의 값들을 가져옴
-                const courseRate = document.getElementById('courseRate');
+               const courseRate = document.getElementById('courseRate');
             const courseContent = document.querySelector('textarea[data-v-38263efc]');
             const semester = document.querySelector('select[name="semester"]');
             const project = document.querySelector('input[name="project"]:checked');

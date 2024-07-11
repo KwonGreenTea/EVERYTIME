@@ -15,6 +15,9 @@ public interface ReviewService {
 	// 모든 데이터 불러오기
 	List<ReviewVO> selectReview();
 	
+	// 좋아요 많은 순서로 데이터 불러오기
+	List<ReviewVO> selectTopLikeReviewByCourseId(int courseId);
+	
 	CourseVO getCourseById(int courseId);
 	
 	// 리뷰 좋아요 수 업데이트

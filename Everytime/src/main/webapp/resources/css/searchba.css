@@ -180,7 +180,7 @@ div.container div.header div.filters div.categories label input[type=radio]:chec
 
 @media (prefers-color-scheme: dark) {
     div.container div.header div.filters div.categories label input[type=radio]:checked~span.icon[data-v-4713bb84] {
-        background-image:url("/images/common/icn_e_radio_mini_on_dark.svg")
+        background-image:u	rl("/images/common/icn_e_radio_mini_on_dark.svg")
     }	
 }
 
@@ -249,6 +249,8 @@ div.container div.header div.filters button.campus[data-v-4713bb84]::after {
     background-image: url("/images/common/icn_s_arrow_mini_down_red700_light.svg") ;
     background-size: cover
 }
+
+
 
 @media (prefers-color-scheme: dark) {
     div.container div.header div.filters button.campus[data-v-4713bb84]::after {

@@ -17,6 +17,6 @@ public interface ReviewMapper {
 	
 	int updateReviewLike(int reviewId);
 	
-	
+	List<ReviewVO> selectTopLikeReviewByCourseId(int courseId);
 	
 }
