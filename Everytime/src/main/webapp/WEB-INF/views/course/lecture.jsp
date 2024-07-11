@@ -23,22 +23,25 @@
 <link rel="stylesheet" type="text/css" href="resources/css/course6c.css">
 <link rel="stylesheet" type="text/css" href="resources/css/course8d.css">
 <link rel="stylesheet" type="text/css" href="resources/css/course4c.css">
+<link rel="stylesheet" type="text/css" href="resources/css/view4a.css">
+<link rel="stylesheet" type="text/css" href="resources/css/view8d.css">
+<link rel="stylesheet" type="text/css" href="resources/css/searchba.css">
 </head>
 
 <body>
 	<%@ include file="../header.jspf"%>
 
 	<div class="container" data-v-f688a188="">
-
-
+	
 		<div data-v-f688a188="" class="side">
 			<div data-v-f688a188="" class="searchbox">
-				<form data-v-f688a188="" class="searchbar" action="search"
-					method="POST">
-					<input value="courseName" name="type" type=hidden> <input
-						data-v-f688a188="" type="search" name=keyword
-						placeholder="과목명, 교수명으로 검색"> <input data-v-f688a188=""
-						type="submit" class="submit">
+				<form id="search-form" data-v-f688a188="" class="searchbar"
+					action="search" method="GET">
+
+					<input id="type-input" value="courseName" name="type" type="hidden">
+					<input id="keyword-input" data-v-f688a188="" type="search"
+						name="keyword" placeholder="과목명, 교수명으로 검색"> <input
+						data-v-f688a188="" type="submit" class="submit" value="검색">
 				</form>
 			</div>
 			<!---->

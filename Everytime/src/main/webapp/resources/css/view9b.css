@@ -156,7 +156,7 @@ div.article_tab div.header div.average span.star[data-v-d5c5d8d6] {
     display: inline-block;
     width: 120px;
     height: 24px;
-    background-image: url("/images/bigstaroff.png") ;
+    background-image: url("../images/bigstaroff.png") ;
     background-size: 24px 24px
 }
 
@@ -215,7 +215,7 @@ div.article_tab div.header div.buttons button[data-v-d5c5d8d6]::after {
     margin-left: 4px;
     width: 11px;
     height: 6px;
-    background-image: url("/images/common/icn_s_arrow_mini_down_gray500_light.png") ;
+    background-image: url("../images/arrow.png") ;
     background-size: cover
 }
 
@@ -276,13 +276,13 @@ div.article_tab div.articles div.article div.article_header div.title div.rate s
     display: inline-block;
     width: 60px;
     height: 12px;
-    background-image: url("/images/staroff.png") ;
+    background-image: url("../images/staroff.png") ;
     background-size: 12px 12px
 }
 
 @media (prefers-color-scheme: dark) {
     div.article_tab div.articles div.article div.article_header div.title div.rate span.star[data-v-d5c5d8d6] {
-        background-image:url("/images/staroff.png")
+        background-image:url("../images/staroff.png")
     }
 }
 
@@ -3493,7 +3493,7 @@ div.container div.bottombar div.tabbar div.item div.rectangle figure[data-v-191b
 }
 
 div.container div.bottombar div.tabbar div.item div.rectangle figure.info[data-v-191ba81a] {
-    background-image: url("/images/common/icn_m_info_gray800_light.png")
+    background-image: url("../images/info.png")
 }
 
 @media (prefers-color-scheme: dark) {
@@ -3503,7 +3503,7 @@ div.container div.bottombar div.tabbar div.item div.rectangle figure.info[data-v
 }
 
 div.container div.bottombar div.tabbar div.item div.rectangle figure.article[data-v-191ba81a] {
-    background-image: url("/images/common/icn_m_rating_gray800_light.png")
+    background-image: url("../images/rating.png")
 }
 
 @media (prefers-color-scheme: dark) {

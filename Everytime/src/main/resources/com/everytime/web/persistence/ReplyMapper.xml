@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.everytime.web.persistence.ReplyMapper">
+
+    <resultMap type="com.everytime.web.domain.ReplyVO" id="replyResultMap">
+        <id property="replyId" column="REPLY_ID"/>
+        <result property="postId" column="POST_ID"/>
+        <result property="boardId" column="BOARD_ID"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="nickname" column="NICKNAME"/>
+        <result property="replyDepth" column="REPLY_DEPTH"/>
+        <result property="replyDeleted" column="REPLY_DELETED"/>
+        <result property="replyAnonymous" column="REPLY_ANONYMOUS"/>
+        <result property="replyContent" column="REPLY_CONTENT"/>
+        <result property="replyDateCreated" column="REPLY_DATE_CREATED"/>
+        <result property="replyLikeCount" column="REPLY_LIKE_COUNT"/>
+    </resultMap>
+
+    <insert id="insertReply">
+        INSERT INTO REPLY (
+            REPLY_ID, POST_ID, BOARD_ID, MEMBER_ID, NICKNAME,
+            REPLY_DEPTH, REPLY_DELETED, REPLY_ANONYMOUS, REPLY_CONTENT,
+            REPLY_DATE_CREATED, REPLY_LIKE_COUNT
+        ) VALUES (
+            #{replyId}, #{postId}, #{boardId}, #{memberId}, #{nickname},
+            #{replyDepth}, #{replyDeleted}, #{replyAnonymous}, #{replyContent},
+            #{replyDateCreated}, #{replyLikeCount}
+        )
+    </insert>
+
+    <select id="getReplyById" resultMap="replyResultMap">
+        SELECT * FROM REPLY WHERE REPLY_ID = #{replyId}
+    </select>
+
+    <select id="getRepliesByPostId" resultMap="replyResultMap">
+        SELECT * FROM REPLY WHERE POST_ID = #{postId} ORDER BY REPLY_DATE_CREATED DESC
+    </select>
+
+
+    <delete id="deleteReply">
+        DELETE FROM REPLY WHERE REPLY_ID = #{replyId}
+    </delete>
+
+</mapper>

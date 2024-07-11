@@ -45,10 +45,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 
+	<select id="selectTopLikeReviewByCourseId" resultMap="reviewResultMap">
+	<![CDATA[
+        SELECT *
+        FROM (
+            SELECT *
+            FROM REVIEW
+            ORDER BY REVIEW_LIKE DESC
+        )
+        WHERE ROWNUM <= 2 AND COURSE_ID = #{courseId}
+    ]]>
+	</select>
+
+
 	<update id="updateReviewLike">
 		UPDATE REVIEW
 		SET REVIEW_LIKE = REVIEW_LIKE + 1
-		WHERE REVIEW_ID = #{reviewId}
+		WHERE
+		REVIEW_ID = #{reviewId}
 
 	</update>
 

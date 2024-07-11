@@ -36,7 +36,7 @@ public class PostController {
 		log.info("postVO = " + postVO.toString());
 		int result = postService.createPost(postVO);
 		log.info(result + "�뻾 �벑濡�");
-		return "redirect:/board/post_list";
+		return "board/post_list";
 	}
 
 	// 寃뚯떆湲� �닔�젙 (�솕硫�)
