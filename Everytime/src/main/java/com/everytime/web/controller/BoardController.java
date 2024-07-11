@@ -22,15 +22,19 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping
 @Log4j
 
-
-
 public class BoardController {
-	
+
 	@Autowired
-	private PostService postService; 
-	
+	private PostService postService;
+
 	// post_list.jsp �럹�씠吏� �샇異�
 	@GetMapping("/main")
+	public void main() {
+		log.info("main()");
+	}
+
+	// post_list.jsp �럹�씠吏� �샇異�
+	@GetMapping("/freeBoard")
 	public String postList(Model model) {
 		log.info("postList()");
 
@@ -43,7 +47,7 @@ public class BoardController {
 
 //		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("postList", postList); // �겢�씪�씠�뼵�듃濡� 媛앹껜 �쟾�떖
-		
+
 		return "board/post_list";
 	}
 

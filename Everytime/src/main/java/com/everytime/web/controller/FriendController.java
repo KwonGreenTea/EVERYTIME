@@ -131,5 +131,4 @@ public class FriendController {
 		reAttr.addFlashAttribute("errorMessage", "삭제 되었습니다.");
 		return "redirect:/frd";
 	}
-
 }

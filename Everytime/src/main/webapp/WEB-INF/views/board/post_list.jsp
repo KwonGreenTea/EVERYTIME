@@ -34,7 +34,7 @@
 			<div class="divider"></div>
 			<div class="group">
 				<ul>
-					<li><a href="/board/post_list" class="new">자유게시판</a></li>
+					<li><a href="freeBoard" class="new">자유게시판</a></li>
 
 				</ul>
 			</div>
@@ -125,7 +125,7 @@
 				</p>
 				<input type="hidden" name="postAnonymous" value="0">
 				<ul class="option">
-					<li title="첨부" class="attach"></li>
+					<li title="첨부" class="attach" id="attachBoard"></li>
 					<li title="완료" class="submit" id="submitBtn"></li>
 					<li title="익명" class="anonym"><br> <input type="checkbox"
 						name="PostAnonymous" value="1"><a> 익명</a></li>
@@ -188,6 +188,11 @@
 							document.getElementById('write').style.display = 'block';
 						});
 
+		document.getElementById('submitBtn').addEventListener('click',
+				function() {
+					document.getElementById('write').submit();
+				});
+		
 		document.getElementById('submitBtn').addEventListener('click',
 				function() {
 					document.getElementById('write').submit();
