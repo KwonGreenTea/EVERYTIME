@@ -91,5 +91,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM post
 		WHERE POST_ID = #{postId}
 	</delete>
+	
+	<update id="updatePostLike"> 
+	UPDATE POST 
+	
+	SET POST_LIKE_COUNT = POST_LIKE_COUNT +1 
+	
+	WHERE POST_ID = #{postId} 
+	</update>
+
+
 
 </mapper>

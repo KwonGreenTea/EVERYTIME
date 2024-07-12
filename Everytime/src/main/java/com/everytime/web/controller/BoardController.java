@@ -9,16 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.everytime.web.domain.PostVO;
 import com.everytime.web.domain.RegisterVO;
 import com.everytime.web.service.BoardService;
-import com.everytime.web.service.PostService;
-import com.everytime.web.util.PageMaker;
-import com.everytime.web.util.Pagination;
 
 import lombok.extern.log4j.Log4j;
 

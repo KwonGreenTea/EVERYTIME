@@ -25,10 +25,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(#{memberId}, #{password}, #{nickname}, #{name}, #{email}, #{phone})
 	</insert>
 
-	<select id="checkId" parameterType="String" resultType="int">
+	<select id="checkId" parameterType="String" resultType="Integer">
 		SELECT COUNT(*) FROM MEMBER WHERE MEMBER_ID = #{memberId}
 	</select>
 
+	<!-- 등록 정보 불러오기  -->
 	<select id="selectByRegisterId" resultMap="registerResultMap">
 		SELECT * FROM MEMBER WHERE MEMBER_ID = #{memberId}
 	</select>
@@ -37,7 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT MEMBER_ID FROM MEMBER WHERE EMAIL = #{email}
     </select>
    
-    <select id="checkEmail" parameterType="String" resultType="int">
+    <select id="checkEmail" parameterType="String" resultType="Integer">
         SELECT COUNT(*) FROM MEMBER WHERE EMAIL = #{email}
     </select>
 	
@@ -78,7 +79,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE MEMBER_ID = #{memberId}
 	</update>
 
-	<select id="verifyPw" resultType="int"> 
+	<select id="verifyPw" resultType="Integer"> 
 		SELECT COUNT(*) FROM MEMBER
 		WHERE MEMBER_ID = #{memberId} AND PASSWORD = #{password} 
 	</select>

@@ -3,6 +3,9 @@ package com.everytime.web.controller;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +37,25 @@ public class PostController {
 	@Autowired
 	private PostService postService;
 
+	
+	@GetMapping("post_list")
+	public String post_ListGET(Model model, Integer boardId,HttpServletRequest request) {
+		log.info("post_ListGET");
+		
+		HttpSession session = request.getSession();
+		String memberId = (String) session.getAttribute("memberId");
+		
+		// 게시물 목록 조회
+		List<PostVO> postList = postService.getAllPosts(boardId);
+		
+		model.addAttribute("postList", postList);
+		model.addAttribute("boardId", boardId);
+		model.addAttribute("memberId",memberId);
+		
+		return "board/post_list";
+	}
+	
+	
 	// 게시글 등록 (처리)
 	@PostMapping("create")
 	public String createPOST(PostVO postVO, RedirectAttributes reAttr) {
