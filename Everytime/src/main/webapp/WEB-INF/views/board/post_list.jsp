@@ -22,6 +22,7 @@
 
 <body>
 	<%@ include file="../header.jspf" %>
+	
 	<div id="submenu">
 		<div class="wrap">
 			<div class="divider"></div>
@@ -105,8 +106,8 @@
 			<form id="write" action="post/create" method="post"
 				class="write" style="display: none">
 
-				<input type="hidden" name="boardId" id="boardId" value="1"> <input
-					type="hidden" name="memberId" value="1">
+				<input type="hidden" name="boardId" id="boardId" value="${boardId }">
+				<input type="hidden" name="memberId" value="${memberId }">
 
 				<p>
 					<input name="postTitle" autocomplete="off" placeholder="글 제목"
@@ -132,7 +133,7 @@
 		<div class="wrap articles">
 			<c:forEach var="postVO" items="${postList}">
 				<article class="list">
-					<a class="article" href="/web/post/detail?boardId=1&postId=${postVO.postId}">
+					<a class="article" href="/web/post/detail?boardId=${boardId }&postId=${postVO.postId}">
 						<div class="desc">
 							<h2 class="medium bold">${postVO.postTitle}</h2>
 							<p class="medium">${postVO.postContent}</p>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.everytime.web.domain.PostVO;
+import com.everytime.web.domain.RegisterVO;
 import com.everytime.web.persistence.PostMapper;
 import com.everytime.web.util.Pagination;
 
@@ -69,5 +70,7 @@ public class PostServiceImple implements PostService {
         log.info("getTotalCount()");
         return postMapper.selectTotalCount();
     }
+
+	
 
 }
