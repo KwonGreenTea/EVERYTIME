@@ -53,7 +53,7 @@ public class ReviewLikeRestController {
 		
 	}
 	
-	@PostMapping("/postLike")
+	@PostMapping("post/postLike")
 	public ResponseEntity<Integer> postLike(@RequestBody PostLikeVO postLikeVO, HttpServletRequest request){
 		log.info("postLike");
 		

@@ -160,7 +160,7 @@
 					<h2 class="large">${postVO.postTitle}</h2>
 					<p class="large">${postVO.postContent}</p>
 					<ul class="status left">
-						<li title="공감" class="vote">1</li>
+						<li title="공감" class="vote"  id="${postVO.postId}">${postVO.postLikeCount}</li>
 						<li title="댓글" class="comment">1</li>
 						<li title="스크랩" class="scrap">1</li>
 					</ul>
@@ -349,7 +349,7 @@
 					data : JSON.stringify(obj),
 					success : function(result) {
 						if (result == 1) {
-							increaseLikeCount(reviewId);
+							increaseLikeCount(postId);
 							updateLikeVisibility();
 							// 실제 추천 추가 코드
 
@@ -363,10 +363,12 @@
 			function increaseLikeCount(postId) { // 추천 1개 증가시키기
 				console.log(postId);
 				var likeElement = $("#" + postId); // 추천 수를 표시하는 span 요소를 가져옴
+				console.log(likeElement);
 				var currentLikes = parseInt(likeElement.text()); // 현재 추천 수를 가져와 정수로 변환
-
+				console.log(currentLikes);
 				// 추천 수를 1 증가시킴
 				var newLikes = currentLikes + 1;
+				console.log(newLikes);
 				likeElement.text(newLikes); // 업데이트된 추천 수를 화면에 표시
 
 			}

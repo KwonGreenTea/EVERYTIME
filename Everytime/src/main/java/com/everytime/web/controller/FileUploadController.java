@@ -50,10 +50,23 @@ public class FileUploadController {
 	} // end uploadPOST()
 
 	// 다중 파일 업로드 수신 및 파일들 저장
-	@PostMapping("/uploads")
+	@PostMapping("/imgUploads")
 	public void uploadsPost(MultipartFile[] files) { // 배열에 전송된 파일들 적용
 		for (MultipartFile file : files) {
 			log.info(file.getOriginalFilename());
+			log.info("파일 이름 : " + file.getOriginalFilename());
+			log.info("파일 크기 : " + file.getSize());
+			
+			// 현재 날짜를 기반으로 디렉토리 경로 생성 (예: yyyy/MM/dd)
+	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+	        String datePath = sdf.format(new Date());
+
+	        // 날짜별 디렉토리 생성
+	        File dateDir = new File(uploadPath, datePath);
+	        if (!dateDir.exists()) {
+	            dateDir.mkdirs(); // 디렉토리 생성
+	        }
+	        
 			File savedFile = new File(uploadPath, file.getOriginalFilename());
 			try {
 				file.transferTo(savedFile); // 실제 경로에 파일 저장

@@ -3,7 +3,7 @@
 <nav>
 	<div class="wrap">
 		<div id="logo">
-			<a href="main"><img src="${pageContext.request.contextPath}/resources/images/soldesk.png" alt="Logo"></a>
+			<a href="${pageContext.request.contextPath}/main"><img src="${pageContext.request.contextPath}/resources/images/soldesk.png" alt="Logo"></a>
 			<p>
 				<span class="name multiple">에브리타임</span><span class="subname">솔데스크대
 					강남캠</span>

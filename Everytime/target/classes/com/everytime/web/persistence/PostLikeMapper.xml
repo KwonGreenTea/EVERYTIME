@@ -15,8 +15,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<insert id="likePost">
-		INSERT INTO REVIEW_LIKE VALUES
-		(LIKE_NO_SEQ.NEXTVAL, #{reviewId}, #{memberId})
+		INSERT INTO POST_LIKE VALUES
+		(POST_LIKE_NO_SEQ.NEXTVAL, #{postId}, #{memberId})
 	</insert>
 	
 	 <select id="selectLikeCountByPostId" resultType="Integer">
@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	</select>
 	
-	 <select id="checkIfLiked" resultType="Integer">
+	 <select id="checkIfPostLiked" resultType="Integer">
      SELECT COUNT(*) AS likeCount
      FROM POST_LIKE
      WHERE POST_ID = #{postId} AND MEMBER_ID = #{memberId}

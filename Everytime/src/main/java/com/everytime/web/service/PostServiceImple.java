@@ -23,10 +23,7 @@ public class PostServiceImple implements PostService {
     @Override
     public int createPost(PostVO postVO) {
         log.info("createPost()");
-        log.info(postVO);
-        int result = postMapper.insert(postVO);
-        log.info(result);
-        return result;
+        return postMapper.insert(postVO);
     }
 
     @Override
