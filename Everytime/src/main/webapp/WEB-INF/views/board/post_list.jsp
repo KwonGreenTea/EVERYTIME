@@ -21,7 +21,7 @@
 </head>
 
 <body>
-	<%@ include file="../header.jspf" %>
+	<%@ include file="../header.jspf"%>
 	<div id="submenu">
 		<div class="wrap">
 			<div class="divider"></div>
@@ -102,11 +102,10 @@
 
 		<div class="wrap articles">
 			<a id="writeArticleButton">새 글을 작성해주세요!</a>
-			<form id="write" action="post/create" method="post"
-				class="write" style="display: none">
-
-				<input type="hidden" name="boardId" id="boardId" value="1"> <input
-					type="hidden" name="memberId" value="1">
+			<form id="write" action="post/create" method="post" class="write"
+				style="display: none">
+				<input type="hidden" name="boardId" value="370449"> <input
+					type="hidden" name="memberId" value="${RegisterVO.memberId}">
 
 				<p>
 					<input name="postTitle" autocomplete="off" placeholder="글 제목"
@@ -116,6 +115,13 @@
 					<textarea name="postContent" placeholder="글 내용"
 						class="smallplaceholder"></textarea>
 				</p>
+
+				<!-- 파일 첨부 -->
+				<input class="file" type="file" id="attachBoardFile"
+					style="display: none;" multiple="multiple"
+					onchange="handleFileSelect(event)">
+				<ol class="thumbnails" id="thumbnails" style="display: none;"></ol>
+
 				<input type="hidden" name="postAnonymous" value="0">
 				<ul class="option">
 					<li title="첨부" class="attach" id="attachBoard"></li>
@@ -128,21 +134,76 @@
 
 		</div>
 
+		<script type="text/javascript">
+		 $('#attachBoard').click(function() {
+		        document.getElementById('attachBoardFile').click();
+		    });
+		 
+
+	        $(document).on('click', '#thumbnails .thumbnail img', function() {
+	            if(confirm("첨부된 이미지를 삭제할까요?")) {
+	                $(this).closest('li').remove();
+	            }
+	            
+	            if ($('#thumbnails li').length === 0) {
+                    $('#thumbnails').hide();
+                }
+	        });
+
+	        function handleFileSelect(event) {
+	            const files = event.target.files;
+	            const allowedExtensions = ['.jpg', '.jpeg', '.png'];
+
+	            for (let file of files) {
+	                const fileExtension = file.name.slice(((file.name.lastIndexOf(".") - 1) >>> 0) + 2).toLowerCase();
+
+	                if (allowedExtensions.includes('.' + fileExtension)) {
+	                    let maxSize = 5 * 1024 * 1024; // 5 MB 
+	                    if (file.size < maxSize) {
+	                    	const imgPreview = document.getElementById('thumbnails');
+	        	            imgPreview.style.display = "block";
+	        	            
+	                        const reader = new FileReader();
+	                        reader.onload = function(e) {
+	                            const li = document.createElement('li');
+	                            li.className = 'thumbnail attached';
+	                            const img = document.createElement('img');
+	                            img.src = e.target.result;
+	                            img.style.width = "85px";
+	                            img.style.height = "85px";
+	                            li.appendChild(img);
+	                            imgPreview.appendChild(li);
+	                        };
+	                        reader.readAsDataURL(file);
+	                    } else {
+	                        alert("파일 크기가 너무 큽니다. 최대 크기는 5MB입니다.");
+	                    }
+	                } else {
+	                    alert('허용되지 않는 파일 형식입니다.');
+	                }
+	            }
+	            event.target.value = '';
+	        }
+		</script>
+
 		<!-- 게시물 목록 -->
 		<div class="wrap articles">
 			<c:forEach var="postVO" items="${postList}">
 				<article class="list">
-					<a class="article" href="/web/post/detail?boardId=1&postId=${postVO.postId}">
+					<a class="article"
+						href="/web/post/detail?boardId=1&postId=${postVO.postId}">
 						<div class="desc">
 							<h2 class="medium bold">${postVO.postTitle}</h2>
 							<p class="medium">${postVO.postContent}</p>
 							<div class="info">
 								<ul class="status">
-									<li title="댓글" class="comment">1</li> <!-- 댓글 개수 -->
+									<li title="댓글" class="comment">1</li>
+									<!-- 댓글 개수 -->
 								</ul>
 								<time class="small">
 									<fmt:formatDate value="${postVO.postCreatedDate}"
-										pattern="MM/dd" />  <!-- 작성 날짜 -->
+										pattern="MM/dd" />
+									<!-- 작성 날짜 -->
 								</time>
 								<h3 class="small">익명</h3>
 							</div>
@@ -172,34 +233,52 @@
 	</div>
 
 	<hr>
-	<script>
-		document
-				.getElementById('writeArticleButton')
-				.addEventListener(
-						'click',
-						function() {
-							document.getElementById('write').style.display = 'block';
-						});
-
-		document.getElementById('submitBtn').addEventListener('click',
-				function() {
-					document.getElementById('write').submit();
-				});
-		
-		document.getElementById('submitBtn').addEventListener('click',
-				function() {
-					document.getElementById('write').submit();
-				});
-	</script>
-	
 	<script type="text/javascript">
-	$(document).ready(function() {
-		$("#writeArticleButton").click(function() {
-			$("#write_form").show();
-			$("#writeArticleButton").hide();
-		});
-	});
+    $(document).ready(function() {
+        $('#writeArticleButton').click(function() {
+            $('#write').show();
+        });
+
+        $('#submitBtn').click(function(event) {
+            event.preventDefault(); // 기본 폼 제출 동작 방지
+
+            const fileInput = document.getElementById('attachBoardFile');
+            const files = fileInput.files;
+
+            if (files.length > 0) {
+                const formData = new FormData();
+
+                for (let i = 0; i < files.length; i++) {
+                    formData.append('imgFiles[]', files[i]);
+                }
+
+                $.ajax({
+                    url: 'imgUploads', // 이미지 업로드를 처리할 서버 URL
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(result) {
+                        // 이미지 업로드 성공 후 폼 제출
+                        $('#write').off('submit').submit(); // 중복 제출 방지
+                    },
+                    error: function(xhr, status, error) {
+                        alert("첨부된 이미지에서 문제가 발생했습니다.");
+                    }
+                });
+            } else {
+                // 이미지 파일이 없는 경우 폼을 바로 제출
+                $('#write').submit();
+            }
+        });
+
+        // `#write` 폼을 초기 숨김 상태로 설정
+        $('#write').hide();
+    });
 </script>
+
+
+
 
 </body>
 </html>

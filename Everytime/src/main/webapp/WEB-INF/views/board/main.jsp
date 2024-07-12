@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-sdsd
+<%@ include file="../header.jspf" %>
+
+<div id="container">
+<br><br><br><br><br><br><br><br>
+	<a href="freeBoard">자유 게시판</a>
+</div>
 </body>
 </html>

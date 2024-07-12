@@ -71,7 +71,7 @@ public class MypageController {
 				imgSource = "image/" + year + "/" + month + "/" + day + "/" + profileName + "." + profileExtension;
 			} else {
 				// 기본 이미지 경로
-				imgSource = "image/profile/profile.png";
+				imgSource = "image/imageDir/profile.png";
 			}
 
 			model.addAttribute("imgSource", imgSource);
