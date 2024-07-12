@@ -13,7 +13,7 @@ public interface RegisterMapper {
 
    RegisterVO selectByRegisterId(String memberId); //    ̵    ȸ
 
-   List<Integer> selectIdList(); //
+   List<RegisterVO> selectIdList(); //
 
    int update(RegisterVO registerVO); // ȸ       
 
@@ -40,5 +40,4 @@ public interface RegisterMapper {
    int checkEmail(String email);
    
    String getMemberIdByEmail(String email);
-
 }

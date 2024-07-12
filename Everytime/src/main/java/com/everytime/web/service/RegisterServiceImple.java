@@ -29,8 +29,7 @@ public class RegisterServiceImple implements RegisterService {
 	}
 	
 	@Override
-	public List<Integer> getAllId() {
-		log.info("getAllId()");
+	public List<RegisterVO> getAllId() {
 		return registerMapper.selectIdList();
 	}
 	

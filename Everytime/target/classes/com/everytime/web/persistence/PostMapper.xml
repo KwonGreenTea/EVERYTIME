@@ -16,34 +16,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="postLikeCount" column="POST_LIKE_COUNT" />
 		<result property="postScrapCount" column="POST_SCRAP_COUNT" />
 		<result property="postAnonymous" column="POST_ANONYMOUS" />
+		<result property="postPath" column="POST_PATH" />
+		<result property="postRealName" column="POST_REAL_NAME" />
+		<result property="postChgName" column="POST_CHG_NAME" />
+		<result property="postExtension" column="POST_EXTENSION" />
 	</resultMap>
 
+	<!-- <insert id="insert"> INSERT INTO POST ( POST_ID, BOARD_ID, MEMBER_ID, 
+		POST_TITLE, POST_CONTENT, POST_CREATED_DATE, POST_ANONYMOUS, POST_PATH, POST_REAL_NAME, 
+		POST_CHG_NAME, POST_EXTENSION ) SELECT project.post_id_seq.nextval, #{boardId}, 
+		#{memberId}, #{postTitle}, #{postContent}, SYSDATE, NVL(#{postAnonymous, 
+		jdbcType=CHAR}, '0'), #{postPath}, #{postRealName}, #{postChgName}, #{postExtension} 
+		FROM dual </insert> -->
+
 	<insert id="insert">
-		INSERT INTO POST (
-		POST_ID, BOARD_ID, MEMBER_ID,
-		POST_TITLE, POST_CONTENT, POST_CREATED_DATE,
-		POST_ANONYMOUS
+		INSERT INTO POST
+		VALUES (#{boardId},
+		project.post_id_seq.nextval,
+		#{memberId}, #{postTitle},
+		#{postContent}, SYSDATE, 0, 0,
+		NVL(#{postAnonymous,
+		jdbcType=CHAR}, '0'),
+		#{postPath, jdbcType=VARCHAR},
+		#{postRealName, jdbcType=VARCHAR},
+		#{postChgName,
+		jdbcType=VARCHAR},
+		#{postExtension, jdbcType=VARCHAR}
 		)
-		select
-		project.post_id_seq.nextval, #{boardId}, #{memberId}, #{postTitle},
-		#{postContent}, SYSDATE,
-		nvl(#{postAnonymous, jdbcType=CHAR}, 0)
-		from
-		dual
 	</insert>
 
 	<select id="selectPostList" resultMap="postResultMap">
-		<!-- 전체 게시글 조회 
-		select  a.*, b.nickname
-		from    post a,
-		        member b
-		where   board_id = #{boardId}
-		and 	a.member_id = b.member_id     
-		order by post_id desc
-		-->
-		select	*
-		from	post
-		where	board_id = #{boardId}
+		<!-- 전체 게시글 조회 select a.*, b.nickname from post a, member b where board_id 
+			= #{boardId} and a.member_id = b.member_id order by post_id desc -->
+		select *
+		from post
+		where board_id = #{boardId}
 		order by post_id desc
 		<!-- SELECT BOARD_ID, BOARD_TITLE, BOARD_CONTENT, MEMBER_ID, BOARD_DATE_CREATED 
 			FROM BOARD와 동일 -->
@@ -67,13 +74,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="update">
 		UPDATE post
 		SET BOARD_ID = #{boardId},
-		MEMBER_ID = #{memberId},
+		MEMBER_ID =
+		#{memberId},
 		POST_TITLE = #{postTitle},
 		POST_CONTENT = #{postContent},
 		POST_CREATED_DATE = #{postCreatedDate},
-		POST_LIKE_COUNT = #{postLikeCount},
+		POST_LIKE_COUNT =
+		#{postLikeCount},
 		POST_SCRAP_COUNT = #{postScrapCount},
-		POST_ANONYMOUS = #{postAnonymous}
+		POST_ANONYMOUS =
+		#{postAnonymous}
 		WHERE POST_ID = #{postId}
 	</update>
 
@@ -81,14 +91,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM post
 		WHERE POST_ID = #{postId}
 	</delete>
-
-	<update id="updatePostLike">
-		UPDATE POST
-		SET POST_LIKE_COUNT = POST_LIKE_COUNT + 1
-		WHERE
-		POST_ID = #{postId}
-
+	
+	<update id="updatePostLike"> 
+	UPDATE POST 
+	
+	SET POST_LIKE_COUNT = POST_LIKE_COUNT +1 
+	
+	WHERE POST_ID = #{postId} 
 	</update>
+
 
 
 </mapper>
