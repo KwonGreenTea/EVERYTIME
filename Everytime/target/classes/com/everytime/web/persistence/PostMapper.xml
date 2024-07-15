@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="postScrapCount" column="POST_SCRAP_COUNT" />
 		<result property="postAnonymous" column="POST_ANONYMOUS" />
 	</resultMap>
-	
+
 	<resultMap type="com.everytime.web.domain.FileVO"
 		id="FileResultMap">
 		<id property="boardId" column="BOARD_ID" />
@@ -70,13 +70,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- SELECT BOARD_ID, BOARD_TITLE, BOARD_CONTENT, MEMBER_ID, BOARD_DATE_CREATED 
 			FROM BOARD와 동일 -->
 	</select>
-	
+
 	<select id="selectPostImgList" resultMap="FileResultMap">
 		SELECT * FROM IMG_FILE
 		where board_id = #{boardId}
 		order by post_id desc
 	</select>
-	
+
 	<select id="getPostById" resultMap="postResultMap">
 		SELECT BOARD_ID,
 		POST_ID,
@@ -91,13 +91,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE BOARD_ID = #{boardId}
 		AND POST_ID = #{postId}
 	</select>
-	
+
 	<select id="getImgById" resultMap="FileResultMap">
 		SELECT * FROM IMG_FILE
-		WHERE BOARD_ID = #{boardId}
+		WHERE
+		BOARD_ID = #{boardId}
 		AND POST_ID = #{postId}
 	</select>
-	
+
 	<select id="postIdByMemberId" resultType="int">
 		SELECT MAX(POST_ID)
 		FROM POST
@@ -125,12 +126,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE POST_ID = #{postId}
 	</delete>
 
+
 	<update id="updatePostLike">
 		UPDATE POST
 
 		SET POST_LIKE_COUNT = POST_LIKE_COUNT +1
 
 		WHERE POST_ID = #{postId}
+
 	</update>
 
 

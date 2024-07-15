@@ -49,29 +49,29 @@ public class BoardController {
       
       ProfileVO profileVO = profileService.getProfileById(memberId);
 
-		String imgSource;
-		if (profileVO != null) {
-			// 파일의 경로를 가져옴
-			String profilePath = profileVO.getProfilePath();
-			// 파일 참조를 위해 파일 경로 파싱
-			String[] parts = profilePath.split("\\\\");
-			String year = parts[0];
-			String month = parts[1];
-			String day = parts[2];
+      String imgSource;
+      if (profileVO != null) {
+         // 파일의 경로를 가져옴
+         String profilePath = profileVO.getProfilePath();
+         // 파일 참조를 위해 파일 경로 파싱
+         String[] parts = profilePath.split("\\\\");
+         String year = parts[0];
+         String month = parts[1];
+         String day = parts[2];
 
-			// 파일의 확장명을 가져옴
-			String profileExtension = profileVO.getProfileExtension();
+         // 파일의 확장명을 가져옴
+         String profileExtension = profileVO.getProfileExtension();
 
-			// 파일의 이름을 가져옴
-			String profileName = profileVO.getProfileRealName();
+         // 파일의 이름을 가져옴
+         String profileName = profileVO.getProfileRealName();
 
-			imgSource = "image/" + year + "/" + month + "/" + day + "/" + profileName + "." + profileExtension;
-		} else {
-			// 기본 이미지 경로
-			imgSource = "image/imageDir/profile.png";
-		}
+         imgSource = "image/" + year + "/" + month + "/" + day + "/" + profileName + "." + profileExtension;
+      } else {
+         // 기본 이미지 경로
+         imgSource = "image/imageDir/profile.png";
+      }
 
-		model.addAttribute("imgSource", imgSource);
+      model.addAttribute("imgSource", imgSource);
 
 //      PageMaker pageMaker = new PageMaker();
 //      pageMaker.setPagination(pagination);
