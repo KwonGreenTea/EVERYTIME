@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.everytime.web.domain.FileVO;
 import com.everytime.web.domain.PostVO;
-import com.everytime.web.domain.RegisterVO;
 import com.everytime.web.persistence.PostMapper;
 import com.everytime.web.util.Pagination;
 
@@ -31,6 +31,11 @@ public class PostServiceImple implements PostService {
         log.info("getAllPosts()");
         return postMapper.selectPostList(boardId);
     }
+    
+    @Override
+	public List<FileVO> getAllPostImgs(Integer boardId) {
+        return postMapper.selectPostImgList(boardId);
+	}
 
     @Override
     public PostVO getPostById(@Param("boardId") int boardId, @Param("postId") int postId) {
@@ -43,6 +48,11 @@ public class PostServiceImple implements PostService {
         return result;
         
     }
+    
+    @Override
+	public List<FileVO> getImgById(int boardId, int postId) {
+		return postMapper.getImgById(boardId, postId);
+	}
 
     @Override
     public int updatePost(PostVO postVO) {
@@ -67,6 +77,20 @@ public class PostServiceImple implements PostService {
         log.info("getTotalCount()");
         return postMapper.selectTotalCount();
     }
+
+	@Override
+	public int createPostFile(FileVO fileVO) {
+		return postMapper.insertFile(fileVO);
+	}
+
+	@Override
+	public int postIdByMemberId(String memberId) {
+		return postMapper.postIdByMemberId(memberId);
+	}
+
+	
+
+	
 
 	
 

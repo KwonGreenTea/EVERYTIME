@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>에브리타임</title>
 
 <link rel="stylesheet" href="https://everytime.kr/css/common.css" />
 <link rel="stylesheet"
@@ -82,7 +82,7 @@
       <div class="leftside">
          <div class="card pconly">
             <form class="logged">
-               <img src="https://cf-fpi.everytime.kr/0.png" class="picture">
+               <img src="${imgSource}" class="picture">
                <p class="nickname">${registerVO.nickname }</p>
                <p class="school">${registerVO.name }</p>
                <p class="school">${registerVO.email }</p>
@@ -99,27 +99,6 @@
                   href="/mycommentarticle" class="mycommentarticle">댓글 단 글</a> <a
                   href="/myscrap" class="myscrap">내 스크랩</a>
                <hr>
-            </div>
-         </div>
-         <div class="card">
-            <div class="banner">
-               <a
-                  href="https://ad.everytime.kr/adClick?adToken=5yoAUXr%2FgDBd0urnlhyNkrCAFMn6nmV6Xqd2HkOXuHyO9KyptvKWyRXB0pvPhrXZNq9OgNhbHJIYPdU7YlCEfNUraHk26EXIHk6fPeykM76axisGZieadMdOoY4EqYkGGj0czdssNtBDd%2BeXdqxun8mbyWmIKUcI7O%2BMzF%2FJ5pm41kXD5S7XWRrfTAK19QCCbDcq%2B0tlKhyc2ME3h4XB1i1o9vjqG4ErllMMYVUqceyeOwKTeuLLT%2B7juiHRIs4S"><img
-                  src="https://cf-eba.everytime.kr/20240703_NHR_Micogroup_card.jpg"></a>
-            </div>
-         </div>
-         <div class="card">
-            <div class="banner">
-               <a
-                  href="https://ad.everytime.kr/adClick?adToken=5yoAUXr%2FgDBd0urnlhyNkrCAFMn6nmV6Xqd2HkOXuHyO9KyptvKWyRXB0pvPhrXZNq9OgNhbHJIYPdU7YlCEfNUraHk26EXIHk6fPeykM76axisGZieadMdOoY4EqYkGGj0czdssNtBDd%2BeXdqxun8mbyWmIKUcI7O%2BMzF%2FJ5pkyPbxYxy4glavp0JaGTRVPnOhgpK59tkdHeBAQjOHnY1D74g3GvFSxRmNDkpyQRGNv3mLNOcHh9IbgKyCx6BwD"><img
-                  src="https://cf-eba.everytime.kr/20240711_cp_edu_alpha_card.png"></a>
-            </div>
-         </div>
-         <div class="card">
-            <div class="banner">
-               <a
-                  href="https://ad.everytime.kr/adClick?adToken=5yoAUXr%2FgDBd0urnlhyNkrCAFMn6nmV6Xqd2HkOXuHyO9KyptvKWyRXB0pvPhrXZNq9OgNhbHJIYPdU7YlCEfNUraHk26EXIHk6fPeykM76axisGZieadMdOoY4EqYkGGj0czdssNtBDd%2BeXdqxun8mbyWmIKUcI7O%2BMzF%2FJ5pl2JcoC7U%2FeMes0SaPMjnSQQ6h5MimxNudq5W5%2B9v6jLq%2FI2JqR%2B0M76FuZr2OIImXYXrbnHsG00jfC7GwMUvW6"><img
-                  src="https://cf-eba.everytime.kr/20240708_seastartup_card.png"></a>
             </div>
          </div>
       </div>
@@ -178,11 +157,6 @@
             </div>
          </div>
       </div>
-      <div class="banners">
-         <a
-            href="https://ad.everytime.kr/adClick?adToken=DqA51qXsalDWZJacHdIiemM3%2BS3kv%2FCCjFDRw0MF9us%2FFdn3r5TAPtJxfj7A%2BCu2%2B%2Beq%2F9%2Fknsq2bgzKIijZt%2FnxtfIDJ%2Be5BhjoMNZsZAEOgrRf%2B1TCMO26veuhP2UUmjFlSNYM3YYd45%2F%2BHiPVmbV70Q5qy5EvCCWz3W0F5PamUu3CxDPJjbPBhCXLnAASMWoHdpDA1VpBJWjIaQqfZdkqmp1mM1%2Fg4TcE4rvCgnAf6y20Bm4dGzrO%2F9GR7DLO"><img
-            src="https://cf-eba.everytime.kr/20240703_WEST_July_B_home.jpg"></a>
-      </div>
       <div class="main">
          <div class="card">
             <div class="board">
@@ -194,8 +168,6 @@
                   <p>${postVO.postTitle }</p>
                   <hr>
                </c:forEach>
-               
-
             </div>
          </div>
          <div class="card">
@@ -440,25 +412,6 @@
             </div>
          </div>
          <hr>
-         <div class="bookstore">
-            <a class="item" href="https://bookstore.everytime.kr"><div
-                  class="image"
-                  style="background-image: url(&quot;https://cf-cii.everytime.kr/8b46ba32e83b9974789415d1cf0ad7e6498e553a72b17192241d8fee4cd8c659/1720673867612_0_thumb.jpg&quot;);"></div>
-               <h4>일반물리학 1</h4>
-               <span class="price">18,000원</span></a><a class="item"
-               href="https://bookstore.everytime.kr"><div class="image"
-                  style="background-image: url(&quot;https://cf-cii.everytime.kr/9e9be678de8d5b3e9172fdb6216e89f45db656b89f9920472c29351513780b12/1720169470742_0_thumb.jpg&quot;);"></div>
-               <h4>생명의 위대한 비밀</h4>
-               <span class="price">10,000원</span></a><a class="item"
-               href="https://bookstore.everytime.kr"><div class="image"
-                  style="background-image: url(&quot;https://cf-cii.everytime.kr/b3f7ed46df6685e6722bf793dab12e81d88f67029a6d268a649f3081f37382b6/1720169195399_0_thumb.jpg&quot;);"></div>
-               <h4>생명의 위대한 비밀</h4>
-               <span class="price">10,000원</span></a><a class="item"
-               href="https://bookstore.everytime.kr"><div class="image"
-                  style="background-image: url(&quot;https://cf-cii.everytime.kr/0e6aaaebf442db3284c4e9ea0290951308ba6549e833c62d5ed37408527a1296/1719766494384_0_thumb.jpg&quot;);"></div>
-               <h4>파이썬인공지능COS Pro 2급</h4>
-               <span class="price">5,000원</span></a>
-         </div>
       </div>
    </div>
    

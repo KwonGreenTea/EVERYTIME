@@ -24,7 +24,7 @@
 
 <body>
 
-	<%@ include file="../header.jspf" %>
+	<%@ include file="../header.jspf"%>
 	<div id="submenu">
 		<div class="wrap">
 			<div class="divider"></div>
@@ -142,6 +142,7 @@
 		<div class="wrap articles">
 			<a id="writeArticleButton" style="display: none;">새 글을 작성해주세요!</a>
 			<article class="item">
+				<!--  -->
 				<a class="article"><img src="https://cf-fpi.everytime.kr/0.png"
 					class="picture large">
 					<div class="profile">
@@ -159,15 +160,27 @@
 					<hr>
 					<h2 class="large">${postVO.postTitle}</h2>
 					<p class="large">${postVO.postContent}</p>
+
+					<div class="attaches multiple">
+						<c:forEach var="src" items="${imgSource}">
+							<c:if test="${not empty src}">
+								<figure class="attach">
+									<img src="../${src}">
+								</figure>
+							</c:if>
+						</c:forEach>
+					</div>
+
+
 					<ul class="status left">
-						<li title="공감" class="vote"  id="${postVO.postId}">${postVO.postLikeCount}</li>
+						<li title="공감" class="vote" id="${postVO.postId}">${postVO.postLikeCount}</li>
 						<li title="댓글" class="comment">1</li>
 						<li title="스크랩" class="scrap">1</li>
 					</ul>
 					<hr>
 					<div class="buttons">
-						<span class="posvote" data-post-id="${postVO.postId}">공감</span>
-						<span class="scrap">스크랩</span>
+						<span class="posvote" data-post-id="${postVO.postId}">공감</span> <span
+							class="scrap">스크랩</span>
 					</div> <input type="hidden" name="346406404_comment_anonym" value="0"></a>
 
 				<!-- #####################댓글 목록##################### -->
@@ -221,13 +234,14 @@
 					</form>
 
 					<!-- #####################댓글 작성##################### -->
-					<form class="writecomment" id = "writecomment" action="/web/reply/create" method="post">
+					<form class="writecomment" id="writecomment"
+						action="/web/reply/create" method="post">
 						<input type="text" name="replyContent" maxlength="300"
 							autocomplete="off" placeholder="댓글을 입력하세요." class="text">
 						<input type="hidden" name="boardId" id="boardId"
-							value="${param.boardId}">
-						<input type="hidden" name="postId" id="postId" value="${param.postId}">
-						<input type="hidden" name="memberId" id="memberId" value="test">
+							value="${param.boardId}"> <input type="hidden"
+							name="postId" id="postId" value="${param.postId}"> <input
+							type="hidden" name="memberId" id="memberId" value="test">
 						<input type="hidden" name="memberId" id="memberId" value="test">
 						<input type="hidden" name="memberId" id="memberId" value="test">
 
@@ -321,9 +335,7 @@
 				$("#write_form").show();
 				$("#writeArticleButton").hide();
 			});
-			
-			
-			
+
 			$(".posvote").click(function() {
 				var postId = $(this).data('post-id'); // 클릭된 버튼의 data-review-id 값을 가져옴
 				console.log(postId);
@@ -385,9 +397,7 @@
 					}
 				});
 			}
-			
-			
-			
+
 		}); // end document();
 	</script>
 
