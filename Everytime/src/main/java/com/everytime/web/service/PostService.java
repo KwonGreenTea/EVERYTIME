@@ -34,6 +34,8 @@ public interface PostService {
 
 	PostVO getPostDataByPostId(int postId);
 	
+	List<PostVO> searchPost(String keyword);
+	
 	//////////////////////////////////////////
 	
 	

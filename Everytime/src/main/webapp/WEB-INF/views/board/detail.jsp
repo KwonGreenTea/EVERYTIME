@@ -30,8 +30,10 @@
 			<div class="divider"></div>
 			<div class="group">
 				<ul>
-					<li><a href="/board/free_board" data-id="370449" class="new">자유게시판</a></li>
-
+					<li><a href="post/post_list?boardId=1" class="new">자유게시판</a></li>
+					<li><a href="post/post_list?boardId=2" class="new">비밀게시판</a></li>
+					<li><a href="post/post_list?boardId=3" class="new">졸업생게시판</a></li>
+					<li><a href="post/post_list?boardId=4" class="new">새내기게시판</a></li>
 				</ul>
 			</div>
 			<div class="group">
@@ -63,6 +65,7 @@
 		</div>
 		<input type="hidden" id="communityCampusId" value="23">
 	</div>
+
 
 
 	<div id="container" class="article">
@@ -409,18 +412,18 @@
 			}
 
 			function increaseLikeCount(postId) {
-		        var likeElement = $("#like-" + postId); // 공감 수를 표시하는 li 요소를 가져옴
-		        var currentLikes = parseInt(likeElement.text());
-		        var newLikes = currentLikes + 1;
-		        likeElement.text(newLikes);
-		    }
+				var likeElement = $("#like-" + postId); // 공감 수를 표시하는 li 요소를 가져옴
+				var currentLikes = parseInt(likeElement.text());
+				var newLikes = currentLikes + 1;
+				likeElement.text(newLikes);
+			}
 
-		    function increaseScrapCount(postId) {
-		        var scrapElement = $("#scrap-" + postId); // 스크랩 수를 표시하는 li 요소를 가져옴
-		        var currentScraps = parseInt(scrapElement.text());
-		        var newScraps = currentScraps + 1;
-		        scrapElement.text(newScraps);
-		    }
+			function increaseScrapCount(postId) {
+				var scrapElement = $("#scrap-" + postId); // 스크랩 수를 표시하는 li 요소를 가져옴
+				var currentScraps = parseInt(scrapElement.text());
+				var newScraps = currentScraps + 1;
+				scrapElement.text(newScraps);
+			}
 
 		}); // end document();
 	</script>

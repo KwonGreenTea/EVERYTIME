@@ -97,6 +97,11 @@ public class PostServiceImple implements PostService {
 	public PostVO getPostDataByPostId(int postId) {
 		return postMapper.getPostDataByPostId(postId);
 	}
+	
+	public List<PostVO> searchPost(String keyword) {
+		log.info("searchPost()");
+		return postMapper.searchPost(keyword);
+	}
 
 	
 
