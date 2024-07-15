@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.everytime.web.domain.FileVO;
 import com.everytime.web.domain.PostVO;
 import com.everytime.web.util.Pagination;
 
@@ -33,5 +34,13 @@ public interface PostMapper {
 	// 게시글 좋아요 업데이트
 	
 	int updatePostLike(int postId);
+
+	int insertFile(FileVO fileVO);
+	
+	int postIdByMemberId(String memberId);
+
+	List<FileVO> selectPostImgList(Integer boardId);
+
+	List<FileVO> getImgById(@Param("boardId") int boardId, @Param("postId") int postId);
 	
 }

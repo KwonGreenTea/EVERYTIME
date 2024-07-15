@@ -26,11 +26,5 @@ public class PostVO {
 	private int postScrapCount;
 	private String postAnonymous;
 	
-	// 이미지 파일 관련 VO
 	private MultipartFile file;
-	private String postPath;
-	private String postRealName;
-	private String postChgName;
-	private String postExtension;
-	
 }

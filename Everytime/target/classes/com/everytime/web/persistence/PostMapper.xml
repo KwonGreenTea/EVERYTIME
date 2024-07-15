@@ -16,10 +16,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="postLikeCount" column="POST_LIKE_COUNT" />
 		<result property="postScrapCount" column="POST_SCRAP_COUNT" />
 		<result property="postAnonymous" column="POST_ANONYMOUS" />
+	</resultMap>
+
+	<resultMap type="com.everytime.web.domain.FileVO"
+		id="FileResultMap">
+		<id property="boardId" column="BOARD_ID" />
 		<result property="postPath" column="POST_PATH" />
 		<result property="postRealName" column="POST_REAL_NAME" />
 		<result property="postChgName" column="POST_CHG_NAME" />
 		<result property="postExtension" column="POST_EXTENSION" />
+		<result property="postId" column="POST_ID" />
 	</resultMap>
 
 	<!-- <insert id="insert"> INSERT INTO POST ( POST_ID, BOARD_ID, MEMBER_ID, 
@@ -34,14 +40,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES (#{boardId},
 		project.post_id_seq.nextval,
 		#{memberId}, #{postTitle},
-		#{postContent}, SYSDATE, 0, 0,
+		#{postContent},
+		SYSDATE, 0, 0,
 		NVL(#{postAnonymous,
-		jdbcType=CHAR}, '0'),
-		#{postPath, jdbcType=VARCHAR},
+		jdbcType=CHAR}, '0')
+		)
+	</insert>
+
+	<insert id="insertFile">
+		INSERT INTO IMG_FILE
+		VALUES (#{boardId},
+		#{postPath,
+		jdbcType=VARCHAR},
 		#{postRealName, jdbcType=VARCHAR},
 		#{postChgName,
 		jdbcType=VARCHAR},
-		#{postExtension, jdbcType=VARCHAR}
+		#{postExtension, jdbcType=VARCHAR},
+		#{postId}
 		)
 	</insert>
 
@@ -54,6 +69,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by post_id desc
 		<!-- SELECT BOARD_ID, BOARD_TITLE, BOARD_CONTENT, MEMBER_ID, BOARD_DATE_CREATED 
 			FROM BOARD와 동일 -->
+	</select>
+
+	<select id="selectPostImgList" resultMap="FileResultMap">
+		SELECT * FROM IMG_FILE
+		where board_id = #{boardId}
+		order by post_id desc
 	</select>
 
 	<select id="getPostById" resultMap="postResultMap">
@@ -69,6 +90,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM post
 		WHERE BOARD_ID = #{boardId}
 		AND POST_ID = #{postId}
+	</select>
+
+	<select id="getImgById" resultMap="FileResultMap">
+		SELECT * FROM IMG_FILE
+		WHERE
+		BOARD_ID = #{boardId}
+		AND POST_ID = #{postId}
+	</select>
+
+	<select id="postIdByMemberId" resultType="int">
+		SELECT MAX(POST_ID)
+		FROM POST
+		WHERE MEMBER_ID = #{memberId}
 	</select>
 
 	<update id="update">
@@ -91,13 +125,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM post
 		WHERE POST_ID = #{postId}
 	</delete>
-	
-	<update id="updatePostLike"> 
-	UPDATE POST 
-	
-	SET POST_LIKE_COUNT = POST_LIKE_COUNT +1 
-	
-	WHERE POST_ID = #{postId} 
+
+
+	<update id="updatePostLike">
+		UPDATE POST
+
+		SET POST_LIKE_COUNT = POST_LIKE_COUNT +1
+
+		WHERE POST_ID = #{postId}
+
 	</update>
 
 

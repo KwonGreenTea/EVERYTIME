@@ -19,10 +19,31 @@
 	href="https://everytime.kr/css/container.modal.css" />
 
 </head>
+<style>
+#thumbnails {
+	display: none;
+	list-style: none;
+	padding: 0;
+}
 
+#thumbnails .thumbnail {
+	display: inline-block;
+	margin: 5px;
+}
+
+#thumbnails .thumbnail img {
+	width: 85px;
+	height: 85px;
+}
+</style>
 <body>
+<<<<<<< HEAD
 	<%@ include file="../header.jspf" %>
 	
+=======
+	<%@ include file="../header.jspf"%>
+
+>>>>>>> branch 'master' of https://github.com/KwonGreenTea/EVERYTIME
 	<div id="submenu">
 		<div class="wrap">
 			<div class="divider"></div>
@@ -103,11 +124,18 @@
 
 		<div class="wrap articles">
 			<a id="writeArticleButton">새 글을 작성해주세요!</a>
+<<<<<<< HEAD
 			<form id="write" action="post/create" method="post"
 				class="write" style="display: none">
 
 				<input type="hidden" name="boardId" id="boardId" value="${boardId }">
 				<input type="hidden" name="memberId" value="${memberId }">
+=======
+			<form id="write" action="create" method="post" class="write"
+				style="display: none" enctype="multipart/form-data">
+				<input type="hidden" name="boardId" id="boardId" value="1">
+				<input type="hidden" name="memberId" value="${memberId}">
+>>>>>>> branch 'master' of https://github.com/KwonGreenTea/EVERYTIME
 
 				<p>
 					<input name="postTitle" autocomplete="off" placeholder="글 제목"
@@ -117,6 +145,16 @@
 					<textarea name="postContent" placeholder="글 내용"
 						class="smallplaceholder"></textarea>
 				</p>
+<<<<<<< HEAD
+=======
+
+				<input class="file" type="file" id="attachBoardFile" name="imgFiles"
+					style="display: none;" multiple="multiple"
+					data-gtm-form-interact-field-id="0"
+					onchange="handleFileSelect(event)">
+				<ol class="thumbnails" id="thumbnails" style="display: none;"></ol>
+
+>>>>>>> branch 'master' of https://github.com/KwonGreenTea/EVERYTIME
 				<input type="hidden" name="postAnonymous" value="0">
 				<ul class="option">
 					<li title="첨부" class="attach"></li>
@@ -126,14 +164,18 @@
 				</ul>
 				<div class="clearBothOnly"></div>
 			</form>
-
 		</div>
 
 		<!-- 게시물 목록 -->
 		<div class="wrap articles">
 			<c:forEach var="postVO" items="${postList}">
 				<article class="list">
+<<<<<<< HEAD
 					<a class="article" href="/web/post/detail?boardId=${boardId }&postId=${postVO.postId}">
+=======
+					<a class="article"
+						href="/web/post/detail?boardId=${boardId }&postId=${postVO.postId}">
+>>>>>>> branch 'master' of https://github.com/KwonGreenTea/EVERYTIME
 						<div class="desc">
 							<h2 class="medium bold">${postVO.postTitle}</h2>
 							<p class="medium">${postVO.postContent}</p>
@@ -147,9 +189,16 @@
 								</time>
 								<h3 class="small">익명</h3>
 							</div>
-							<hr />
-						</div>
-
+							<hr>
+						</div> <c:forEach var="img" items="${postImgList}">
+							<c:if test="${post.postId == img.postId}">
+								<div class="attachthumbnail">
+									<img
+										src="<c:url value='/image/${img.postPath}/${img.postChgName}'/>"
+										alt="${img.postRealName}" />
+								</div>
+							</c:if>
+						</c:forEach>
 					</a>
 					<div class="comments"></div>
 				</article>
@@ -173,6 +222,7 @@
 	</div>
 
 	<hr>
+<<<<<<< HEAD
 	<script>
 		document
 				.getElementById('writeArticleButton')
@@ -188,7 +238,11 @@
 				});
 	</script>
 	
+=======
+
+>>>>>>> branch 'master' of https://github.com/KwonGreenTea/EVERYTIME
 	<script type="text/javascript">
+<<<<<<< HEAD
 	$(document).ready(function() {
 		$("#writeArticleButton").click(function() {
 			$("#write_form").show();
@@ -196,6 +250,98 @@
 		});
 	});
 </script>
+=======
+		function handleFileSelect(event) {
+	        const files = event.target.files;
+	        const allowedExtensions = ['.jpg', '.jpeg', '.png'];
+	
+	        const imgPreview = document.getElementById('thumbnails');
+	        imgPreview.innerHTML = ''; 
+	        imgPreview.style.display = 'none'; 
+	
+	        for (let file of files) {
+	            const fileExtension = file.name.slice(((file.name.lastIndexOf(".") - 1) >>> 0) + 2).toLowerCase();
+	            if (allowedExtensions.includes('.' + fileExtension)) {
+	                let maxSize = 5 * 1024 * 1024; // 5 MB 
+	                if (file.size < maxSize) {
+	                    imgPreview.style.display = "block";
+	                    const reader = new FileReader();
+	                    reader.onload = function(e) {
+	                        const li = document.createElement('li');
+	                        li.className = 'thumbnail attached';
+	                        const img = document.createElement('img');
+	                        img.src = e.target.result;
+	                        li.appendChild(img);
+	                        imgPreview.appendChild(li);
+	                    };
+	                    reader.readAsDataURL(file);
+	                } else {
+	                    alert("파일 크기가 너무 큽니다. 최대 크기는 5MB입니다.");
+	                }
+	            } else {
+	                alert('허용되지 않는 파일 형식입니다.');
+	            }
+	        }
+	    }
+		
+	
+		$(document).ready(function() {
+			$('#attachBoard').click(function() {
+				$('#attachBoardFile').click();
+			});
+		 
+	        $(document).on('click', '#thumbnails .thumbnail img', function() {
+	            if(confirm("첨부된 이미지를 삭제할까요?")) {
+	                $(this).closest('li').remove();
+	            }
+	            
+	            if ($('#thumbnails li').length === 0) {
+                    $('#thumbnails').hide();
+                }
+	        });
+	        
+	        $('#submitBtn').click(function(event) {
+                event.preventDefault();
+                const fileInput = document.getElementById('attachBoardFile');
+                const files = fileInput.files;
+                
+                console.log("Files length:", files.length); 
+                console.log("Files:", files); 
+
+                if (files.length > 0) {
+                    const formData = new FormData();
+                    for (let i = 0; i < files.length; i++) {
+                        formData.append('imgFiles', files[i]);
+                    }
+                    
+                    $.ajax({
+                        url: '../imgUploads',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(result) {
+                            $('#write').submit();
+                        },
+                        error: function(xhr, status, error) {
+                            alert("첨부된 이미지에서 문제가 발생했습니다.");
+                        }
+                    });
+                } else {
+                    $('#write').submit(); 
+                }
+            });
+	    });
+		</script>
+
+	<script type="text/javascript">
+			$(document).ready(function() {
+				$("#writeArticleButton").click(function() {
+					$("#write").show();
+				});
+			});
+		</script>
+>>>>>>> branch 'master' of https://github.com/KwonGreenTea/EVERYTIME
 
 </body>
 </html>
