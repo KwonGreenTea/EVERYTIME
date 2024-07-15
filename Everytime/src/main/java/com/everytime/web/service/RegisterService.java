@@ -7,7 +7,7 @@ import com.everytime.web.domain.RegisterVO;
 public interface RegisterService {
 	int createRegister(RegisterVO registerVO);
 	RegisterVO getRegisterById(String memberId);
-	List<Integer> getAllId();
+	List<RegisterVO> getAllId();
 	int updateRegister(RegisterVO registerVO);
 	int deleteRegister(String memberId);
 	boolean unregister(String memberId, String password);

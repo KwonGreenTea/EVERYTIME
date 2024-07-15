@@ -24,7 +24,7 @@
 
 <body>
 
-	<%@ include file="../header.jspf" %>
+	<%@ include file="../header.jspf"%>
 	<div id="submenu">
 		<div class="wrap">
 			<div class="divider"></div>
@@ -142,6 +142,7 @@
 		<div class="wrap articles">
 			<a id="writeArticleButton" style="display: none;">새 글을 작성해주세요!</a>
 			<article class="item">
+				<!--  -->
 				<a class="article"><img src="https://cf-fpi.everytime.kr/0.png"
 					class="picture large">
 					<div class="profile">
@@ -159,14 +160,27 @@
 					<hr>
 					<h2 class="large">${postVO.postTitle}</h2>
 					<p class="large">${postVO.postContent}</p>
+
+					<div class="attaches multiple">
+						<c:forEach var="src" items="${imgSource}">
+							<c:if test="${not empty src}">
+								<figure class="attach">
+									<img src="../${src}">
+								</figure>
+							</c:if>
+						</c:forEach>
+					</div>
+
+
 					<ul class="status left">
-						<li title="공감" class="vote">1</li>
+						<li title="공감" class="vote" id="${postVO.postId}">${postVO.postLikeCount}</li>
 						<li title="댓글" class="comment">1</li>
 						<li title="스크랩" class="scrap">1</li>
 					</ul>
 					<hr>
 					<div class="buttons">
-						<span class="posvote">공감</span><span class="scrap">스크랩</span>
+						<span class="posvote" data-post-id="${postVO.postId}">공감</span> <span
+							class="scrap">스크랩</span>
 					</div> <input type="hidden" name="346406404_comment_anonym" value="0"></a>
 
 				<!-- #####################댓글 목록##################### -->
@@ -220,13 +234,14 @@
 					</form>
 
 					<!-- #####################댓글 작성##################### -->
-					<form class="writecomment" id = "writecomment" action="/web/reply/create" method="post">
+					<form class="writecomment" id="writecomment"
+						action="/web/reply/create" method="post">
 						<input type="text" name="replyContent" maxlength="300"
 							autocomplete="off" placeholder="댓글을 입력하세요." class="text">
 						<input type="hidden" name="boardId" id="boardId"
-							value="${param.boardId}">
-						<input type="hidden" name="postId" id="postId" value="${param.postId}">
-						<input type="hidden" name="memberId" id="memberId" value="test">
+							value="${param.boardId}"> <input type="hidden"
+							name="postId" id="postId" value="${param.postId}"> <input
+							type="hidden" name="memberId" id="memberId" value="test">
 						<input type="hidden" name="memberId" id="memberId" value="test">
 						<input type="hidden" name="memberId" id="memberId" value="test">
 
@@ -320,7 +335,70 @@
 				$("#write_form").show();
 				$("#writeArticleButton").hide();
 			});
-		});
+
+			$(".posvote").click(function() {
+				var postId = $(this).data('post-id'); // 클릭된 버튼의 data-review-id 값을 가져옴
+				console.log(postId);
+				if (confirm("이 강의평을 추천하시겠습니까?")) {
+					addLike(postId); // reviewId를 파라미터로 넘겨 추천 함수 호출
+
+				} else {
+					// 취소 버튼을 클릭한 경우의 처리
+				}
+			});
+
+			function addLike(postId) {
+				var obj = {
+					'postId' : postId
+				};
+
+				$.ajax({
+					type : 'POST',
+					url : 'postLike',
+					headers : {
+						'Content-Type' : 'application/json'
+					},
+					data : JSON.stringify(obj),
+					success : function(result) {
+						if (result == 1) {
+							increaseLikeCount(postId);
+							updateLikeVisibility();
+							// 실제 추천 추가 코드
+
+						} else {
+							alert("이미 추천하였습니다.")
+						}
+					}
+				}); // and ajax
+			} // end addLike
+
+			function increaseLikeCount(postId) { // 추천 1개 증가시키기
+				console.log(postId);
+				var likeElement = $("#" + postId); // 추천 수를 표시하는 span 요소를 가져옴
+				console.log(likeElement);
+				var currentLikes = parseInt(likeElement.text()); // 현재 추천 수를 가져와 정수로 변환
+				console.log(currentLikes);
+				// 추천 수를 1 증가시킴
+				var newLikes = currentLikes + 1;
+				console.log(newLikes);
+				likeElement.text(newLikes); // 업데이트된 추천 수를 화면에 표시
+
+			}
+
+			function updateLikeVisibility() {
+				$('.posvote').each(function() {
+					var likeCountText = $(this).text().trim();
+					var likeCount = parseInt(likeCountText);
+
+					if (likeCount === 0) {
+						$(this).closest('span').hide(); // 가장 가까운 <span> 요소를 숨김
+					} else {
+						$(this).closest('span').show(); // 가장 가까운 <span> 요소를 보임
+					}
+				});
+			}
+
+		}); // end document();
 	</script>
 
 	<script type="text/javascript">

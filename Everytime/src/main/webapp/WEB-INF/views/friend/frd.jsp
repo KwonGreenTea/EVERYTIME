@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>에브리타임</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -18,9 +18,8 @@
 	href="https://everytime.kr/css/container.community.css" />
 <link rel="stylesheet"
 	href="https://everytime.kr/css/container.modal.css" />
-<link rel="stylesheet"
-	href="resources/css/friend.css" />
-	<script type="text/javascript" src="resources/js/friend.js"></script>
+<link rel="stylesheet" href="resources/css/friend.css" />
+<script type="text/javascript" src="resources/js/friend.js"></script>
 </head>
 <body>
 	<%@ include file="../header.jspf"%>
@@ -38,7 +37,7 @@
 
 		<ul>
 			<c:forEach var="friendVO" items="${requestList}">
-				<li>${friendVO.responseName}님이 친구요청을 보냈습니다
+				<li>${friendVO.responseName}님이친구요청을보냈습니다
 					<form action="frd/accept" method="post">
 						<input type="hidden" id="responseId" name="responseId"
 							value="${friendVO.responseId}"> <input type="submit"
@@ -65,14 +64,14 @@
 			</c:forEach>
 		</ul>
 	</div>
-	
+
 	<script type="text/javascript">
-	window.onload = function() {
-		var error = '<c:out value="${errorMessage}" default=""/>';
-		if (error) {
-			alert(error);
+		window.onload = function() {
+			var error = '<c:out value="${errorMessage}" default=""/>';
+			if (error) {
+				alert(error);
+			}
 		}
-	}
 	</script>
 </body>
 </html>

@@ -34,6 +34,8 @@ public class FriendController {
 	public String frdmainGET(HttpServletRequest request, Model model) {
 		log.info("frdMainGET");
 
+		
+		
 		HttpSession session = request.getSession();
 		String requestId = (String) session.getAttribute("memberId");
 		if (requestId != null) {
@@ -131,5 +133,4 @@ public class FriendController {
 		reAttr.addFlashAttribute("errorMessage", "삭제 되었습니다.");
 		return "redirect:/frd";
 	}
-
 }
