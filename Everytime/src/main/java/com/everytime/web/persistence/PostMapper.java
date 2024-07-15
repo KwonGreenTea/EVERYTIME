@@ -59,6 +59,9 @@ public interface PostMapper {
 	
 	// 모든 게시글 검색
 	List<PostVO> searchPost(String keyword);
+
+	// 스크랩 카운트 -1
+	int deletePostScrap(int postId);
 	
 	
 	

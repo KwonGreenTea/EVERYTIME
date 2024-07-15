@@ -159,6 +159,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</update>
 
+	<update id="deletePostScrap">
+		UPDATE POST
+
+		SET POST_SCRAP_COUNT = POST_SCRAP_COUNT -1
+
+		WHERE POST_ID = #{postId}
+
+	</update>
 
 <!-- 게시글 검색  -->
 	

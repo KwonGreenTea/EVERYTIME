@@ -15,5 +15,9 @@ public interface ScrapMapper {
 	int postScrap(ScrapVO scrapVO);
 
 	List<Integer> selectScrapById(String memberId);
+
+	int postDeleteScrap(ScrapVO scrapVO);
+
+	int postChkScrap(ScrapVO scrapVO);
 	
 }

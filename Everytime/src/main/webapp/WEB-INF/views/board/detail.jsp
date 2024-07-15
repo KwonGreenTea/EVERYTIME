@@ -184,7 +184,8 @@
 					<hr>
 					<div class="buttons">
 						<span class="posvote" data-post-id="${postVO.postId}">공감</span> <span
-							class="posScrap" data-post-id="${postVO.postId}">스크랩</span>
+							class="posScrap" data-post-id="${postVO.postId}"
+							data-scrap-status="not-scraped">스크랩</span>
 					</div> <input type="hidden" name="346406404_comment_anonym" value="0"></a>
 
 				<!-- #####################댓글 목록##################### -->
@@ -353,11 +354,23 @@
 			// 스크랩 버튼 클릭 이벤트
 			$(".posScrap").click(function() {
 				var postId = $(this).data('post-id');
-				console.log("스크랩 클릭, postId:", postId);
-				if (confirm("이 글을 스크랩 하시겠습니까?")) {
-					addScrap(postId);
+				var scrapStatus = $(this).data('scrap-status');
+				if (scrapStatus === 'not-scraped') {
+					if (confirm("이 글을 스크랩 하시겠습니까?")) {
+						addScrap(postId, $(this));
+					}
+				} else {
+					if (confirm("스크랩을 취소하시겠습니까?")) {
+						cancelScrap(postId, $(this));
+					}
 				}
 			});
+			
+			$(".posScrap").each(function() {
+		        var postId = $(this).data('post-id');
+		        var buttonElement = $(this);
+		        checkScrapStatus(postId, buttonElement);
+		    });
 
 			// AJAX로 공감 추가 요청
 			function addLike(postId) {
@@ -386,19 +399,21 @@
 			}
 
 			// AJAX로 스크랩 추가 요청
-			function addScrap(postId) {
+			function addScrap(postId, buttonElement) {
 				var obj = {
 					'postId' : postId
 				};
 				$.ajax({
 					type : 'POST',
-					url : 'postScrap',
+					url : 'postScrap', // 서버의 실제 URL로 변경 필요
 					headers : {
 						'Content-Type' : 'application/json'
 					},
 					data : JSON.stringify(obj),
 					success : function(result) {
 						if (result == 1) {
+							buttonElement.text('스크랩 취소');
+							buttonElement.data('scrap-status', 'scraped');
 							increaseScrapCount(postId);
 							updateScrapVisibility();
 						} else {
@@ -410,6 +425,59 @@
 					}
 				});
 			}
+
+			// AJAX로 스크랩 취소 요청
+			function cancelScrap(postId, buttonElement) {
+				var obj = {
+					'postId' : postId
+				};
+				$.ajax({
+					type : 'POST',
+					url : 'postCancelScrap', 
+					headers : {
+						'Content-Type' : 'application/json'
+					},
+					data : JSON.stringify(obj),
+					success : function(result) {
+						if (result == 1) {
+							buttonElement.text('스크랩');
+							buttonElement.data('scrap-status', 'not-scraped');
+							decreaseScrapCount(postId);
+							updateScrapVisibility();
+						} else {
+							alert("스크랩 취소에 실패하였습니다.");
+						}
+					},
+					error : function(xhr, status, error) {
+						console.error("스크랩 취소 실패:", status, error);
+					}
+				});
+			}
+			
+			// 서버에서 스크랩 상태 확인
+		    function checkScrapStatus(postId, buttonElement) {
+		    	var obj = {
+						'postId' : postId
+					};
+		        $.ajax({
+		            type: 'POST',
+		            url: 'getScrapStatus', // 서버의 실제 URL로 변경 필요
+		            headers: { 'Content-Type': 'application/json' },
+		            data : JSON.stringify(obj),
+		            success: function(result) {
+		                if (result == 1) {
+		                    buttonElement.text('스크랩 취소');
+		                    buttonElement.data('scrap-status', 'scraped');
+		                } else {
+		                    buttonElement.text('스크랩');
+		                    buttonElement.data('scrap-status', 'not-scraped');
+		                }
+		            },
+		            error: function(xhr, status, error) {
+		                console.error("스크랩 상태 확인 실패:", status, error);
+		            }
+		        });
+		    }
 
 			function increaseLikeCount(postId) {
 				var likeElement = $("#like-" + postId); // 공감 수를 표시하는 li 요소를 가져옴
@@ -424,6 +492,14 @@
 				var newScraps = currentScraps + 1;
 				scrapElement.text(newScraps);
 			}
+			
+			// 스크랩 수 감소
+		    function decreaseScrapCount(postId) {
+		        var scrapElement = $("#scrap-" + postId);
+		        var currentScraps = parseInt(scrapElement.text());
+		        var newScraps = currentScraps - 1;
+		        scrapElement.text(newScraps);
+		    }
 
 		}); // end document();
 	</script>

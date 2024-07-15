@@ -1,7 +1,9 @@
 package com.everytime.web.controller;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,13 +64,44 @@ public class PostController {
 		if (postList.isEmpty()) {
 			log.info("postList 없어 !!!");
 		}
-		List<FileVO> postImgList = postService.getAllPostImgs(boardId);
+
+		// 게시물 ID별로 이미지 파일을 그룹화
+		List<FileVO> allPostImgs = postService.getAllPostImgs(boardId);
+
+		// 게시물 ID별로 첫 번째 이미지만 선택
+		Map<Integer, FileVO> firstImageMap = new LinkedHashMap<>();
+		for (FileVO file : allPostImgs) {
+			if (!firstImageMap.containsKey(file.getPostId())) {
+				firstImageMap.put(file.getPostId(), file);
+			}
+		}
+
+		// 첫 번째 이미지만 포함된 리스트
+		List<FileVO> postImgListData = new ArrayList<>(firstImageMap.values());
+
+		List<FileVO> postImgList = new ArrayList<>();
+		if (postImgListData != null) {
+			for (FileVO file : postImgListData) {
+				String filePath = file.getPostPath();
+				String[] parts = filePath.split("\\\\");
+				String year = parts[0];
+				String month = parts[1];
+				String day = parts[2];
+
+				String fileExtension = file.getPostExtension();
+				String fileName = file.getPostRealName();
+
+				String imgSource = "image/" + year + "/" + month + "/" + day + "/" + fileName + "." + fileExtension;
+				file.setImgSource(imgSource);
+				postImgList.add(file);
+			}
+		}
 
 		model.addAttribute("postList", postList);
 		model.addAttribute("postImgList", postImgList);
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("memberId", memberId);
-
+		
 		return "board/post_list";
 	}
 
@@ -217,19 +250,42 @@ public class PostController {
 
 	}
 
+	@PostMapping("postCancelScrap")
+	public ResponseEntity<Integer> postCancelScrap(@RequestBody ScrapVO scrapVO, HttpServletRequest request) {
+		log.info("postScrapPost");
+		HttpSession session = request.getSession();
+		String memberId = (String) session.getAttribute("memberId");
+		scrapVO.setMemberId(memberId);
+		int result = scrapService.postCancelScrap(scrapVO);
+
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
+
+	}
+
+	@PostMapping("getScrapStatus")
+	public ResponseEntity<Integer> getScrapStatus(@RequestBody ScrapVO scrapVO, HttpServletRequest request) {
+		log.info("getScrapStatus");
+		HttpSession session = request.getSession();
+		String memberId = (String) session.getAttribute("memberId");
+		scrapVO.setMemberId(memberId);
+		int result = scrapService.postChkScrap(scrapVO);
+
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
+
+	}
+
 	@PostMapping("/search/all")
-	   public String searchAllPOST(String keyword,Model model,RedirectAttributes reAttr) {
-		   log.info("searchAllPOST()");
-		   
-		   List<PostVO> searchList = postService.searchPost(keyword);
-		   
-		   log.info("searchList : " + searchList);
-			
-		
-		   model.addAttribute("searchList", searchList);
-		   
-		   return "/board/search";
-		   
-	   }
+	public String searchAllPOST(String keyword, Model model, RedirectAttributes reAttr) {
+		log.info("searchAllPOST()");
+
+		List<PostVO> searchList = postService.searchPost(keyword);
+
+		log.info("searchList : " + searchList);
+
+		model.addAttribute("searchList", searchList);
+
+		return "/board/search";
+
+	}
 
 }

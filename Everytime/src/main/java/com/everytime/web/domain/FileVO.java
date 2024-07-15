@@ -19,4 +19,6 @@ public class FileVO {
 	private String postRealName;
 	private String postChgName;
 	private String postExtension;
+	
+	private String imgSource;
 }

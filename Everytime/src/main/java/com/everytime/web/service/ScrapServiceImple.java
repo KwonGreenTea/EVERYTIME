@@ -36,14 +36,32 @@ public class ScrapServiceImple implements ScrapService {
 		log.info(insertPostScrapResult + "행 스크랩 정보 등록");
 		 
 		int postId = scrapVO.getPostId(); 
-		int updatePostLike = postMapper.updatePostScrap(postId);
-		log.info(updatePostLike + "행 스크랩 업데이트 완료");
+		int updatePostScrape = postMapper.updatePostScrap(postId);
+		log.info(updatePostScrape + "행 스크랩 업데이트 완료");
 		return 1;
 	}
 
 	@Override
 	public List<Integer> selectScrapById(String memberId) {
 		return scrapMapper.selectScrapById(memberId);
+	}
+	
+	@Transactional(value = "transactionManager") 
+	@Override
+	public int postCancelScrap(ScrapVO scrapVO) {
+		log.info("postCancelScrap()");
+		int deletePostScrapResult = scrapMapper.postDeleteScrap(scrapVO);
+		log.info(deletePostScrapResult + "행 스크랩 삭제");
+		
+		int postId = scrapVO.getPostId(); 
+		int deletePostScrape = postMapper.deletePostScrap(postId);
+		log.info(deletePostScrape + "행 스크랩 업데이트 완료");
+		return 1;
+	}
+
+	@Override
+	public int postChkScrap(ScrapVO scrapVO) {
+		return scrapMapper.postChkScrap(scrapVO);
 	}
 	
 }

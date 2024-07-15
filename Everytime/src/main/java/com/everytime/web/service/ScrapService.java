@@ -12,4 +12,8 @@ public interface ScrapService {
 
 	List<Integer> selectScrapById(String memberId);
 
+	int postCancelScrap(ScrapVO scrapVO);
+
+	int postChkScrap(ScrapVO scrapVO);
+
 }

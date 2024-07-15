@@ -33,9 +33,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	</select>
 	
+	<select id="postChkScrap" resultType="Integer">
+		SELECT COUNT(*)
+		FROM SCRAP
+		WHERE MEMBER_ID = #{memberId}
+		AND POST_ID = #{postId}
+		
+	</select>
+	
 	 <select id="checkIfPostScraped" resultType="Integer">
      SELECT COUNT(*) AS ScrapCount
      FROM SCRAP
      WHERE POST_ID = #{postId} AND MEMBER_ID = #{memberId}
 	</select>
+	
+	<delete id="postDeleteScrap">
+		DELETE SCRAP
+		WHERE POST_ID = #{postId} AND MEMBER_ID = #{memberId}
+	</delete>
+	
 </mapper>

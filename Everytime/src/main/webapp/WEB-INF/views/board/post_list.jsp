@@ -173,15 +173,17 @@
 								<h3 class="small">익명</h3>
 							</div>
 							<hr>
-						</div> <c:forEach var="img" items="${postImgList}">
-							<c:if test="${post.postId == img.postId}">
-								<div class="attachthumbnail">
-									<img
-										src="<c:url value='/image/${img.postPath}/${img.postChgName}'/>"
-										alt="${img.postRealName}" />
-								</div>
-							</c:if>
-						</c:forEach>
+						</div> <c:choose>
+							<c:when test="${not empty postImgList}">
+								<c:forEach var="img" items="${postImgList}">
+									<c:if test="${postVO.postId == img.postId}">
+										<div class="attachthumbnail"
+											style="background-image: url('<c:url value="../${img.imgSource}" />');">
+										</div>
+									</c:if>
+								</c:forEach>
+							</c:when>
+						</c:choose>
 					</a>
 					<div class="comments"></div>
 				</article>
