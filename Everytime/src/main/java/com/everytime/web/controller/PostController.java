@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.everytime.web.domain.FileVO;
 import com.everytime.web.domain.PostVO;
 import com.everytime.web.domain.ProfileVO;
+import com.everytime.web.domain.ReviewVO;
 import com.everytime.web.domain.ScrapVO;
 import com.everytime.web.service.PostService;
 import com.everytime.web.service.ProfileService;
@@ -32,6 +33,7 @@ import com.everytime.web.service.ScrapService;
 import com.everytime.web.util.FileUploadUtil;
 
 import lombok.extern.log4j.Log4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller // @Component
 // - 모든종류(JSP 페이지 매핑)에 service를 호출하는 객체
@@ -61,6 +63,7 @@ public class PostController {
 
 		// 게시물 목록 조회
 		List<PostVO> postList = postService.getAllPosts(boardId);
+		
 		if (postList.isEmpty()) {
 			log.info("postList 없어 !!!");
 		}
@@ -97,11 +100,20 @@ public class PostController {
 			}
 		}
 
+		// rightSide 리뷰리스트
+		List<ReviewVO> reviewList = postService.selectReview();
+		
+		// rightSide hot 게시글
+		List<PostVO> hotPostList = postService.selectHotPost();
+		
+		log.info("hotPostList : " + hotPostList);
+		
 		model.addAttribute("postList", postList);
 		model.addAttribute("postImgList", postImgList);
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("memberId", memberId);
-		
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("hotPostList", hotPostList);
 		return "board/post_list";
 	}
 
@@ -175,7 +187,9 @@ public class PostController {
 		PostVO postVO = postService.getPostById(boardId, postId);
 		List<FileVO> fileVO = postService.getImgById(boardId, postId);
 		ProfileVO profileVO = profileService.getProfileById(postService.getId(boardId, postId));
-
+		
+		List<ReviewVO> reviewList = postService.selectReview();
+		log.info("reviewList : " +reviewList);
 		String profileImgSource;
 		if (profileVO != null) {
 			// 파일의 경로를 가져옴
@@ -218,7 +232,7 @@ public class PostController {
 				imgSource.add("image/" + year + "/" + month + "/" + day + "/" + postName + "." + postExtension);
 			}
 		}
-
+		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("imgSource", imgSource);
 		model.addAttribute("profileImgSource", profileImgSource);
 		model.addAttribute("postVO", postVO);
@@ -288,4 +302,16 @@ public class PostController {
 
 	}
 
+	@GetMapping("hotpost")
+		 public String hotpost(Model model) {
+			 log.info("hotpost");
+			 
+			 List<PostVO> hotPostList = postService.selectHotPost();
+			 
+			 model.addAttribute("hotPostList", hotPostList);
+			 
+			 return "board/hotpost";
+		 }
+	
+	
 }

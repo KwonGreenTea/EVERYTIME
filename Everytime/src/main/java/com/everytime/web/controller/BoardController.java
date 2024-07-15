@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.everytime.web.domain.PostVO;
 import com.everytime.web.domain.ProfileVO;
 import com.everytime.web.domain.RegisterVO;
+import com.everytime.web.domain.ReviewVO;
 import com.everytime.web.service.BoardService;
 import com.everytime.web.service.PostService;
 import com.everytime.web.service.ProfileService;
@@ -57,7 +58,12 @@ public class BoardController {
 		List<PostVO> postListNum3 = boardService.getAllPosts(3);
 		List<PostVO> postListNum4 = boardService.getAllPosts(4);
 
+		List<ReviewVO> reviewList = boardService.selectReview();
 		log.info("postList1 : " + postListNum1);
+
+		List<PostVO> hotPostList = postService.selectHotPost();
+
+		log.info("hotPostList : " + hotPostList);
 
 		ProfileVO profileVO = profileService.getProfileById(memberId);
 
@@ -96,7 +102,8 @@ public class BoardController {
 		model.addAttribute("postListNum2", postListNum2);
 		model.addAttribute("postListNum3", postListNum3);
 		model.addAttribute("postListNum4", postListNum4);
-
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("hotPostList", hotPostList);
 		return "board/main";
 	}
 
@@ -117,4 +124,5 @@ public class BoardController {
 
 		return "board/myscrap";
 	}
+
 }

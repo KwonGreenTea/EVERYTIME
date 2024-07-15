@@ -44,10 +44,10 @@
 			<div class="divider"></div>
 			<div class="group">
 				<ul>
-					<li><a href="post/post_list?boardId=1" class="new">자유게시판</a></li>
-					<li><a href="post/post_list?boardId=2" class="new">비밀게시판</a></li>
-					<li><a href="post/post_list?boardId=3" class="new">졸업생게시판</a></li>
-					<li><a href="post/post_list?boardId=4" class="new">새내기게시판</a></li>
+					<li><a href="../post/post_list?boardId=1" class="new">자유게시판</a></li>
+					<li><a href="../post/post_list?boardId=2" class="new">비밀게시판</a></li>
+					<li><a href="../post/post_list?boardId=3" class="new">졸업생게시판</a></li>
+					<li><a href="../post/post_list?boardId=4" class="new">새내기게시판</a></li>
 				</ul>
 			</div>
 			<div class="group">

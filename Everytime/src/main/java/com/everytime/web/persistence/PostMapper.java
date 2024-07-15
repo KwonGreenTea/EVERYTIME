@@ -63,6 +63,8 @@ public interface PostMapper {
 	// 스크랩 카운트 -1
 	int deletePostScrap(int postId);
 	
+	// 핫 게시글 검색
+	List<PostVO> selectHopPost();
 	
 	
 }

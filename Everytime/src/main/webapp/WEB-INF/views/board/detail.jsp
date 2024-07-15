@@ -30,10 +30,10 @@
 			<div class="divider"></div>
 			<div class="group">
 				<ul>
-					<li><a href="post/post_list?boardId=1" class="new">자유게시판</a></li>
-					<li><a href="post/post_list?boardId=2" class="new">비밀게시판</a></li>
-					<li><a href="post/post_list?boardId=3" class="new">졸업생게시판</a></li>
-					<li><a href="post/post_list?boardId=4" class="new">새내기게시판</a></li>
+					<li><a href="../post/post_list?boardId=1" class="new">자유게시판</a></li>
+					<li><a href="../post/post_list?boardId=2" class="new">비밀게시판</a></li>
+					<li><a href="../post/post_list?boardId=3" class="new">졸업생게시판</a></li>
+					<li><a href="../post/post_list?boardId=4" class="new">새내기게시판</a></li>
 				</ul>
 			</div>
 			<div class="group">
@@ -79,61 +79,54 @@
 				</h1>
 			</div>
 		</aside>
-		<div class="rightside">
-			<div class="card">
-				<div class="board">
-					<h3>
-						<a href="/hotarticle">HOT 게시물<span>더 보기</span></a>
-					</h3>
-					<a class="list" href="/370449/v/346396066"><time>06/17
-							08:46</time>
-						<p>안면인식장애인데 심심해서 적는 글.</p>
-						<hr></a><a class="list" href="/255746/v/346247565"><time>06/15
-							22:32</time>
-						<p>아 진짜 수업 때 담배 냄새 좀 빼고 와</p>
-						<hr></a><a class="list" href="/370449/v/346254844"><time>06/15
-							23:31</time>
-						<p>과마다 입결 순위 취업률 순위 나누는거 솔직히 할거없는 사람같아보임</p>
-						<hr></a><a class="list" href="/370449/v/346210479"><time>06/15
-							16:09</time>
-						<p>장보고과학기지에 에리카 출신 있네 ㄷ</p>
-						<hr></a>
-				</div>
-			</div>
-			<div class="card">
-				<div class="board">
-					<h3>
-						<a href="/bestarticle">BEST 게시판<span>더 보기</span></a>
-					</h3>
-				</div>
-			</div>
-			<div class="card">
-				<div class="board">
-					<h3>
-						<a href="/lecture">최근 강의평<span>더 보기</span></a>
-					</h3>
-					<a class="article" href="/lecture/view/2084699"><span
-						class="star"><span class="on" style="width: 100%;"></span></span>
-						<p class="title">영화의세계 : 김영재</p>
-						<p class="small">
-							옛날 영화에 대한 것들이 많이 나와요.<br>약간 암기위주이긴 한데 영화를 틀어주시면서 설명해주셔서
-							이해하기엔 편해요
-						</p>
-						<hr></a><a class="article" href="/lecture/view/2541696"><span
-						class="star"><span class="on" style="width: 100%;"></span></span>
-						<p class="title">반도체공정및응용 : 박진석</p>
-						<p class="small">
-							가성비 개꿀 쌉꿀<br>4학점인데 중간기말에 공정실습하고 보고서 중간기말만 쓰면 끝
-						</p>
-						<hr></a><a class="article" href="/lecture/view/132545"><span
-						class="star"><span class="on" style="width: 80%;"></span></span>
-						<p class="title">기계설계 : 류근</p>
-						<p class="small">수업 3시간 풀로 하고 팀플 거의 매주 만나서 하고 발표 배점도 높지만 그 모든
-							걸 만회할 정도로 성적을 잘 줌</p>
-						<hr></a>
-				</div>
-			</div>
-		</div>
+		 <div class="rightside">
+         <form action="post/search/all" method="POST" class="search">
+            <input type="text" name="keyword" placeholder="전체 게시판의 글을 검색하세요!"
+               class="text">
+         </form>
+         <div class="card">
+            <div class="board">
+               <h3>
+                  <a href="../post/hotpost">HOT 게시물<span>더 보기</span></a>
+               </h3>
+               <c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
+						<a class="list" href="/370449/v/348440683">
+						<time>${postVO.postCreatedDate }</time>
+							<p>${postVO.postTitle }</p>
+							<hr> 
+						</a>
+					</c:forEach>
+            </div>
+         </div>
+         <div class="card">
+            <div class="board">
+               <h3>
+                  <a href="/bestarticle">BEST 게시판<span>더 보기</span></a>
+               </h3>
+            </div>
+         </div>
+         <div class="card">
+            <div class="board">
+               <h3>
+                  <a href="../lecture">최근 강의평<span>더 보기</span></a>
+               </h3>
+         
+                <c:forEach var="reviewVO" items="${reviewList }" begin="0" end="2">
+                  <a class="article" href="../view?courseId=${reviewVO.courseId}">
+                  <span class="star">
+                  	<span class="on" style="width :${20 * reviewVO.courseRate}%;">
+                  	</span>
+                  </span>
+                  <p class="title">${reviewVO.courseName } : ${reviewVO.professor }</p>
+                  <p class="small">${reviewVO.reviewContent }</p>
+                  <hr>
+                  </a>
+               </c:forEach>
+               
+             
+            </div>
+         </div>
+      </div>
 		<div class="wrap title">
 			<h1>
 				<a href="/370449">자유게시판</a>

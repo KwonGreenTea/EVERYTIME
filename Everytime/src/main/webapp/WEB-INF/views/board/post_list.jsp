@@ -44,10 +44,10 @@
 			<div class="divider"></div>
 			<div class="group">
 				<ul>
-					<li><a href="post/post_list?boardId=1" class="new">자유게시판</a></li>
-					<li><a href="post/post_list?boardId=2" class="new">비밀게시판</a></li>
-					<li><a href="post/post_list?boardId=3" class="new">졸업생게시판</a></li>
-					<li><a href="post/post_list?boardId=4" class="new">새내기게시판</a></li>
+					<li><a href="../post/post_list?boardId=1" class="new">자유게시판</a></li>
+					<li><a href="../post/post_list?boardId=2" class="new">비밀게시판</a></li>
+					<li><a href="../post/post_list?boardId=3" class="new">졸업생게시판</a></li>
+					<li><a href="../post/post_list?boardId=4" class="new">새내기게시판</a></li>
 				</ul>
 			</div>
 			<div class="group">
@@ -91,6 +91,54 @@
 				</h1>
 			</div>
 		</aside>
+		 <div class="rightside">
+         <form action="post/search/all" method="POST" class="search">
+            <input type="text" name="keyword" placeholder="전체 게시판의 글을 검색하세요!"
+               class="text">
+         </form>
+         <div class="card">
+            <div class="board">
+               <h3>
+                  <a href="../post/hotpost">HOT 게시물<span>더 보기</span></a>
+               </h3>
+               <c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
+						<a class="list" href="/370449/v/348440683">
+						<time>${postVO.postCreatedDate }</time>
+							<p>${postVO.postTitle }</p>
+							<hr> 
+						</a>
+					</c:forEach>
+            </div>
+         </div>
+         <div class="card">
+            <div class="board">
+               <h3>
+                  <a href="/bestarticle">BEST 게시판<span>더 보기</span></a>
+               </h3>
+            </div>
+         </div>
+         <div class="card">
+            <div class="board">
+               <h3>
+                  <a href="../lecture">최근 강의평<span>더 보기</span></a>
+               </h3>
+         
+                <c:forEach var="reviewVO" items="${reviewList }" begin="0" end="2">
+                  <a class="article" href="../view?courseId=${reviewVO.courseId}">
+                  <span class="star">
+                  	<span class="on" style="width :${20 * reviewVO.courseRate}%;">
+                  	</span>
+                  </span>
+                  <p class="title">${reviewVO.courseName } : ${reviewVO.professor }</p>
+                  <p class="small">${reviewVO.reviewContent }</p>
+                  <hr>
+                  </a>
+               </c:forEach>
+               
+             
+            </div>
+         </div>
+      </div>
 		<div class="wrap title">
 			<h1>
 				<a href="/370449">자유게시판</a>
