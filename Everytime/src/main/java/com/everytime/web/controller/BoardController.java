@@ -1,5 +1,6 @@
 package com.everytime.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,9 @@ import com.everytime.web.domain.PostVO;
 import com.everytime.web.domain.ProfileVO;
 import com.everytime.web.domain.RegisterVO;
 import com.everytime.web.service.BoardService;
+import com.everytime.web.service.PostService;
 import com.everytime.web.service.ProfileService;
+import com.everytime.web.service.ScrapService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -31,6 +34,12 @@ public class BoardController {
    
    @Autowired 
    private ProfileService profileService;
+   
+   @Autowired 
+   private ScrapService scrapService;
+   
+   @Autowired 
+   private PostService postService;
    
    // post_list.jsp 페이지 호출
    @GetMapping("/main")
@@ -85,5 +94,22 @@ public class BoardController {
       
       return "board/main";
    }
-
+   
+   @GetMapping("/myscrap")
+   public String myscrapGet(Model model,HttpServletRequest request) {
+      log.info("myscrapGet()");
+      HttpSession session = request.getSession();
+      String memberId = (String) session.getAttribute("memberId");
+      
+      List<Integer> scrapPostId = scrapService.selectScrapById(memberId);
+      
+      List<PostVO> postList = new ArrayList<>();
+      for(int postId : scrapPostId) {
+    	  postList.add(postService.getPostDataByPostId(postId));
+      }
+      
+      model.addAttribute("postList", postList); 
+      
+      return "board/myscrap";
+   }
 }

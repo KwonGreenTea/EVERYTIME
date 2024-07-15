@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.everytime.web.persistence.ScrapMapper">
+
+	<resultMap type="com.everytime.web.domain.ScrapVO"
+		id="ScrapResultMap">
+		<id property="postScrapNO" column="POST_Scrap_NO" /> 
+		<result property="postId" column="POST_ID" />
+		<result property="memberId" column="MEMBER_ID" />
+
+	</resultMap>
+
+
+	<insert id="postScrap">
+		INSERT INTO SCRAP VALUES
+		(SCRAP_SEQ.NEXTVAL, #{postId}, #{memberId})
+	</insert>
+	
+	 <select id="selectScrapCountByPostId" resultType="Integer">
+		SELECT COUNT(*) AS ScrapCount
+		FROM SCRAP
+		WHERE POST_ID = #{postId}
+		
+	</select>
+	
+	<select id="selectScrapById" resultType="Integer">
+		SELECT POST_ID
+		FROM SCRAP
+		WHERE MEMBER_ID = #{memberId}
+		
+	</select>
+	
+	 <select id="checkIfPostScraped" resultType="Integer">
+     SELECT COUNT(*) AS ScrapCount
+     FROM SCRAP
+     WHERE POST_ID = #{postId} AND MEMBER_ID = #{memberId}
+	</select>
+</mapper>

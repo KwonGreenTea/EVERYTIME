@@ -39,8 +39,16 @@ public interface PostMapper {
 	
 	int postIdByMemberId(String memberId);
 
+	
+	
 	List<FileVO> selectPostImgList(Integer boardId);
 
 	List<FileVO> getImgById(@Param("boardId") int boardId, @Param("postId") int postId);
+
+	String getId(@Param("boardId") int boardId, @Param("postId") int postId);
+
+	int updatePostScrap(int postId);
+
+	PostVO getPostDataByPostId(int postId);
 	
 }

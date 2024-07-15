@@ -88,6 +88,16 @@ public class PostServiceImple implements PostService {
 		return postMapper.postIdByMemberId(memberId);
 	}
 
+	@Override
+	public String getId(int boardId, int postId) {
+		return postMapper.getId(boardId, postId);
+	}
+
+	@Override
+	public PostVO getPostDataByPostId(int postId) {
+		return postMapper.getPostDataByPostId(postId);
+	}
+
 	
 
 	

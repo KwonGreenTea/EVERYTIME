@@ -91,6 +91,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE BOARD_ID = #{boardId}
 		AND POST_ID = #{postId}
 	</select>
+	
+	<select id="getPostDataByPostId" resultMap="postResultMap">
+		SELECT * FROM POST
+		WHERE POST_ID = #{postId}
+	</select>
+	
+	<select id="getId" resultType="String">
+		SELECT MEMBER_ID
+		FROM post
+		WHERE BOARD_ID = #{boardId}
+		AND POST_ID = #{postId}
+	</select>
 
 	<select id="getImgById" resultMap="FileResultMap">
 		SELECT * FROM IMG_FILE
@@ -131,6 +143,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE POST
 
 		SET POST_LIKE_COUNT = POST_LIKE_COUNT +1
+
+		WHERE POST_ID = #{postId}
+
+	</update>
+	
+	<update id="updatePostScrap">
+		UPDATE POST
+
+		SET POST_SCRAP_COUNT = POST_SCRAP_COUNT +1
 
 		WHERE POST_ID = #{postId}
 

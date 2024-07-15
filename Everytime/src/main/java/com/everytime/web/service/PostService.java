@@ -29,6 +29,10 @@ public interface PostService {
 	List<FileVO> getAllPostImgs(Integer boardId);
 
 	List<FileVO> getImgById(int boardId, int postId);
+
+	String getId(int boardId, int postId);
+
+	PostVO getPostDataByPostId(int postId);
 	
 	//////////////////////////////////////////
 	
