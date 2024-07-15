@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>에브리타임</title>
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link rel="stylesheet" href="https://everytime.kr/css/common.css" />
 <link rel="stylesheet"
 	href="https://everytime.kr/css/common.partial.css" />
@@ -17,15 +17,36 @@
 	href="https://everytime.kr/css/container.community.css" />
 <link rel="stylesheet"
 	href="https://everytime.kr/css/container.modal.css" />
-<link rel="stylesheet" href="resources/css/mainCommon.css" />
-<link rel="stylesheet" href="resources/css/mainCommon.partial.css" />
-<link rel="stylesheet" href="resources/css/container.community.css" />
-<script type="text/javascript" src="resources/js/friend.js"></script>
-</head>
-<body>
+<link rel="stylesheet" href="/web/resources/css/mainCommon.css" />
+<link rel="stylesheet" href="/web/resources/css/mainCommon.partial.css" />
+<link rel="stylesheet" href="/web/resources/css/container.article.css" />
 
-	<!--주석 썻따고 ^^ -->
+<link rel="stylesheet" href="/web/resources/css/container.community.css" />
+
+<link rel="stylesheet" href="/web/resources/css/container.modal.css" />
+
+
+</head>
+<style>
+#thumbnails {
+	display: none;
+	list-style: none;
+	padding: 0;
+}
+
+#thumbnails .thumbnail {
+	display: inline-block;
+	margin: 5px;
+}
+
+#thumbnails .thumbnail img {
+	width: 85px;
+	height: 85px;
+}
+</style>
+<body>
 	<%@ include file="../header.jspf"%>
+
 	<div id="submenu">
 		<div class="wrap">
 			<div class="divider"></div>
@@ -67,46 +88,15 @@
 		<input type="hidden" id="communityCampusId" value="23">
 	</div>
 
-	<div id="container" class="community">
-		<aside class="none">
-			<form class="search">
-				<input type="search" name="keyword" class="text"
-					placeholder="전체 게시판의 글을 검색하세요!">
 
-			</form>
-			<div class="title">
-				<a class="hamburger"></a>
-				<h1>한양대 ERICA캠 에브리타임</h1>
-				<ol class="buttons">
-					<li><a id="searchArticle">글 검색</a></li>
-				</ol>
-			</div>
-		</aside>
-		<div class="leftside">
-			<div class="card pconly">
-				<form class="logged">
-					<img src="${imgSource}" class="picture">
-					<p class="nickname">${registerVO.nickname }</p>
-					<p class="school">${registerVO.name }</p>
-					<p class="school">${registerVO.email }</p>
-					<ul class="buttons">
-						<li><a href="mypage">내 정보</a></li>
-						<li><a href="logout">로그아웃</a></li>
-					</ul>
-					<hr>
-				</form>
-			</div>
-			<div class="card">
-				<div class="menus">
-					<a href="/myarticle" class="myarticle">내가 쓴 글</a> <a
-						href="/mycommentarticle" class="mycommentarticle">댓글 단 글</a> <a
-						href="/myscrap" class="myscrap">내 스크랩</a>
-					<hr>
-				</div>
-			</div>
-		</div>
+	<div id="container" class="article">
+		<input type="hidden" id="isUser" value="1"> <input
+			type="hidden" id="boardId" value="370449">
+		<aside class="none"></aside>
+
+
 		<div class="rightside">
-			<form action="post/search/all" method="POST" class="search">
+			<form action="" method="POST" class="search">
 				<input type="text" name="keyword" placeholder="전체 게시판의 글을 검색하세요!"
 					class="text">
 			</form>
@@ -160,75 +150,61 @@
 				</div>
 			</div>
 		</div>
-		<div class="banners">
-			<a href="https://www.youtube.com/shorts/mZPkoLfdGQg">
-			<img src="/web/resources/images/chuchu.png"></a>
+
+		<div class="wrap title">
+			<h1>
+				<a href="/370449">자유게시판</a>
+			</h1>
+			<hr>
 		</div>
-		<div class="main">
-			<div class="card">
-				<div class="board">
-					<h3>
-						<a href="post/post_list?boardId=1">자유게시판</a>
-					</h3>
-					<c:forEach var="postVO" items="${postListNum1 }" begin="0" end="3">
-						<a class="list"
-							href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}">
-							<time id="createdTime">${postVO.postCreatedDate }</time>
-							<p>${postVO.postTitle }</p>
+		<div class="wrap notification none"></div>
+		<div class="wrap bubbles none"></div>
+		<!-- 게시물 등록 -->
+		<div class="wrap articles">
+			<c:if test="${empty searchList}">
+				<article class="dialog">검색 결과가 없습니다.</article>
+			</c:if>
+			<c:forEach var="postVO" items="${searchList}">
+				<article class="list">
+					<a class="article"
+						href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}">
+						<div class="desc">
+							<div class="boardname">자유게시판</div>
+							<h2 class="medium bold">${postVO.postTitle}</h2>
+							<p class="medium">${postVO.postContent}</p>
+							<div class="info">
+								<ul class="status">
+									<li title="댓글" class="comment">1</li>
+									<!-- 댓글 개수 -->
+								</ul>
+								<time class="small">
+									<fmt:formatDate value="${postVO.postCreatedDate}"
+										pattern="MM/dd" />
+									<!-- 작성 날짜 -->
+								</time>
+								<h3 class="small">익명</h3>
+							</div>
 							<hr>
-						</a>
-					</c:forEach>
-				</div>
-			</div>
-
-			<div class="card">
-				<div class="board">
-					<h3>
-						<a href="post/post_list?boardId=2">비밀게시판</a>
-					</h3>
-					<c:forEach var="postVO" items="${postListNum2 }" begin="0" end="3">
-						<a class="list"
-							href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}"><time
-								id="createdTime">${postVO.postCreatedDate }</time>
-							<p>${postVO.postTitle }</p>
-							<hr></a>
-					</c:forEach>
-				</div>
-			</div>
-			<div class="card">
-				<div class="board">
-					<h3>
-						<a href="post/post_list?boardId=3">졸업생게시판</a>
-					</h3>
-					<c:forEach var="postVO" items="${postListNum3 }" begin="0" end="3">
-						<a class="list"
-							href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}"><time
-								id="createdTime">${postVO.postCreatedDate }</time>
-							<p>${postVO.postTitle }</p>
-							<hr></a>
-					</c:forEach>
-				</div>
-			</div>
-			<div class="card">
-				<div class="board">
-					<h3>
-						<a href="post/post_list?boardId=4">새내기게시판</a>
-					</h3>
-					<c:forEach var="postVO" items="${postListNum4 }" begin="0" end="3">
-						<a class="list"
-							href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}"><time
-								id="createdTime">${postVO.postCreatedDate }</time>
-							<p>${postVO.postTitle }</p>
-							<hr></a>
-					</c:forEach>
-				</div>
-			</div>
+						</div> <input type="hidden" name="348759222_comment_anonym" value="0">
+					</a>
+					<div class="comments"></div>
+				</article>
 
 
+
+			</c:forEach>
+
+
+			<div class="clearBothOnly"></div>
+			<c:if test="${not empty searchList}">
+				<div class="pagination">
+					<a href="/search/all/미분/p/2" class="next">다음</a>
+				</div>
+			</c:if>
 
 		</div>
-	</div>
 
+	</div>
 
 	<hr>
 </body>

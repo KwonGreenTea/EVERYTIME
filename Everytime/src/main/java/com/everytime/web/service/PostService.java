@@ -30,6 +30,8 @@ public interface PostService {
 
 	List<FileVO> getImgById(int boardId, int postId);
 	
+	List<PostVO> searchPost(String keyword);
+	
 	//////////////////////////////////////////
 	
 	

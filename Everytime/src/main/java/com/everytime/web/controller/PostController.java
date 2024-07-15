@@ -46,6 +46,9 @@ public class PostController {
 
 		// 게시물 목록 조회
 		List<PostVO> postList = postService.getAllPosts(boardId);
+		if(postList.isEmpty()) {
+			log.info("postList 없어 !!!" );
+		}
 		List<FileVO> postImgList = postService.getAllPostImgs(boardId);
 
 		model.addAttribute("postList", postList);
@@ -150,4 +153,22 @@ public class PostController {
 		model.addAttribute("postVO", postVO);
 		return "/board/detail";
 	}
+	
+	  @PostMapping("/search/all")
+	   public String searchAllPOST(String keyword,Model model,RedirectAttributes reAttr) {
+		   log.info("searchAllPOST()");
+		   
+		   List<PostVO> searchList = postService.searchPost(keyword);
+		   
+		   log.info("searchList : " + searchList);
+			
+		
+		   model.addAttribute("searchList", searchList);
+		   
+		   return "/board/search";
+		   
+	   }
+	
+	
+	
 }

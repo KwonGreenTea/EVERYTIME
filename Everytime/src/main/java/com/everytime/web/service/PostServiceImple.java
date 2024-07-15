@@ -88,6 +88,12 @@ public class PostServiceImple implements PostService {
 		return postMapper.postIdByMemberId(memberId);
 	}
 
+	@Override
+	public List<PostVO> searchPost(String keyword) {
+		log.info("searchPost()");
+		return postMapper.searchPost(keyword);
+	}
+
 	
 
 	

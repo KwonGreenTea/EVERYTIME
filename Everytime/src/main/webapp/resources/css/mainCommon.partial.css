@@ -42,10 +42,10 @@ body.appwebview nav {
   width: 40px; color: transparent; font-size: 0; background-repeat: no-repeat; background-position: center center;
 }
 #account a.icon.message {
-  background-image: url('/images/common/icn_m_chat_gray800_light.png'); background-size: 24px 24px;
+  background-image: url('../images/chat.png'); background-size: 24px 24px;
 }
 #account a.icon.my {
-  background-image: url('/images/common/icn_m_account_gray800_light.png'); background-size: 24px 24px;
+  background-image: url('../images/me.png'); background-size: 24px 24px;
 }
 #account a.icon span.badge {
   position: absolute; right: -4px; top: -4px; display: inline-block; padding: 0 6px; line-height: 16px; border-radius: 10px; color: #fff; font-size: 12px; font-weight: bold; background-color: #F91F15;

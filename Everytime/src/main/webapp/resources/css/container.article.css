@@ -279,10 +279,10 @@
 	color: #292929; white-space: nowrap;
 	height: 18px; line-height: 18px; font-size: 12px; cursor: pointer;
 }
-#container > div.articles > article.list > a.article > div.desc {
+#container > div.articles > article.list > a.article > div.desc > div.boardname {
 	overflow: hidden; flex: 1;
 }
-#container > div.articles > article.list > a.article > div.desc > a.boardname {
+#container > div.articles > article.list > a.article > div.desc > div.boardname {
 	display: inline-block; max-width: 100%; color: #056AB5; font-size: 12px; font-weight: bold; margin-bottom: 4px;
 	white-space: nowrap; overflow: hidden; text-overflow: ellipsis; vertical-align: top;
 }

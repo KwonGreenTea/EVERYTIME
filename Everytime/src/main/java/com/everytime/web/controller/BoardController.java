@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.everytime.web.domain.PostVO;
@@ -43,9 +44,12 @@ public class BoardController {
       
       log.info("registerVO : " + registerVO);
       // 게시물 목록 조회
-      List<PostVO> postList1 = boardService.getAllPosts(1);
+      List<PostVO> postListNum1 = boardService.getAllPosts(1);
+      List<PostVO> postListNum2 = boardService.getAllPosts(2);
+      List<PostVO> postListNum3 = boardService.getAllPosts(3);
+      List<PostVO> postListNum4 = boardService.getAllPosts(4);
       
-      log.info("postList1 : " + postList1); 
+      log.info("postList1 : " + postListNum1); 
       
       ProfileVO profileVO = profileService.getProfileById(memberId);
 
@@ -80,10 +84,16 @@ public class BoardController {
 //      model.addAttribute("pageMaker", pageMaker);
       
       model.addAttribute("registerVO", registerVO);
-      model.addAttribute("postList1", postList1); // 스프링 모델 객체에 저장
+      model.addAttribute("postListNum1", postListNum1); // 스프링 모델 객체에 저장
+      model.addAttribute("postListNum2", postListNum2); 
+      model.addAttribute("postListNum3", postListNum3); 
+      model.addAttribute("postListNum4", postListNum4); 
    
       
       return "board/main";
    }
+   
+   
+  
 
 }
