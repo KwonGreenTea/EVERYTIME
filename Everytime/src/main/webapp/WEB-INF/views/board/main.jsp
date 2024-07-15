@@ -31,10 +31,10 @@
 			<div class="divider"></div>
 			<div class="group">
 				<ul>
-					<li><a href="post/post_list?boardId=1" class="new">자유게시판</a></li>
-					<li><a href="post/post_list?boardId=2" class="new">비밀게시판</a></li>
-					<li><a href="post/post_list?boardId=3" class="new">졸업생게시판</a></li>
-					<li><a href="post/post_list?boardId=4" class="new">새내기게시판</a></li>
+					<li><a href="../post/post_list?boardId=1" class="new">자유게시판</a></li>
+					<li><a href="../post/post_list?boardId=2" class="new">비밀게시판</a></li>
+					<li><a href="../post/post_list?boardId=3" class="new">졸업생게시판</a></li>
+					<li><a href="../post/post_list?boardId=4" class="new">새내기게시판</a></li>
 				</ul>
 			</div>
 			<div class="group">
@@ -100,7 +100,7 @@
 				<div class="menus">
 					<a href="/myarticle" class="myarticle">내가 쓴 글</a> <a
 						href="/mycommentarticle" class="mycommentarticle">댓글 단 글</a> <a
-						href="/myscrap" class="myscrap">내 스크랩</a>
+						href="myscrap" class="myscrap">내 스크랩</a>
 					<hr>
 				</div>
 			</div>
@@ -113,21 +113,16 @@
 			<div class="card">
 				<div class="board">
 					<h3>
-						<a href="/hotarticle">HOT 게시물<span>더 보기</span></a>
+						<a href="post/hotpost">HOT 게시물<span>더 보기</span></a>
 					</h3>
-					<a class="list" href="/370449/v/348440683"><time>07/08
-							23:09</time>
-						<p>1X학번 특</p>
-						<hr></a><a class="list" href="/370449/v/348543099"><time>07/10
-							12:34</time>
-						<p>오늘 날씨 진짜 좋당</p>
-						<hr></a><a class="list" href="/370449/v/348439380"><time>07/08
-							22:54</time>
-						<p>근데 진짜로 다 조용히 하면 안되냐</p>
-						<hr></a><a class="list" href="/370449/v/348354416"><time>07/07
-							20:28</time>
-						<p>셔틀버스 레전드 ㅋㅋ</p>
-						<hr></a>
+					<c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
+						<a class="list" href="/370449/v/348440683">
+						<time>${postVO.postCreatedDate }</time>
+							<p>${postVO.postTitle }</p>
+							<hr> 
+						</a>
+					</c:forEach>
+
 				</div>
 			</div>
 			<div class="card">
@@ -140,29 +135,28 @@
 			<div class="card">
 				<div class="board">
 					<h3>
-						<a href="/lecture">최근 강의평<span>더 보기</span></a>
+						<a href="lecture">최근 강의평<span>더 보기</span></a>
 					</h3>
-					<a class="article" href="/lecture/view/137944"><span
-						class="star"><span class="on" style="width: 20%;"></span></span>
-						<p class="title">미분적분학2 : 박상웅</p>
-						<p class="small">일점도 아까운데 내 최악의 교수임 혼자 달리시는걸 엄청 좋아하심</p>
-						<hr></a><a class="article" href="/lecture/view/135695"><span
-						class="star"><span class="on" style="width: 80%;"></span></span>
-						<p class="title">기능성고분자 : 장영욱</p>
-						<p class="small">전반적인 고분자합성방법 응용 시제품적용 등 고분자쪽에서 다룰수 있는건 거의 다룸.
-							자료내용이 많지는 않아서 필기 열심히하몀 공부할때 도움많이됩니</p>
-						<hr></a><a class="article" href="/lecture/view/501949"><span
-						class="star"><span class="on" style="width: 100%;"></span></span>
-						<p class="title">무역업창업과마케팅 : 백상현</p>
-						<p class="small">출석 안보심. 무역 실무에 굉장한 전문가이시기 때문에 현실적인 조언이나 팁들을
-							전수받을 수 있음. 시험은 범위 알려주셔서 외우기만 하면 쉬운 편</p>
-						<hr></a>
+
+					<c:forEach var="reviewVO" items="${reviewList }" begin="0" end="2">
+						<a class="article" href="view?courseId=${reviewVO.courseId}">
+							<span class="star"> <span class="on"
+								style="width :${20 * reviewVO.courseRate}%;"> </span>
+						</span>
+							<p class="title">${reviewVO.courseName }:
+								${reviewVO.professor }</p>
+							<p class="small">${reviewVO.reviewContent }</p>
+							<hr>
+						</a>
+					</c:forEach>
+
+
 				</div>
 			</div>
 		</div>
 		<div class="banners">
-			<a href="https://www.youtube.com/shorts/mZPkoLfdGQg">
-			<img src="/web/resources/images/chuchu.png"></a>
+			<a href="https://www.youtube.com/shorts/mZPkoLfdGQg"> <img
+				src="/web/resources/images/chuchu.png"></a>
 		</div>
 		<div class="main">
 			<div class="card">

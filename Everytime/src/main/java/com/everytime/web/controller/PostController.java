@@ -8,10 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,10 +22,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.everytime.web.domain.FileVO;
 import com.everytime.web.domain.PostVO;
+import com.everytime.web.domain.ProfileVO;
+import com.everytime.web.domain.ReviewVO;
+import com.everytime.web.domain.ScrapVO;
 import com.everytime.web.service.PostService;
+import com.everytime.web.service.ProfileService;
+import com.everytime.web.service.ScrapService;
 import com.everytime.web.util.FileUploadUtil;
 
 import lombok.extern.log4j.Log4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller // @Component
 // - 모든종류(JSP 페이지 매핑)에 service를 호출하는 객체
@@ -37,6 +46,12 @@ public class PostController {
 	@Autowired
 	private PostService postService;
 
+	@Autowired
+	private ProfileService profileService;
+
+	@Autowired
+	private ScrapService scrapService;
+
 	@GetMapping("post_list")
 	public String post_ListGET(Model model, Integer boardId, HttpServletRequest request) {
 		log.info("post_ListGET");
@@ -46,16 +61,26 @@ public class PostController {
 
 		// 게시물 목록 조회
 		List<PostVO> postList = postService.getAllPosts(boardId);
-		if(postList.isEmpty()) {
-			log.info("postList 없어 !!!" );
+		
+		if (postList.isEmpty()) {
+			log.info("postList 없어 !!!");
 		}
 		List<FileVO> postImgList = postService.getAllPostImgs(boardId);
 
+		// rightSide 리뷰리스트
+		List<ReviewVO> reviewList = postService.selectReview();
+		
+		// rightSide hot 게시글
+		List<PostVO> hotPostList = postService.selectHotPost();
+		
+		log.info("hotPostList : " + hotPostList);
+		
 		model.addAttribute("postList", postList);
 		model.addAttribute("postImgList", postImgList);
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("memberId", memberId);
-
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("hotPostList", hotPostList);
 		return "board/post_list";
 	}
 
@@ -66,7 +91,7 @@ public class PostController {
 		log.info("createPOST()");
 		log.info(postService.createPost(postVO) + "행 등록");
 		postVO.setPostId(postService.postIdByMemberId(postVO.getMemberId()));
-		
+
 		if (files != null && files.length > 0) {
 			int result = 0;
 			for (MultipartFile file : files) {
@@ -125,12 +150,38 @@ public class PostController {
 	@GetMapping("detail")
 	public String detail(@RequestParam("boardId") int boardId, @RequestParam("postId") int postId, Model model) {
 		log.info("detail()");
+
 		PostVO postVO = postService.getPostById(boardId, postId);
 		List<FileVO> fileVO = postService.getImgById(boardId, postId);
+		ProfileVO profileVO = profileService.getProfileById(postService.getId(boardId, postId));
 		
+		List<ReviewVO> reviewList = postService.selectReview();
+		log.info("reviewList : " +reviewList);
+		String profileImgSource;
+		if (profileVO != null) {
+			// 파일의 경로를 가져옴
+			String profilePath = profileVO.getProfilePath();
+			// 파일 참조를 위해 파일 경로 파싱
+			String[] parts = profilePath.split("\\\\");
+			String year = parts[0];
+			String month = parts[1];
+			String day = parts[2];
+
+			// 파일의 확장명을 가져옴
+			String profileExtension = profileVO.getProfileExtension();
+
+			// 파일의 이름을 가져옴
+			String profileName = profileVO.getProfileRealName();
+
+			profileImgSource = "image/" + year + "/" + month + "/" + day + "/" + profileName + "." + profileExtension;
+		} else {
+			// 기본 이미지 경로
+			profileImgSource = "image/imageDir/profile.png";
+		}
+
 		List<String> imgSource = new ArrayList<>();
 		if (fileVO != null) {
-			for(FileVO imgData : fileVO) {
+			for (FileVO imgData : fileVO) {
 				// 파일의 경로를 가져옴
 				String postPath = imgData.getPostPath();
 				// 파일 참조를 위해 파일 경로 파싱
@@ -147,14 +198,40 @@ public class PostController {
 
 				imgSource.add("image/" + year + "/" + month + "/" + day + "/" + postName + "." + postExtension);
 			}
-		} 
-
-		model.addAttribute("imgSource", imgSource);	
+		}
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("imgSource", imgSource);
+		model.addAttribute("profileImgSource", profileImgSource);
 		model.addAttribute("postVO", postVO);
 		return "/board/detail";
 	}
-	
-	  @PostMapping("/search/all")
+
+	@PostMapping("postScrap")
+	public ResponseEntity<Integer> postScrapPost(@RequestBody ScrapVO scrapVO, HttpServletRequest request) {
+		log.info("postScrapPost");
+
+		HttpSession session = request.getSession();
+		String memberId = (String) session.getAttribute("memberId");
+
+		scrapVO.setMemberId(memberId);
+
+		int postId = scrapVO.getPostId();
+
+		int checkResult = scrapService.checkIfPostScraped(postId, memberId);
+
+		int result = 0;
+
+		if (checkResult == 0) {
+			result = scrapService.postScrap(scrapVO);
+
+			return new ResponseEntity<Integer>(result, HttpStatus.OK);
+		}
+
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
+
+	}
+
+	@PostMapping("/search/all")
 	   public String searchAllPOST(String keyword,Model model,RedirectAttributes reAttr) {
 		   log.info("searchAllPOST()");
 		   
@@ -168,7 +245,17 @@ public class PostController {
 		   return "/board/search";
 		   
 	   }
-	
+
+	@GetMapping("hotpost")
+		 public String hotpost(Model model) {
+			 log.info("hotpost");
+			 
+			 List<PostVO> hotPostList = postService.selectHotPost();
+			 
+			 model.addAttribute("hotPostList", hotPostList);
+			 
+			 return "board/hotpost";
+		 }
 	
 	
 }

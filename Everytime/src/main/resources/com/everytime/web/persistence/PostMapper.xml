@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		jdbcType=CHAR}, '0'), #{postPath}, #{postRealName}, #{postChgName}, #{postExtension} 
 		FROM dual </insert> -->
 
-<!-- 게시글 삽입 -->
+	<!-- 게시글 삽입 -->
 	<insert id="insert">
 		INSERT INTO POST
 		VALUES (#{boardId},
@@ -93,6 +93,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND POST_ID = #{postId}
 	</select>
 
+	<select id="getPostDataByPostId" resultMap="postResultMap">
+		SELECT * FROM POST
+		WHERE POST_ID = #{postId}
+	</select>
+
+	<select id="getId" resultType="String">
+		SELECT MEMBER_ID
+		FROM post
+		WHERE
+		BOARD_ID = #{boardId}
+		AND POST_ID = #{postId}
+	</select>
+
 	<select id="getImgById" resultMap="FileResultMap">
 		SELECT * FROM IMG_FILE
 		WHERE
@@ -128,7 +141,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 
 
- <!-- 게시글 좋아요 수 업데이트 -->
+	<!-- 게시글 좋아요 수 업데이트 -->
 	<update id="updatePostLike">
 		UPDATE POST
 
@@ -138,18 +151,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</update>
 
+	<update id="updatePostScrap">
+		UPDATE POST
 
-<!-- 게시글 검색  -->
-	
+		SET POST_SCRAP_COUNT = POST_SCRAP_COUNT +1
+
+		WHERE POST_ID = #{postId}
+
+	</update>
+
+
+	<!-- 게시글 검색 -->
+
 	<select id="searchPost" resultMap="postResultMap">
-		
+
 		SELECT * FROM POST
-		
+
 		WHERE POST_TITLE LIKE '%' || #{keyword} || '%'
-		OR POST_CONTENT LIKE '%' || #{keyword} || '%'
-		
-	
+		OR POST_CONTENT LIKE '%' ||
+		#{keyword} || '%'
+
+
 	</select>
 
+	<!-- hot 게시글 검색 -->
+
+	<select id="selectHopPost" resultMap="postResultMap">
+
+		SELECT * FROM POST
+		WHERE POST_LIKE_COUNT >= 1
+		ORDER BY POST_ID DESC
+
+	</select>
 
 </mapper>

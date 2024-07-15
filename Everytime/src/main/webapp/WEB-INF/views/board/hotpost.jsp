@@ -95,58 +95,59 @@
 		<aside class="none"></aside>
 
 
-		 <div class="rightside">
-         <form action="post/search/all" method="POST" class="search">
-            <input type="text" name="keyword" placeholder="전체 게시판의 글을 검색하세요!"
-               class="text">
-         </form>
-         <div class="card">
-            <div class="board">
-               <h3>
-                  <a href="../post/hotpost">HOT 게시물<span>더 보기</span></a>
-               </h3>
-               <c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
+		<div class="rightside">
+			<form action="" method="POST" class="search">
+				<input type="text" name="keyword" placeholder="전체 게시판의 글을 검색하세요!"
+					class="text">
+			</form>
+			<div class="card">
+				<div class="board">
+					<h3>
+						<a href="../post/hotpost">HOT 게시물<span>더 보기</span></a>
+					</h3>
+					<c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
 						<a class="list" href="/370449/v/348440683">
 						<time>${postVO.postCreatedDate }</time>
 							<p>${postVO.postTitle }</p>
 							<hr> 
 						</a>
 					</c:forEach>
-            </div>
-         </div>
-         <div class="card">
-            <div class="board">
-               <h3>
-                  <a href="/bestarticle">BEST 게시판<span>더 보기</span></a>
-               </h3>
-            </div>
-         </div>
-         <div class="card">
-            <div class="board">
-               <h3>
-                  <a href="../lecture">최근 강의평<span>더 보기</span></a>
-               </h3>
-         
-                <c:forEach var="reviewVO" items="${reviewList }" begin="0" end="2">
-                  <a class="article" href="../view?courseId=${reviewVO.courseId}">
-                  <span class="star">
-                  	<span class="on" style="width :${20 * reviewVO.courseRate}%;">
-                  	</span>
-                  </span>
-                  <p class="title">${reviewVO.courseName } : ${reviewVO.professor }</p>
-                  <p class="small">${reviewVO.reviewContent }</p>
-                  <hr>
-                  </a>
-               </c:forEach>
-               
-             
-            </div>
-         </div>
-      </div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="board">
+					<h3>
+						<a href="/bestarticle">BEST 게시판<span>더 보기</span></a>
+					</h3>
+				</div>
+			</div>
+			<div class="card">
+				<div class="board">
+					<h3>
+						<a href="/lecture">최근 강의평<span>더 보기</span></a>
+					</h3>
+					<a class="article" href="/lecture/view/137944"><span
+						class="star"><span class="on" style="width: 20%;"></span></span>
+						<p class="title">미분적분학2 : 박상웅</p>
+						<p class="small">일점도 아까운데 내 최악의 교수임 혼자 달리시는걸 엄청 좋아하심</p>
+						<hr></a><a class="article" href="/lecture/view/135695"><span
+						class="star"><span class="on" style="width: 80%;"></span></span>
+						<p class="title">기능성고분자 : 장영욱</p>
+						<p class="small">전반적인 고분자합성방법 응용 시제품적용 등 고분자쪽에서 다룰수 있는건 거의 다룸.
+							자료내용이 많지는 않아서 필기 열심히하몀 공부할때 도움많이됩니</p>
+						<hr></a><a class="article" href="/lecture/view/501949"><span
+						class="star"><span class="on" style="width: 100%;"></span></span>
+						<p class="title">무역업창업과마케팅 : 백상현</p>
+						<p class="small">출석 안보심. 무역 실무에 굉장한 전문가이시기 때문에 현실적인 조언이나 팁들을
+							전수받을 수 있음. 시험은 범위 알려주셔서 외우기만 하면 쉬운 편</p>
+						<hr></a>
+				</div>
+			</div>
+		</div>
 
 		<div class="wrap title">
 			<h1>
-				<a href="/370449">자유게시판</a>
+				<a href="../post/hotpost">HOT 게시판</a>
 			</h1>
 			<hr>
 		</div>
@@ -154,10 +155,10 @@
 		<div class="wrap bubbles none"></div>
 		<!-- 게시물 등록 -->
 		<div class="wrap articles">
-			<c:if test="${empty searchList}">
+			<c:if test="${empty hotPostList}">
 				<article class="dialog">검색 결과가 없습니다.</article>
 			</c:if>
-			<c:forEach var="postVO" items="${searchList}">
+			<c:forEach var="postVO" items="${hotPostList}">
 				<article class="list">
 					<a class="article"
 						href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}">

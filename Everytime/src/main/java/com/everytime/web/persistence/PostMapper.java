@@ -43,15 +43,25 @@ public interface PostMapper {
 	
 	int postIdByMemberId(String memberId);
 
+	
+	
 	List<FileVO> selectPostImgList(Integer boardId);
 
 	// 특정 게시글 이미지 불러오기
 	List<FileVO> getImgById(@Param("boardId") int boardId, @Param("postId") int postId);
+
+	String getId(@Param("boardId") int boardId, @Param("postId") int postId);
+
+	int updatePostScrap(int postId);
+
+	PostVO getPostDataByPostId(int postId);
 	
 	
 	// 모든 게시글 검색
 	List<PostVO> searchPost(String keyword);
 	
+	// 핫 게시글 검색
+	List<PostVO> selectHopPost();
 	
 	
 }
