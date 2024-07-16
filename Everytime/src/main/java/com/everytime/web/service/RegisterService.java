@@ -25,4 +25,5 @@ public interface RegisterService {
 	
 	int checkEmail(String email);
 	String getMemberIdByEmail(String email);
+	String getNicknameById(String memberId);
 }

@@ -29,11 +29,11 @@ import com.everytime.web.domain.ReviewVO;
 import com.everytime.web.domain.ScrapVO;
 import com.everytime.web.service.PostService;
 import com.everytime.web.service.ProfileService;
+import com.everytime.web.service.RegisterService;
 import com.everytime.web.service.ScrapService;
 import com.everytime.web.util.FileUploadUtil;
 
 import lombok.extern.log4j.Log4j;
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller // @Component
 // - 모든종류(JSP 페이지 매핑)에 service를 호출하는 객체
@@ -44,6 +44,9 @@ public class PostController {
 
 	@Autowired
 	private String uploadPath;
+
+	@Autowired
+	private RegisterService registerService;
 
 	@Autowired
 	private PostService postService;
@@ -60,10 +63,11 @@ public class PostController {
 
 		HttpSession session = request.getSession();
 		String memberId = (String) session.getAttribute("memberId");
+		String nickname = registerService.getNicknameById(memberId);
 
 		// 게시물 목록 조회
 		List<PostVO> postList = postService.getAllPosts(boardId);
-		
+
 		if (postList.isEmpty()) {
 			log.info("postList 없어 !!!");
 		}
@@ -102,15 +106,16 @@ public class PostController {
 
 		// rightSide 리뷰리스트
 		List<ReviewVO> reviewList = postService.selectReview();
-		
+
 		// rightSide hot 게시글
 		List<PostVO> hotPostList = postService.selectHotPost();
-		
+
 		log.info("hotPostList : " + hotPostList);
-		
+
 		model.addAttribute("postList", postList);
 		model.addAttribute("postImgList", postImgList);
 		model.addAttribute("boardId", boardId);
+		model.addAttribute("nickname", nickname);
 		model.addAttribute("memberId", memberId);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("hotPostList", hotPostList);
@@ -122,6 +127,7 @@ public class PostController {
 	public String createPOST(PostVO postVO, @RequestParam("imgFiles") MultipartFile[] files,
 			RedirectAttributes reAttr) {
 		log.info("createPOST()");
+		log.info(postVO);
 		log.info(postService.createPost(postVO) + "행 등록");
 		postVO.setPostId(postService.postIdByMemberId(postVO.getMemberId()));
 
@@ -181,15 +187,20 @@ public class PostController {
 
 	// 게시글 상세보기 (폼)
 	@GetMapping("detail")
-	public String detail(@RequestParam("boardId") int boardId, @RequestParam("postId") int postId, Model model) {
+	public String detail(@RequestParam("boardId") int boardId, @RequestParam("postId") int postId, Model model,
+			HttpServletRequest request) {
 		log.info("detail()");
+
+		HttpSession session = request.getSession();
+		String memberId = (String) session.getAttribute("memberId");
+		String nickname = registerService.getNicknameById(memberId);
 
 		PostVO postVO = postService.getPostById(boardId, postId);
 		List<FileVO> fileVO = postService.getImgById(boardId, postId);
 		ProfileVO profileVO = profileService.getProfileById(postService.getId(boardId, postId));
-		
+
 		List<ReviewVO> reviewList = postService.selectReview();
-		log.info("reviewList : " +reviewList);
+		log.info("reviewList : " + reviewList);
 		String profileImgSource;
 		if (profileVO != null) {
 			// 파일의 경로를 가져옴
@@ -232,6 +243,7 @@ public class PostController {
 				imgSource.add("image/" + year + "/" + month + "/" + day + "/" + postName + "." + postExtension);
 			}
 		}
+		model.addAttribute("nickname", nickname);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("imgSource", imgSource);
 		model.addAttribute("profileImgSource", profileImgSource);
@@ -303,15 +315,14 @@ public class PostController {
 	}
 
 	@GetMapping("hotpost")
-		 public String hotpost(Model model) {
-			 log.info("hotpost");
-			 
-			 List<PostVO> hotPostList = postService.selectHotPost();
-			 
-			 model.addAttribute("hotPostList", hotPostList);
-			 
-			 return "board/hotpost";
-		 }
-	
-	
+	public String hotpost(Model model) {
+		log.info("hotpost");
+
+		List<PostVO> hotPostList = postService.selectHotPost();
+
+		model.addAttribute("hotPostList", hotPostList);
+
+		return "board/hotpost";
+	}
+
 }

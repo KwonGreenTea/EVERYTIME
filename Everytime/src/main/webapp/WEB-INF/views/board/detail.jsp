@@ -79,57 +79,69 @@
 				</h1>
 			</div>
 		</aside>
-		 <div class="rightside">
-         <form action="post/search/all" method="POST" class="search">
-            <input type="text" name="keyword" placeholder="전체 게시판의 글을 검색하세요!"
-               class="text">
-         </form>
-         <div class="card">
-            <div class="board">
-               <h3>
-                  <a href="../post/hotpost">HOT 게시물<span>더 보기</span></a>
-               </h3>
-               <c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
-						<a class="list" href="/370449/v/348440683">
-						<time>${postVO.postCreatedDate }</time>
+		<div class="rightside">
+			<form action="post/search/all" method="POST" class="search">
+				<input type="text" name="keyword" placeholder="전체 게시판의 글을 검색하세요!"
+					class="text">
+			</form>
+			<div class="card">
+				<div class="board">
+					<h3>
+						<a href="../post/hotpost">HOT 게시물<span>더 보기</span></a>
+					</h3>
+					<c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
+						<a class="list" href="/370449/v/348440683"> <time>${postVO.postCreatedDate }</time>
 							<p>${postVO.postTitle }</p>
-							<hr> 
+							<hr>
 						</a>
 					</c:forEach>
-            </div>
-         </div>
-         <div class="card">
-            <div class="board">
-               <h3>
-                  <a href="/bestarticle">BEST 게시판<span>더 보기</span></a>
-               </h3>
-            </div>
-         </div>
-         <div class="card">
-            <div class="board">
-               <h3>
-                  <a href="../lecture">최근 강의평<span>더 보기</span></a>
-               </h3>
-         
-                <c:forEach var="reviewVO" items="${reviewList }" begin="0" end="2">
-                  <a class="article" href="../view?courseId=${reviewVO.courseId}">
-                  <span class="star">
-                  	<span class="on" style="width :${20 * reviewVO.courseRate}%;">
-                  	</span>
-                  </span>
-                  <p class="title">${reviewVO.courseName } : ${reviewVO.professor }</p>
-                  <p class="small">${reviewVO.reviewContent }</p>
-                  <hr>
-                  </a>
-               </c:forEach>
-               
-             
-            </div>
-         </div>
-      </div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="board">
+					<h3>
+						<a href="/bestarticle">BEST 게시판<span>더 보기</span></a>
+					</h3>
+				</div>
+			</div>
+			<div class="card">
+				<div class="board">
+					<h3>
+						<a href="../lecture">최근 강의평<span>더 보기</span></a>
+					</h3>
+
+					<c:forEach var="reviewVO" items="${reviewList }" begin="0" end="2">
+						<a class="article" href="../view?courseId=${reviewVO.courseId}">
+							<span class="star"> <span class="on"
+								style="width :${20 * reviewVO.courseRate}%;"> </span>
+						</span>
+							<p class="title">${reviewVO.courseName }:
+								${reviewVO.professor }</p>
+							<p class="small">${reviewVO.reviewContent }</p>
+							<hr>
+						</a>
+					</c:forEach>
+
+
+				</div>
+			</div>
+		</div>
 		<div class="wrap title">
 			<h1>
-				<a href="/370449">자유게시판</a>
+				<c:choose>
+					<c:when test="${postVO.boardId == 1}">
+						<a href="../post/post_list?boardId=1">자유게시판</a>
+					</c:when>
+					<c:when test="${postVO.boardId == 2}">
+						<a href="../post/post_list?boardId=2">비밀게시판</a>
+					</c:when>
+					<c:when test="${postVO.boardId == 3}">
+						<a href="../post/post_list?boardId=3">졸업생게시판</a>
+					</c:when>
+					<c:when test="${postVO.boardId == 4}">
+						<a href="../post/post_list?boardId=3">새내기게시판</a>
+					</c:when>
+				</c:choose>
 			</h1>
 			<hr>
 		</div>
@@ -138,11 +150,18 @@
 		<div class="wrap articles">
 			<a id="writeArticleButton" style="display: none;">새 글을 작성해주세요!</a>
 			<article class="item">
-				<!--  -->
 				<a class="article"><img src="../${profileImgSource}"
 					class="picture large">
 					<div class="profile">
-						<h3 class="large">익명</h3>
+						<c:choose>
+							<c:when test="${postVO.postAnonymous == 0}">
+								<h3 class="large">${nickname}</h3>
+							</c:when>
+							<c:when test="${postVO.postAnonymous == 1}">
+								<h3 class="large">익명</h3>
+							</c:when>
+						</c:choose>
+
 						<time class="large">
 							<fmt:formatDate value="${postVO.postCreatedDate}"
 								pattern="yyyy-MM-dd HH:mm:ss" />
@@ -358,12 +377,12 @@
 					}
 				}
 			});
-			
+
 			$(".posScrap").each(function() {
-		        var postId = $(this).data('post-id');
-		        var buttonElement = $(this);
-		        checkScrapStatus(postId, buttonElement);
-		    });
+				var postId = $(this).data('post-id');
+				var buttonElement = $(this);
+				checkScrapStatus(postId, buttonElement);
+			});
 
 			// AJAX로 공감 추가 요청
 			function addLike(postId) {
@@ -426,7 +445,7 @@
 				};
 				$.ajax({
 					type : 'POST',
-					url : 'postCancelScrap', 
+					url : 'postCancelScrap',
 					headers : {
 						'Content-Type' : 'application/json'
 					},
@@ -446,31 +465,33 @@
 					}
 				});
 			}
-			
+
 			// 서버에서 스크랩 상태 확인
-		    function checkScrapStatus(postId, buttonElement) {
-		    	var obj = {
-						'postId' : postId
-					};
-		        $.ajax({
-		            type: 'POST',
-		            url: 'getScrapStatus', // 서버의 실제 URL로 변경 필요
-		            headers: { 'Content-Type': 'application/json' },
-		            data : JSON.stringify(obj),
-		            success: function(result) {
-		                if (result == 1) {
-		                    buttonElement.text('스크랩 취소');
-		                    buttonElement.data('scrap-status', 'scraped');
-		                } else {
-		                    buttonElement.text('스크랩');
-		                    buttonElement.data('scrap-status', 'not-scraped');
-		                }
-		            },
-		            error: function(xhr, status, error) {
-		                console.error("스크랩 상태 확인 실패:", status, error);
-		            }
-		        });
-		    }
+			function checkScrapStatus(postId, buttonElement) {
+				var obj = {
+					'postId' : postId
+				};
+				$.ajax({
+					type : 'POST',
+					url : 'getScrapStatus', // 서버의 실제 URL로 변경 필요
+					headers : {
+						'Content-Type' : 'application/json'
+					},
+					data : JSON.stringify(obj),
+					success : function(result) {
+						if (result == 1) {
+							buttonElement.text('스크랩 취소');
+							buttonElement.data('scrap-status', 'scraped');
+						} else {
+							buttonElement.text('스크랩');
+							buttonElement.data('scrap-status', 'not-scraped');
+						}
+					},
+					error : function(xhr, status, error) {
+						console.error("스크랩 상태 확인 실패:", status, error);
+					}
+				});
+			}
 
 			function increaseLikeCount(postId) {
 				var likeElement = $("#like-" + postId); // 공감 수를 표시하는 li 요소를 가져옴
@@ -485,14 +506,14 @@
 				var newScraps = currentScraps + 1;
 				scrapElement.text(newScraps);
 			}
-			
+
 			// 스크랩 수 감소
-		    function decreaseScrapCount(postId) {
-		        var scrapElement = $("#scrap-" + postId);
-		        var currentScraps = parseInt(scrapElement.text());
-		        var newScraps = currentScraps - 1;
-		        scrapElement.text(newScraps);
-		    }
+			function decreaseScrapCount(postId) {
+				var scrapElement = $("#scrap-" + postId);
+				var currentScraps = parseInt(scrapElement.text());
+				var newScraps = currentScraps - 1;
+				scrapElement.text(newScraps);
+			}
 
 		}); // end document();
 	</script>

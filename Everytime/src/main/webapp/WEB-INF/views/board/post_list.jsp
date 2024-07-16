@@ -91,57 +91,72 @@
 				</h1>
 			</div>
 		</aside>
-		 <div class="rightside">
-         <form action="post/search/all" method="POST" class="search">
-            <input type="text" name="keyword" placeholder="전체 게시판의 글을 검색하세요!"
-               class="text">
-         </form>
-         <div class="card">
-            <div class="board">
-               <h3>
-                  <a href="../post/hotpost">HOT 게시물<span>더 보기</span></a>
-               </h3>
-               <c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
-						<a class="list" href="/370449/v/348440683">
-						<time>${postVO.postCreatedDate }</time>
+		<div class="rightside">
+			<form action="post/search/all" method="POST" class="search">
+				<input type="text" name="keyword" placeholder="전체 게시판의 글을 검색하세요!"
+					class="text">
+			</form>
+			<div class="card">
+				<div class="board">
+					<h3>
+						<a href="../post/hotpost">HOT 게시물<span>더 보기</span></a>
+					</h3>
+					<c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
+						<a class="list" href="/370449/v/348440683"> <time>
+								<fmt:formatDate value="${postVO.postCreatedDate}"
+									pattern="MM/dd HH:mm" />
+							</time>
 							<p>${postVO.postTitle }</p>
-							<hr> 
+							<hr>
 						</a>
 					</c:forEach>
-            </div>
-         </div>
-         <div class="card">
-            <div class="board">
-               <h3>
-                  <a href="/bestarticle">BEST 게시판<span>더 보기</span></a>
-               </h3>
-            </div>
-         </div>
-         <div class="card">
-            <div class="board">
-               <h3>
-                  <a href="../lecture">최근 강의평<span>더 보기</span></a>
-               </h3>
-         
-                <c:forEach var="reviewVO" items="${reviewList }" begin="0" end="2">
-                  <a class="article" href="../view?courseId=${reviewVO.courseId}">
-                  <span class="star">
-                  	<span class="on" style="width :${20 * reviewVO.courseRate}%;">
-                  	</span>
-                  </span>
-                  <p class="title">${reviewVO.courseName } : ${reviewVO.professor }</p>
-                  <p class="small">${reviewVO.reviewContent }</p>
-                  <hr>
-                  </a>
-               </c:forEach>
-               
-             
-            </div>
-         </div>
-      </div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="board">
+					<h3>
+						<a href="/bestarticle">BEST 게시판<span>더 보기</span></a>
+					</h3>
+				</div>
+			</div>
+			<div class="card">
+				<div class="board">
+					<h3>
+						<a href="../lecture">최근 강의평<span>더 보기</span></a>
+					</h3>
+
+					<c:forEach var="reviewVO" items="${reviewList }" begin="0" end="2">
+						<a class="article" href="../view?courseId=${reviewVO.courseId}">
+							<span class="star"> <span class="on"
+								style="width :${20 * reviewVO.courseRate}%;"> </span>
+						</span>
+							<p class="title">${reviewVO.courseName }:
+								${reviewVO.professor }</p>
+							<p class="small">${reviewVO.reviewContent }</p>
+							<hr>
+						</a>
+					</c:forEach>
+
+
+				</div>
+			</div>
+		</div>
 		<div class="wrap title">
 			<h1>
-				<a href="/370449">자유게시판</a>
+				<c:choose>
+					<c:when test="${boardId == 1}">
+						<a href="../post/post_list?boardId=1">자유게시판</a>
+					</c:when>
+					<c:when test="${boardId == 2}">
+						<a href="../post/post_list?boardId=2">비밀게시판</a>
+					</c:when>
+					<c:when test="${boardId == 3}">
+						<a href="../post/post_list?boardId=3">졸업생게시판</a>
+					</c:when>
+					<c:when test="${boardId == 4}">
+						<a href="../post/post_list?boardId=3">새내기게시판</a>
+					</c:when>
+				</c:choose>
 			</h1>
 			<hr>
 		</div>
@@ -188,7 +203,6 @@
 					onchange="handleFileSelect(event)">
 				<ol class="thumbnails" id="thumbnails" style="display: none;"></ol>
 
-				<input type="hidden" name="postAnonymous" value="0">
 				<ul class="option">
 					<li title="첨부" class="attach" id="attachBoard"></li>
 					<li title="완료" class="submit" id="submitBtn"></li>
@@ -218,7 +232,14 @@
 										pattern="MM/dd" />
 									<!-- 작성 날짜 -->
 								</time>
-								<h3 class="small">익명</h3>
+								<c:choose>
+									<c:when test="${postVO.postAnonymous == 0}">
+										<h3 class="small">${nickname }</h3>
+									</c:when>
+									<c:when test="${postVO.postAnonymous == 1}">
+										<h3 class="small">익명</h3>
+									</c:when>
+								</c:choose>
 							</div>
 							<hr>
 						</div> <c:choose>

@@ -16,7 +16,7 @@ public class Pagination {
 
 	public Pagination() {
 		this.pageNum = 1; // 기본 페이지 번호 설정
-		this.pageSize = 5; // 기본 페이지 사이즈 설정
+		this.pageSize = 20; // 기본 페이지 사이즈 설정
 	}
 
 	public Pagination(int page, int pageSize) {

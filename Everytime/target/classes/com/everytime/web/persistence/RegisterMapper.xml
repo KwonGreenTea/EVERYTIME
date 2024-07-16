@@ -45,6 +45,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getNameById" resultType="String">
 		SELECT NAME FROM MEMBER WHERE MEMBER_ID = #{memberId}
 	</select>
+	
+	<select id="getNicknameById" resultType="String">
+		SELECT NICKNAME FROM MEMBER WHERE MEMBER_ID = #{memberId}
+	</select>
 
 	<update id="update">
 		UPDATE MEMBER SET

@@ -31,10 +31,10 @@
 			<div class="divider"></div>
 			<div class="group">
 				<ul>
-					<li><a href="../post/post_list?boardId=1" class="new">자유게시판</a></li>
-					<li><a href="../post/post_list?boardId=2" class="new">비밀게시판</a></li>
-					<li><a href="../post/post_list?boardId=3" class="new">졸업생게시판</a></li>
-					<li><a href="../post/post_list?boardId=4" class="new">새내기게시판</a></li>
+					<li><a href="post/post_list?boardId=1" class="new">자유게시판</a></li>
+					<li><a href="post/post_list?boardId=2" class="new">비밀게시판</a></li>
+					<li><a href="post/post_list?boardId=3" class="new">졸업생게시판</a></li>
+					<li><a href="post/post_list?boardId=4" class="new">새내기게시판</a></li>
 				</ul>
 			</div>
 			<div class="group">
@@ -76,7 +76,6 @@
 			</form>
 			<div class="title">
 				<a class="hamburger"></a>
-				<h1>한양대 ERICA캠 에브리타임</h1>
 				<ol class="buttons">
 					<li><a id="searchArticle">글 검색</a></li>
 				</ol>
@@ -98,7 +97,7 @@
 			</div>
 			<div class="card">
 				<div class="menus">
-					<a href="/myarticle" class="myarticle">내가 쓴 글</a> <a
+					<a href="myarticle" class="myarticle">내가 쓴 글</a> <a
 						href="/mycommentarticle" class="mycommentarticle">댓글 단 글</a> <a
 						href="myscrap" class="myscrap">내 스크랩</a>
 					<hr>
@@ -116,10 +115,12 @@
 						<a href="post/hotpost">HOT 게시물<span>더 보기</span></a>
 					</h3>
 					<c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
-						<a class="list" href="/370449/v/348440683">
-						<time>${postVO.postCreatedDate }</time>
+						<a class="list" href="/370449/v/348440683"> <time>
+								<fmt:formatDate value="${postVO.postCreatedDate}"
+									pattern="MM/dd HH:mm" />
+							</time>
 							<p>${postVO.postTitle }</p>
-							<hr> 
+							<hr>
 						</a>
 					</c:forEach>
 
@@ -167,7 +168,10 @@
 					<c:forEach var="postVO" items="${postListNum1 }" begin="0" end="3">
 						<a class="list"
 							href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}">
-							<time id="createdTime">${postVO.postCreatedDate }</time>
+							<time id="createdTime">
+								<fmt:formatDate value="${postVO.postCreatedDate}"
+									pattern="MM/dd HH:mm" />
+							</time>
 							<p>${postVO.postTitle }</p>
 							<hr>
 						</a>
@@ -183,7 +187,10 @@
 					<c:forEach var="postVO" items="${postListNum2 }" begin="0" end="3">
 						<a class="list"
 							href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}"><time
-								id="createdTime">${postVO.postCreatedDate }</time>
+								id="createdTime">
+								<fmt:formatDate value="${postVO.postCreatedDate}"
+									pattern="MM/dd HH:mm" />
+							</time>
 							<p>${postVO.postTitle }</p>
 							<hr></a>
 					</c:forEach>
@@ -197,7 +204,10 @@
 					<c:forEach var="postVO" items="${postListNum3 }" begin="0" end="3">
 						<a class="list"
 							href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}"><time
-								id="createdTime">${postVO.postCreatedDate }</time>
+								id="createdTime">
+								<fmt:formatDate value="${postVO.postCreatedDate}"
+									pattern="MM/dd HH:mm" />
+							</time>
 							<p>${postVO.postTitle }</p>
 							<hr></a>
 					</c:forEach>
@@ -210,10 +220,14 @@
 					</h3>
 					<c:forEach var="postVO" items="${postListNum4 }" begin="0" end="3">
 						<a class="list"
-							href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}"><time
-								id="createdTime">${postVO.postCreatedDate }</time>
+							href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}">
+							<time id="createdTime">
+								<fmt:formatDate value="${postVO.postCreatedDate}"
+									pattern="MM/dd HH:mm" />
+							</time>
 							<p>${postVO.postTitle }</p>
-							<hr></a>
+							<hr>
+						</a>
 					</c:forEach>
 				</div>
 			</div>

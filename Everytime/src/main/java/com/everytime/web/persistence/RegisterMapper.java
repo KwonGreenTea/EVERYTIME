@@ -40,4 +40,6 @@ public interface RegisterMapper {
    int checkEmail(String email);
    
    String getMemberIdByEmail(String email);
+
+   String getNicknameById(String memberId);
 }

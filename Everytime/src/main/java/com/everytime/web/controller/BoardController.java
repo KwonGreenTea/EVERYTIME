@@ -19,6 +19,7 @@ import com.everytime.web.domain.ReviewVO;
 import com.everytime.web.service.BoardService;
 import com.everytime.web.service.PostService;
 import com.everytime.web.service.ProfileService;
+import com.everytime.web.service.RegisterService;
 import com.everytime.web.service.ScrapService;
 
 import lombok.extern.log4j.Log4j;
@@ -32,6 +33,9 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private RegisterService registerService;
 
 	@Autowired
 	private ProfileService profileService;
@@ -112,6 +116,7 @@ public class BoardController {
 		log.info("myscrapGet()");
 		HttpSession session = request.getSession();
 		String memberId = (String) session.getAttribute("memberId");
+		String nickname = registerService.getNicknameById(memberId);
 
 		List<Integer> scrapPostId = scrapService.selectScrapById(memberId);
 
@@ -119,8 +124,12 @@ public class BoardController {
 		for (int postId : scrapPostId) {
 			postList.add(postService.getPostDataByPostId(postId));
 		}
+		
+		List<PostVO> hotPostList = postService.selectHotPost();
 
+		model.addAttribute("nickname", nickname);
 		model.addAttribute("postList", postList);
+		model.addAttribute("hotPostList", hotPostList);
 
 		return "board/myscrap";
 	}
