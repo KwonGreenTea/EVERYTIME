@@ -45,10 +45,10 @@
 			<div class="divider"></div>
 			<div class="group">
 				<ul>
-					<li><a href="../post/post_list?boardId=1" class="new">자유게시판</a></li>
-					<li><a href="../post/post_list?boardId=2" class="new">비밀게시판</a></li>
-					<li><a href="../post/post_list?boardId=3" class="new">졸업생게시판</a></li>
-					<li><a href="../post/post_list?boardId=4" class="new">새내기게시판</a></li>
+					<li><a href="../post_list?boardId=1" class="new">자유게시판</a></li>
+					<li><a href="../post_list?boardId=2" class="new">비밀게시판</a></li>
+					<li><a href="../post_list?boardId=3" class="new">졸업생게시판</a></li>
+					<li><a href="../post_list?boardId=4" class="new">새내기게시판</a></li>
 				</ul>
 			</div>
 			<div class="group">
@@ -100,7 +100,8 @@
                </h3>
                <c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
 						<a class="list" href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}">
-						<time>${postVO.postCreatedDate }</time>
+						<time><fmt:formatDate value="${postVO.postCreatedDate}"
+									pattern="MM/dd HH:mm" /></time>
 							<p>${postVO.postTitle }</p>
 							<hr> 
 						</a>
@@ -149,7 +150,20 @@
 					<a class="article"
 						href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}">
 						<div class="desc">
-							<div class="boardname">자유게시판</div>
+							<c:choose>
+								<c:when test="${postVO.boardId == 1}">
+									<div class="boardname">자유게시판</div>
+								</c:when>
+								<c:when test="${postVO.boardId == 2}">
+									<div class="boardname">비밀게시판</div>
+								</c:when>
+								<c:when test="${postVO.boardId == 3}">
+									<div class="boardname">졸업생게시판</div>
+								</c:when>
+								<c:when test="${postVO.boardId == 4}">
+									<div class="boardname">새내기게시판</div>
+								</c:when>
+							</c:choose>
 							<h2 class="medium bold">${postVO.postTitle}</h2>
 							<p class="medium">${postVO.postContent}</p>
 							<div class="info">

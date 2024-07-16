@@ -30,10 +30,10 @@
 			<div class="divider"></div>
 			<div class="group">
 				<ul>
-					<li><a href="../post/post_list?boardId=1" class="new">자유게시판</a></li>
-					<li><a href="../post/post_list?boardId=2" class="new">비밀게시판</a></li>
-					<li><a href="../post/post_list?boardId=3" class="new">졸업생게시판</a></li>
-					<li><a href="../post/post_list?boardId=4" class="new">새내기게시판</a></li>
+					<li><a href="../post_list?boardId=1" class="new">자유게시판</a></li>
+					<li><a href="../post_list?boardId=2" class="new">비밀게시판</a></li>
+					<li><a href="../post_list?boardId=3" class="new">졸업생게시판</a></li>
+					<li><a href="../post_list?boardId=4" class="new">새내기게시판</a></li>
 				</ul>
 			</div>
 			<div class="group">
@@ -80,10 +80,6 @@
 			</div>
 		</aside>
 		<div class="rightside">
-			<form action="post/search/all" method="POST" class="search">
-				<input type="text" name="keyword" placeholder="전체 게시판의 글을 검색하세요!"
-					class="text">
-			</form>
 			<div class="card">
 				<div class="board">
 					<h3>
@@ -92,18 +88,12 @@
 					<c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
 						<a class="list"
 							href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}">
-							<time>${postVO.postCreatedDate }</time>
+							<time><fmt:formatDate value="${postVO.postCreatedDate}"
+									pattern="MM/dd HH:mm" /></time>
 							<p>${postVO.postTitle }</p>
 							<hr>
 						</a>
 					</c:forEach>
-				</div>
-			</div>
-			<div class="card">
-				<div class="board">
-					<h3>
-						<a href="/bestarticle">BEST 게시판<span>더 보기</span></a>
-					</h3>
 				</div>
 			</div>
 			<div class="card">
@@ -166,7 +156,7 @@
 
 						<time class="large">
 							<fmt:formatDate value="${postVO.postCreatedDate}"
-								pattern="yyyy-MM-dd HH:mm:ss" />
+								pattern="yyyy-MM-dd HH:mm" />
 						</time>
 					</div>
 					<ul class="status">

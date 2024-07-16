@@ -14,7 +14,7 @@ public class PageMaker {
 	private int pageCount; // 화면에 표시되는 페이지 번호 수
 	
 	public PageMaker() {
-		this.pageCount = 5; // 5개의 페이지 번호만 화면에 표시
+		this.pageCount = 1; // 5개의 페이지 번호만 화면에 표시
 	}	
 	
 	// 전체 페이지 번호 계산값
