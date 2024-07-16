@@ -17,13 +17,6 @@
 	href="https://everytime.kr/css/container.community.css" />
 <link rel="stylesheet"
 	href="https://everytime.kr/css/container.modal.css" />
-<link rel="stylesheet" href="/web/resources/css/mainCommon.css" />
-<link rel="stylesheet" href="/web/resources/css/mainCommon.partial.css" />
-<link rel="stylesheet" href="/web/resources/css/container.article.css" />
-
-<link rel="stylesheet" href="/web/resources/css/container.community.css" />
-
-<link rel="stylesheet" href="/web/resources/css/container.modal.css" />
 
 
 </head>
@@ -95,8 +88,8 @@
 		<aside class="none"></aside>
 
 
-		 <div class="rightside">
-         <form action="post/search/all" method="POST" class="search">
+		<div class="rightside">
+         <form action="" method="POST" class="search">
             <input type="text" name="keyword" placeholder="전체 게시판의 글을 검색하세요!"
                class="text">
          </form>
@@ -140,7 +133,7 @@
 
 		<div class="wrap title">
 			<h1>
-				<a href="/370449">자유게시판</a>
+				<a>'${keyword }' 검색 결과</a>
 			</h1>
 			<hr>
 		</div>
@@ -193,6 +186,5 @@
 
 	</div>
 
-	<hr>
 </body>
 </html>

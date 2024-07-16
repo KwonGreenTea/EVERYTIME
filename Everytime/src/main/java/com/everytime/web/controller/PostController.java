@@ -305,10 +305,15 @@ public class PostController {
 		log.info("searchAllPOST()");
 
 		List<PostVO> searchList = postService.searchPost(keyword);
+		List<PostVO> hotPostList = postService.selectHotPost();
+		List<ReviewVO> reviewList = postService.selectReview();
 
 		log.info("searchList : " + searchList);
 
 		model.addAttribute("searchList", searchList);
+		model.addAttribute("hotPostList", hotPostList);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("keyword", keyword);
 
 		return "/board/search";
 

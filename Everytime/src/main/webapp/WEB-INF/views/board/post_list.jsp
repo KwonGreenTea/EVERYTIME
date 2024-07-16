@@ -210,8 +210,9 @@
 							<p class="medium">${postVO.postContent}</p>
 							<div class="info">
 								<ul class="status">
-									<li title="댓글" class="comment">1</li>
-									<!-- 댓글 개수 -->
+									<li title="공감" class="vote" 
+									id="${postVO.postLikeCount }"> ${postVO.postLikeCount }</li>
+									<li title="댓글" class="comment">12</li>
 								</ul>
 								<time class="small">
 									<fmt:formatDate value="${postVO.postCreatedDate}"
@@ -350,7 +351,21 @@
             $("#writeArticleButton").click(function() {
                $("#write").show();
             });
-         });
+            
+            $('.vote').each(function() {
+                // 각 요소의 텍스트 내용을 숫자로 변환
+                var likeCount = parseInt($(this).text().trim());
+                
+                // 조건에 따라 요소를 표시하거나 숨기기
+                if (likeCount > 0) {
+                  $(this).show(); // 요소를 표시
+                } else {
+                  $(this).hide(); // 요소를 숨김
+                }
+              }); 
+            
+            
+         }); // end document
       </script>
 
 </body>
