@@ -198,6 +198,7 @@ public class PostController {
 		PostVO postVO = postService.getPostById(boardId, postId);
 		List<FileVO> fileVO = postService.getImgById(boardId, postId);
 		ProfileVO profileVO = profileService.getProfileById(postService.getId(boardId, postId));
+		List<PostVO> hotPostList = postService.selectHotPost();
 
 		List<ReviewVO> reviewList = postService.selectReview();
 		log.info("reviewList : " + reviewList);
@@ -248,6 +249,8 @@ public class PostController {
 		model.addAttribute("imgSource", imgSource);
 		model.addAttribute("profileImgSource", profileImgSource);
 		model.addAttribute("postVO", postVO);
+		model.addAttribute("hotPostList", hotPostList);
+		
 		return "/board/detail";
 	}
 
@@ -315,12 +318,15 @@ public class PostController {
 	}
 
 	@GetMapping("hotpost")
-	public String hotpost(Model model) {
+	public String hotpost(Model model, HttpServletRequest request) {
 		log.info("hotpost");
-
+		HttpSession session = request.getSession();
+		String memberId = (String) session.getAttribute("memberId");
+		String nickname = registerService.getNicknameById(memberId);
 		List<PostVO> hotPostList = postService.selectHotPost();
 		List<ReviewVO> reviewList = postService.selectReview();
 
+		model.addAttribute("nickname", nickname);
 		model.addAttribute("hotPostList", hotPostList);
 		model.addAttribute("reviewList", reviewList);
 

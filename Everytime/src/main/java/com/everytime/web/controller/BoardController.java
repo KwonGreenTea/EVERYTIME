@@ -118,6 +118,7 @@ public class BoardController {
 		String memberId = (String) session.getAttribute("memberId");
 		String nickname = registerService.getNicknameById(memberId);
 
+		List<ReviewVO> reviewList = postService.selectReview();
 		List<Integer> scrapPostId = scrapService.selectScrapById(memberId);
 
 		List<PostVO> postList = new ArrayList<>();
@@ -129,6 +130,7 @@ public class BoardController {
 
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("postList", postList);
+		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("hotPostList", hotPostList);
 
 		return "board/myscrap";

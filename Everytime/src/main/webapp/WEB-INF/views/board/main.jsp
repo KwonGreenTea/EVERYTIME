@@ -117,7 +117,8 @@
 					<c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
 						<a class="list"
 							href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}">
-							<time>${postVO.postCreatedDate }</time>
+							<time><fmt:formatDate value="${postVO.postCreatedDate}"
+									pattern="MM/dd HH:mm" /></time>
 							<p>${postVO.postTitle }</p>
 							<hr>
 						</a>

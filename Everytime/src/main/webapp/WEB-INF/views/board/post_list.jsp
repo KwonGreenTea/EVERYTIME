@@ -100,7 +100,8 @@
 					<c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
 						<a class="list"
 							href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}">
-							<time>${postVO.postCreatedDate }</time>
+							<time><fmt:formatDate value="${postVO.postCreatedDate}"
+									pattern="MM/dd HH:mm" /></time>
 							<p>${postVO.postTitle }</p>
 							<hr>
 						</a>
@@ -171,7 +172,7 @@
 			<a id="writeArticleButton">새 글을 작성해주세요!</a>
 			<form id="write" action="create" method="post" class="write"
 				style="display: none" enctype="multipart/form-data">
-				<input type="hidden" name="boardId" id="boardId" value="1">
+				<input type="hidden" name="boardId" id="boardId" value="${boardId }">
 				<input type="hidden" name="memberId" value="${memberId}">
 
 				<p>

@@ -97,7 +97,8 @@
 					<c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
 						<a class="list"
 							href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}">
-							<time>${postVO.postCreatedDate }</time>
+							<time><fmt:formatDate value="${postVO.postCreatedDate}"
+									pattern="MM/dd HH:mm" /></time>
 							<p>${postVO.postTitle }</p>
 							<hr>
 						</a>
@@ -160,7 +161,14 @@
 										pattern="MM/dd" />
 									<!-- 작성 날짜 -->
 								</time>
-								<h3 class="small">익명</h3>
+								<c:choose>
+									<c:when test="${postVO.postAnonymous == 0}">
+										<h3 class="small">${nickname }</h3>
+									</c:when>
+									<c:when test="${postVO.postAnonymous == 1}">
+										<h3 class="small">익명</h3>
+									</c:when>
+								</c:choose>
 							</div>
 							<hr>
 						</div> <input type="hidden" name="348759222_comment_anonym" value="0">
