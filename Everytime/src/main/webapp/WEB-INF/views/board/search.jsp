@@ -17,13 +17,6 @@
 	href="https://everytime.kr/css/container.community.css" />
 <link rel="stylesheet"
 	href="https://everytime.kr/css/container.modal.css" />
-<link rel="stylesheet" href="/web/resources/css/mainCommon.css" />
-<link rel="stylesheet" href="/web/resources/css/mainCommon.partial.css" />
-<link rel="stylesheet" href="/web/resources/css/container.article.css" />
-
-<link rel="stylesheet" href="/web/resources/css/container.community.css" />
-
-<link rel="stylesheet" href="/web/resources/css/container.modal.css" />
 
 
 </head>
@@ -52,10 +45,10 @@
 			<div class="divider"></div>
 			<div class="group">
 				<ul>
-					<li><a href="../post/post_list?boardId=1" class="new">자유게시판</a></li>
-					<li><a href="../post/post_list?boardId=2" class="new">비밀게시판</a></li>
-					<li><a href="../post/post_list?boardId=3" class="new">졸업생게시판</a></li>
-					<li><a href="../post/post_list?boardId=4" class="new">새내기게시판</a></li>
+					<li><a href="../post_list?boardId=1" class="new">자유게시판</a></li>
+					<li><a href="../post_list?boardId=2" class="new">비밀게시판</a></li>
+					<li><a href="../post_list?boardId=3" class="new">졸업생게시판</a></li>
+					<li><a href="../post_list?boardId=4" class="new">새내기게시판</a></li>
 				</ul>
 			</div>
 			<div class="group">
@@ -95,8 +88,8 @@
 		<aside class="none"></aside>
 
 
-		 <div class="rightside">
-         <form action="post/search/all" method="POST" class="search">
+		<div class="rightside">
+         <form action="" method="POST" class="search">
             <input type="text" name="keyword" placeholder="전체 게시판의 글을 검색하세요!"
                class="text">
          </form>
@@ -141,7 +134,7 @@
 
 		<div class="wrap title">
 			<h1>
-				<a href="/370449">자유게시판</a>
+				<a>'${keyword }' 검색 결과</a>
 			</h1>
 			<hr>
 		</div>
@@ -157,7 +150,20 @@
 					<a class="article"
 						href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}">
 						<div class="desc">
-							<div class="boardname">자유게시판</div>
+							<c:choose>
+								<c:when test="${postVO.boardId == 1}">
+									<div class="boardname">자유게시판</div>
+								</c:when>
+								<c:when test="${postVO.boardId == 2}">
+									<div class="boardname">비밀게시판</div>
+								</c:when>
+								<c:when test="${postVO.boardId == 3}">
+									<div class="boardname">졸업생게시판</div>
+								</c:when>
+								<c:when test="${postVO.boardId == 4}">
+									<div class="boardname">새내기게시판</div>
+								</c:when>
+							</c:choose>
 							<h2 class="medium bold">${postVO.postTitle}</h2>
 							<p class="medium">${postVO.postContent}</p>
 							<div class="info">
@@ -194,6 +200,5 @@
 
 	</div>
 
-	<hr>
 </body>
 </html>

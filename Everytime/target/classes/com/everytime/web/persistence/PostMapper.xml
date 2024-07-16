@@ -179,7 +179,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		OR POST_CONTENT LIKE '%' ||
 		#{keyword} || '%'
 
-
 	</select>
 
 	<!-- hot 게시글 검색 -->
@@ -197,5 +196,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE MEMBER_ID = #{memberId}
 		ORDER BY POST_ID DESC
 	</select>
+	
+	
+	
 
 </mapper>

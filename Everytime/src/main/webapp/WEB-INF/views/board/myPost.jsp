@@ -101,6 +101,7 @@
 								<fmt:formatDate value="${postVO.postCreatedDate}"
 									pattern="MM/dd HH:mm" />
 							</time>
+							
 							<p>${postVO.postTitle }</p>
 							<hr>
 						</a>
@@ -164,11 +165,12 @@
 									<div class="boardname">새내기게시판</div>
 								</c:when>
 							</c:choose>
-
 							<h2 class="medium bold">${postVO.postTitle}</h2>
 							<p class="medium">${postVO.postContent}</p>
 							<div class="info">
 								<ul class="status">
+								<li title="공감" class="vote" 
+									id="${postVO.postLikeCount }"> ${postVO.postLikeCount }</li>
 									<li title="댓글" class="comment">1</li>
 									<!-- 댓글 개수 -->
 								</ul>
@@ -201,5 +203,22 @@
 
 	</div>
 
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			$('.vote').each(function() {
+				// 각 요소의 텍스트 내용을 숫자로 변환
+				var likeCount = parseInt($(this).text().trim());
+
+				// 조건에 따라 요소를 표시하거나 숨기기
+				if (likeCount > 0) {
+					$(this).show(); // 요소를 표시
+				} else {
+					$(this).hide(); // 요소를 숨김
+				}
+			});
+
+		}); // end document
+	</script>
 </body>
 </html>
