@@ -97,9 +97,9 @@
 			</div>
 			<div class="card">
 				<div class="menus">
-					<a href="myarticle" class="myarticle">내가 쓴 글</a> <a
-						href="/mycommentarticle" class="mycommentarticle">댓글 단 글</a> <a
-						href="myscrap" class="myscrap">내 스크랩</a>
+					<a href="post/myPost" class="myarticle">내가 쓴 글</a> 
+					<a href="/mycommentarticle" class="mycommentarticle">댓글 단 글</a> 
+					<a href="myscrap" class="myscrap">내 스크랩</a>
 					<hr>
 				</div>
 			</div>
@@ -115,22 +115,14 @@
 						<a href="post/hotpost">HOT 게시물<span>더 보기</span></a>
 					</h3>
 					<c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
-						<a class="list" href="/370449/v/348440683"> <time>
-								<fmt:formatDate value="${postVO.postCreatedDate}"
-									pattern="MM/dd HH:mm" />
-							</time>
+						<a class="list"
+							href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}">
+							<time>${postVO.postCreatedDate }</time>
 							<p>${postVO.postTitle }</p>
 							<hr>
 						</a>
 					</c:forEach>
 
-				</div>
-			</div>
-			<div class="card">
-				<div class="board">
-					<h3>
-						<a href="/bestarticle">BEST 게시판<span>더 보기</span></a>
-					</h3>
 				</div>
 			</div>
 			<div class="card">
@@ -238,6 +230,5 @@
 	</div>
 
 
-	<hr>
 </body>
 </html>

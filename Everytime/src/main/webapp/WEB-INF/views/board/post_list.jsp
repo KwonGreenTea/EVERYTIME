@@ -92,31 +92,19 @@
 			</div>
 		</aside>
 		<div class="rightside">
-			<form action="post/search/all" method="POST" class="search">
-				<input type="text" name="keyword" placeholder="전체 게시판의 글을 검색하세요!"
-					class="text">
-			</form>
 			<div class="card">
 				<div class="board">
 					<h3>
 						<a href="../post/hotpost">HOT 게시물<span>더 보기</span></a>
 					</h3>
 					<c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
-						<a class="list" href="/370449/v/348440683"> <time>
-								<fmt:formatDate value="${postVO.postCreatedDate}"
-									pattern="MM/dd HH:mm" />
-							</time>
+						<a class="list"
+							href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}">
+							<time>${postVO.postCreatedDate }</time>
 							<p>${postVO.postTitle }</p>
 							<hr>
 						</a>
 					</c:forEach>
-				</div>
-			</div>
-			<div class="card">
-				<div class="board">
-					<h3>
-						<a href="/bestarticle">BEST 게시판<span>더 보기</span></a>
-					</h3>
 				</div>
 			</div>
 			<div class="card">
@@ -136,8 +124,6 @@
 							<hr>
 						</a>
 					</c:forEach>
-
-
 				</div>
 			</div>
 		</div>
@@ -161,7 +147,7 @@
 			<hr>
 		</div>
 		<div class="wrap notification none"></div>
-		<div class="wrap bubbles">
+		<div class="wrap bubbles none">
 			<div class="bubble question">
 				<div class="group"></div>
 				<div class="items">
@@ -274,8 +260,6 @@
 			</div>
 		</div>
 	</div>
-
-	<hr>
 
 	<script type="text/javascript">
       function handleFileSelect(event) {

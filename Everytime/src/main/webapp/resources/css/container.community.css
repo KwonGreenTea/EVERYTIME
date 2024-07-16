@@ -90,13 +90,13 @@
 	background-color: #fff;
 }
 #container div.card > div.menus > a.myarticle {
-	background-image: url('/images/new/container.community.card.myarticle.png');
+	background-image: url('../images/leftsideMyPost.png');
 }
 #container div.card > div.menus > a.mycommentarticle {
-	background-image: url('/images/new/container.community.card.mycommentarticle.png');
+	background-image: url('../images/leftsideMyComment.png');
 }
 #container div.card > div.menus > a.myscrap {
-	background-image: url('/images/new/container.community.card.myscrap.png'); border-bottom: 0;
+	background-image: url('../images/leftsideMyScrap.png'); border-bottom: 0;
 }
 
 #container div.card > div.banner img {

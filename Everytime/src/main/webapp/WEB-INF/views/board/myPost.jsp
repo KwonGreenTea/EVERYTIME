@@ -129,20 +129,20 @@
 
 		<div class="wrap title">
 			<h1>
-				<a href="../post/hotpost">HOT 게시판</a>
+				<a href="../post/myPost">내가 쓴 게시글</a>
 			</h1>
 			<hr>
-			<p>공감 5개를 받으면 HOT 게시물로 자동 선정됩니다.</p>
+
 		</div>
 		<div class="wrap notification none"></div>
 		<div class="wrap bubbles none"></div>
 
 		<!-- 게시물 등록 -->
 		<div class="wrap articles">
-			<c:if test="${empty hotPostList}">
+			<c:if test="${empty myPostList}">
 				<article class="dialog">검색 결과가 없습니다.</article>
 			</c:if>
-			<c:forEach var="postVO" items="${hotPostList}">
+			<c:forEach var="postVO" items="${myPostList}">
 				<article class="list">
 					<a class="article"
 						href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}">
