@@ -307,11 +307,36 @@ public class PostController {
 			 log.info("hotpost");
 			 
 			 List<PostVO> hotPostList = postService.selectHotPost();
+			 List<ReviewVO> reviewList = postService.selectReview();
+			 
 			 
 			 model.addAttribute("hotPostList", hotPostList);
+			 model.addAttribute("reviewList", reviewList);
 			 
 			 return "board/hotpost";
 		 }
 	
+	
+	@GetMapping("myPost")
+		public String myPost(Model model,HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		String memberId = (String) session.getAttribute("memberId");
+		
+		log.info("myPost()");
+		
+		List<PostVO> myPostList = postService.selectMyPost(memberId);
+		List<ReviewVO> reviewList = postService.selectReview();
+		
+		// rightSide hot 게시글
+				List<PostVO> hotPostList = postService.selectHotPost();
+				
+		model.addAttribute("myPostList", myPostList);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("hotPostList", hotPostList);
+		
+		
+		return "board/myPost";
+	}
 	
 }

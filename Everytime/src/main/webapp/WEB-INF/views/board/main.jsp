@@ -31,10 +31,10 @@
 			<div class="divider"></div>
 			<div class="group">
 				<ul>
-					<li><a href="../post/post_list?boardId=1" class="new">자유게시판</a></li>
-					<li><a href="../post/post_list?boardId=2" class="new">비밀게시판</a></li>
-					<li><a href="../post/post_list?boardId=3" class="new">졸업생게시판</a></li>
-					<li><a href="../post/post_list?boardId=4" class="new">새내기게시판</a></li>
+					<li><a href="post/post_list?boardId=1" class="new">자유게시판</a></li>
+					<li><a href="post/post_list?boardId=2" class="new">비밀게시판</a></li>
+					<li><a href="post/post_list?boardId=3" class="new">졸업생게시판</a></li>
+					<li><a href="post/post_list?boardId=4" class="new">새내기게시판</a></li>
 				</ul>
 			</div>
 			<div class="group">
@@ -98,7 +98,7 @@
 			</div>
 			<div class="card">
 				<div class="menus">
-					<a href="/myarticle" class="myarticle">내가 쓴 글</a> <a
+					<a href="post/myPost" class="myarticle">내가 쓴 글</a> <a
 						href="/mycommentarticle" class="mycommentarticle">댓글 단 글</a> <a
 						href="myscrap" class="myscrap">내 스크랩</a>
 					<hr>
@@ -116,20 +116,14 @@
 						<a href="post/hotpost">HOT 게시물<span>더 보기</span></a>
 					</h3>
 					<c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
-						<a class="list" href="/370449/v/348440683">
-						<time>${postVO.postCreatedDate }</time>
+						<a class="list"
+							href="/web/post/detail?boardId=${postVO.boardId }&postId=${postVO.postId}">
+							<time>${postVO.postCreatedDate }</time>
 							<p>${postVO.postTitle }</p>
-							<hr> 
+							<hr>
 						</a>
 					</c:forEach>
 
-				</div>
-			</div>
-			<div class="card">
-				<div class="board">
-					<h3>
-						<a href="/bestarticle">BEST 게시판<span>더 보기</span></a>
-					</h3>
 				</div>
 			</div>
 			<div class="card">
@@ -224,6 +218,5 @@
 	</div>
 
 
-	<hr>
 </body>
 </html>

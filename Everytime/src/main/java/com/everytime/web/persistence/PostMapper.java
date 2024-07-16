@@ -66,5 +66,8 @@ public interface PostMapper {
 	// 핫 게시글 검색
 	List<PostVO> selectHopPost();
 	
+	// 내 게시글 검색
+	List<PostVO> selectMyPost(String memberId);
+	
 	
 }

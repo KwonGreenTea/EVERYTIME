@@ -119,6 +119,12 @@ public class PostServiceImple implements PostService {
 		log.info("selectHotPost()");
 		return postMapper.selectHopPost();
 	}
+
+	@Override
+	public List<PostVO> selectMyPost(String memberId) {
+		log.info("selectMyPost()");
+		return postMapper.selectMyPost(memberId);
+	}
 	
 
 	

@@ -44,6 +44,9 @@ public interface PostService {
 	
 	// 핫 게시글 불러오기
 		List<PostVO> selectHotPost();
+		
+	// 내 게시글 불러오기
+		List<PostVO> selectMyPost(String memberId);
 	
 	
 }

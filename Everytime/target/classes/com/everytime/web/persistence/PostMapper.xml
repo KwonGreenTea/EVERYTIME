@@ -191,5 +191,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY POST_ID DESC
 
 	</select>
+	
+	<select id="selectMyPost" resultMap ="postResultMap">
+		SELECT * FROM POST
+		WHERE MEMBER_ID = #{memberId}
+		ORDER BY POST_ID DESC
+	</select>
 
 </mapper>
