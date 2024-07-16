@@ -1,5 +1,6 @@
 package com.everytime.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.everytime.web.domain.PostVO;
 import com.everytime.web.domain.ProfileVO;
 import com.everytime.web.domain.RegisterVO;
+import com.everytime.web.domain.ReviewVO;
 import com.everytime.web.service.BoardService;
+import com.everytime.web.service.PostService;
 import com.everytime.web.service.ProfileService;
+import com.everytime.web.service.ScrapService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -25,29 +29,43 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 
 public class BoardController {
-   
-   @Autowired 
-   private BoardService boardService;
-   
-   @Autowired 
-   private ProfileService profileService;
-   
-   // post_list.jsp 페이지 호출
-   @GetMapping("/main")
-   public String postList(Model model,HttpServletRequest request) {
-      log.info("postList()");
-      HttpSession session = request.getSession();
-      String memberId = (String) session.getAttribute("memberId");
-      
-      RegisterVO registerVO = boardService.selectRegisterById(memberId);
-      
-      log.info("registerVO : " + registerVO);
-      // 게시물 목록 조회
-      List<PostVO> postList1 = boardService.getAllPosts(1);
-      
-      log.info("postList1 : " + postList1); 
-      
-      ProfileVO profileVO = profileService.getProfileById(memberId);
+
+	@Autowired
+	private BoardService boardService;
+
+	@Autowired
+	private ProfileService profileService;
+
+	@Autowired
+	private ScrapService scrapService;
+
+	@Autowired
+	private PostService postService;
+
+	// post_list.jsp 페이지 호출
+	@GetMapping("/main")
+	public String postList(Model model, HttpServletRequest request) {
+		log.info("postList()");
+		HttpSession session = request.getSession();
+		String memberId = (String) session.getAttribute("memberId");
+
+		RegisterVO registerVO = boardService.selectRegisterById(memberId);
+
+		log.info("registerVO : " + registerVO);
+		// 게시물 목록 조회
+		List<PostVO> postListNum1 = boardService.getAllPosts(1);
+		List<PostVO> postListNum2 = boardService.getAllPosts(2);
+		List<PostVO> postListNum3 = boardService.getAllPosts(3);
+		List<PostVO> postListNum4 = boardService.getAllPosts(4);
+
+		List<ReviewVO> reviewList = boardService.selectReview();
+		log.info("postList1 : " + postListNum1);
+
+		List<PostVO> hotPostList = postService.selectHotPost();
+
+		log.info("hotPostList : " + hotPostList);
+
+		ProfileVO profileVO = profileService.getProfileById(memberId);
 
 		String imgSource;
 		if (profileVO != null) {
@@ -78,12 +96,33 @@ public class BoardController {
 //      pageMaker.setTotalCount(boardService.getTotalCount());
 
 //      model.addAttribute("pageMaker", pageMaker);
-      
-      model.addAttribute("registerVO", registerVO);
-      model.addAttribute("postList1", postList1); // 스프링 모델 객체에 저장
-   
-      
-      return "board/main";
-   }
+
+		model.addAttribute("registerVO", registerVO);
+		model.addAttribute("postListNum1", postListNum1); // 스프링 모델 객체에 저장
+		model.addAttribute("postListNum2", postListNum2);
+		model.addAttribute("postListNum3", postListNum3);
+		model.addAttribute("postListNum4", postListNum4);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("hotPostList", hotPostList);
+		return "board/main";
+	}
+
+	@GetMapping("/myscrap")
+	public String myscrapGet(Model model, HttpServletRequest request) {
+		log.info("myscrapGet()");
+		HttpSession session = request.getSession();
+		String memberId = (String) session.getAttribute("memberId");
+
+		List<Integer> scrapPostId = scrapService.selectScrapById(memberId);
+
+		List<PostVO> postList = new ArrayList<>();
+		for (int postId : scrapPostId) {
+			postList.add(postService.getPostDataByPostId(postId));
+		}
+
+		model.addAttribute("postList", postList);
+
+		return "board/myscrap";
+	}
 
 }

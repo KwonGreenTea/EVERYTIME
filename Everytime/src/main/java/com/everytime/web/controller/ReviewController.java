@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.everytime.web.domain.CourseVO;
-import com.everytime.web.domain.ReviewLikeVO;
 import com.everytime.web.domain.ReviewVO;
 import com.everytime.web.service.ReviewService;
 

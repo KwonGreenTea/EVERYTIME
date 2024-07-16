@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.everytime.web.domain.FileVO;
 import com.everytime.web.domain.PostVO;
+import com.everytime.web.domain.ReviewVO;
 import com.everytime.web.util.Pagination;
 
 public interface PostService {
@@ -29,8 +30,20 @@ public interface PostService {
 	List<FileVO> getAllPostImgs(Integer boardId);
 
 	List<FileVO> getImgById(int boardId, int postId);
+
+	String getId(int boardId, int postId);
+
+	PostVO getPostDataByPostId(int postId);
+	
+	List<PostVO> searchPost(String keyword);
 	
 	//////////////////////////////////////////
+	
+	// 모든 데이터 불러오기
+		List<ReviewVO> selectReview();
+	
+	// 핫 게시글 불러오기
+		List<PostVO> selectHotPost();
 	
 	
 }

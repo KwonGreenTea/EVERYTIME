@@ -30,8 +30,10 @@
 			<div class="divider"></div>
 			<div class="group">
 				<ul>
-					<li><a href="/board/free_board" data-id="370449" class="new">자유게시판</a></li>
-
+					<li><a href="../post/post_list?boardId=1" class="new">자유게시판</a></li>
+					<li><a href="../post/post_list?boardId=2" class="new">비밀게시판</a></li>
+					<li><a href="../post/post_list?boardId=3" class="new">졸업생게시판</a></li>
+					<li><a href="../post/post_list?boardId=4" class="new">새내기게시판</a></li>
 				</ul>
 			</div>
 			<div class="group">
@@ -65,6 +67,7 @@
 	</div>
 
 
+
 	<div id="container" class="article">
 		<input type="hidden" id="isUser" value="1"> <input
 			type="hidden" id="boardId" value="370449">
@@ -76,61 +79,54 @@
 				</h1>
 			</div>
 		</aside>
-		<div class="rightside">
-			<div class="card">
-				<div class="board">
-					<h3>
-						<a href="/hotarticle">HOT 게시물<span>더 보기</span></a>
-					</h3>
-					<a class="list" href="/370449/v/346396066"><time>06/17
-							08:46</time>
-						<p>안면인식장애인데 심심해서 적는 글.</p>
-						<hr></a><a class="list" href="/255746/v/346247565"><time>06/15
-							22:32</time>
-						<p>아 진짜 수업 때 담배 냄새 좀 빼고 와</p>
-						<hr></a><a class="list" href="/370449/v/346254844"><time>06/15
-							23:31</time>
-						<p>과마다 입결 순위 취업률 순위 나누는거 솔직히 할거없는 사람같아보임</p>
-						<hr></a><a class="list" href="/370449/v/346210479"><time>06/15
-							16:09</time>
-						<p>장보고과학기지에 에리카 출신 있네 ㄷ</p>
-						<hr></a>
-				</div>
-			</div>
-			<div class="card">
-				<div class="board">
-					<h3>
-						<a href="/bestarticle">BEST 게시판<span>더 보기</span></a>
-					</h3>
-				</div>
-			</div>
-			<div class="card">
-				<div class="board">
-					<h3>
-						<a href="/lecture">최근 강의평<span>더 보기</span></a>
-					</h3>
-					<a class="article" href="/lecture/view/2084699"><span
-						class="star"><span class="on" style="width: 100%;"></span></span>
-						<p class="title">영화의세계 : 김영재</p>
-						<p class="small">
-							옛날 영화에 대한 것들이 많이 나와요.<br>약간 암기위주이긴 한데 영화를 틀어주시면서 설명해주셔서
-							이해하기엔 편해요
-						</p>
-						<hr></a><a class="article" href="/lecture/view/2541696"><span
-						class="star"><span class="on" style="width: 100%;"></span></span>
-						<p class="title">반도체공정및응용 : 박진석</p>
-						<p class="small">
-							가성비 개꿀 쌉꿀<br>4학점인데 중간기말에 공정실습하고 보고서 중간기말만 쓰면 끝
-						</p>
-						<hr></a><a class="article" href="/lecture/view/132545"><span
-						class="star"><span class="on" style="width: 80%;"></span></span>
-						<p class="title">기계설계 : 류근</p>
-						<p class="small">수업 3시간 풀로 하고 팀플 거의 매주 만나서 하고 발표 배점도 높지만 그 모든
-							걸 만회할 정도로 성적을 잘 줌</p>
-						<hr></a>
-				</div>
-			</div>
-		</div>
+		 <div class="rightside">
+         <form action="post/search/all" method="POST" class="search">
+            <input type="text" name="keyword" placeholder="전체 게시판의 글을 검색하세요!"
+               class="text">
+         </form>
+         <div class="card">
+            <div class="board">
+               <h3>
+                  <a href="../post/hotpost">HOT 게시물<span>더 보기</span></a>
+               </h3>
+               <c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
+						<a class="list" href="/370449/v/348440683">
+						<time>${postVO.postCreatedDate }</time>
+							<p>${postVO.postTitle }</p>
+							<hr> 
+						</a>
+					</c:forEach>
+            </div>
+         </div>
+         <div class="card">
+            <div class="board">
+               <h3>
+                  <a href="/bestarticle">BEST 게시판<span>더 보기</span></a>
+               </h3>
+            </div>
+         </div>
+         <div class="card">
+            <div class="board">
+               <h3>
+                  <a href="../lecture">최근 강의평<span>더 보기</span></a>
+               </h3>
+         
+                <c:forEach var="reviewVO" items="${reviewList }" begin="0" end="2">
+                  <a class="article" href="../view?courseId=${reviewVO.courseId}">
+                  <span class="star">
+                  	<span class="on" style="width :${20 * reviewVO.courseRate}%;">
+                  	</span>
+                  </span>
+                  <p class="title">${reviewVO.courseName } : ${reviewVO.professor }</p>
+                  <p class="small">${reviewVO.reviewContent }</p>
+                  <hr>
+                  </a>
+               </c:forEach>
+               
+             
+            </div>
+         </div>
+      </div>
 		<div class="wrap title">
 			<h1>
 				<a href="/370449">자유게시판</a>
@@ -143,7 +139,7 @@
 			<a id="writeArticleButton" style="display: none;">새 글을 작성해주세요!</a>
 			<article class="item">
 				<!--  -->
-				<a class="article"><img src="https://cf-fpi.everytime.kr/0.png"
+				<a class="article"><img src="../${profileImgSource}"
 					class="picture large">
 					<div class="profile">
 						<h3 class="large">익명</h3>
@@ -173,14 +169,16 @@
 
 
 					<ul class="status left">
-						<li title="공감" class="vote" id="${postVO.postId}">${postVO.postLikeCount}</li>
+						<li title="공감" class="vote like-count" id="like-${postVO.postId}">${postVO.postLikeCount}</li>
 						<li title="댓글" class="comment">1</li>
-						<li title="스크랩" class="scrap">1</li>
+						<li title="스크랩" class="scrap scrap-count"
+							id="scrap-${postVO.postId}">${postVO.postScrapCount}</li>
 					</ul>
 					<hr>
 					<div class="buttons">
 						<span class="posvote" data-post-id="${postVO.postId}">공감</span> <span
-							class="scrap">스크랩</span>
+							class="posScrap" data-post-id="${postVO.postId}"
+							data-scrap-status="not-scraped">스크랩</span>
 					</div> <input type="hidden" name="346406404_comment_anonym" value="0"></a>
 
 				<!-- #####################댓글 목록##################### -->
@@ -331,27 +329,47 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
+			// 버튼 클릭 시 폼 보이기/숨기기
 			$("#writeArticleButton").click(function() {
 				$("#write_form").show();
 				$("#writeArticleButton").hide();
 			});
 
+			// 공감 버튼 클릭 이벤트
 			$(".posvote").click(function() {
-				var postId = $(this).data('post-id'); // 클릭된 버튼의 data-review-id 값을 가져옴
-				console.log(postId);
+				var postId = $(this).data('post-id');
+				console.log("공감 클릭, postId:", postId);
 				if (confirm("이 강의평을 추천하시겠습니까?")) {
-					addLike(postId); // reviewId를 파라미터로 넘겨 추천 함수 호출
-
-				} else {
-					// 취소 버튼을 클릭한 경우의 처리
+					addLike(postId);
 				}
 			});
 
+			// 스크랩 버튼 클릭 이벤트
+			$(".posScrap").click(function() {
+				var postId = $(this).data('post-id');
+				var scrapStatus = $(this).data('scrap-status');
+				if (scrapStatus === 'not-scraped') {
+					if (confirm("이 글을 스크랩 하시겠습니까?")) {
+						addScrap(postId, $(this));
+					}
+				} else {
+					if (confirm("스크랩을 취소하시겠습니까?")) {
+						cancelScrap(postId, $(this));
+					}
+				}
+			});
+			
+			$(".posScrap").each(function() {
+		        var postId = $(this).data('post-id');
+		        var buttonElement = $(this);
+		        checkScrapStatus(postId, buttonElement);
+		    });
+
+			// AJAX로 공감 추가 요청
 			function addLike(postId) {
 				var obj = {
 					'postId' : postId
 				};
-
 				$.ajax({
 					type : 'POST',
 					url : 'postLike',
@@ -363,40 +381,118 @@
 						if (result == 1) {
 							increaseLikeCount(postId);
 							updateLikeVisibility();
-							// 실제 추천 추가 코드
-
 						} else {
-							alert("이미 추천하였습니다.")
+							alert("이미 추천하였습니다.");
 						}
-					}
-				}); // and ajax
-			} // end addLike
-
-			function increaseLikeCount(postId) { // 추천 1개 증가시키기
-				console.log(postId);
-				var likeElement = $("#" + postId); // 추천 수를 표시하는 span 요소를 가져옴
-				console.log(likeElement);
-				var currentLikes = parseInt(likeElement.text()); // 현재 추천 수를 가져와 정수로 변환
-				console.log(currentLikes);
-				// 추천 수를 1 증가시킴
-				var newLikes = currentLikes + 1;
-				console.log(newLikes);
-				likeElement.text(newLikes); // 업데이트된 추천 수를 화면에 표시
-
-			}
-
-			function updateLikeVisibility() {
-				$('.posvote').each(function() {
-					var likeCountText = $(this).text().trim();
-					var likeCount = parseInt(likeCountText);
-
-					if (likeCount === 0) {
-						$(this).closest('span').hide(); // 가장 가까운 <span> 요소를 숨김
-					} else {
-						$(this).closest('span').show(); // 가장 가까운 <span> 요소를 보임
+					},
+					error : function(xhr, status, error) {
+						console.error("공감 추가 실패:", status, error);
 					}
 				});
 			}
+
+			// AJAX로 스크랩 추가 요청
+			function addScrap(postId, buttonElement) {
+				var obj = {
+					'postId' : postId
+				};
+				$.ajax({
+					type : 'POST',
+					url : 'postScrap', // 서버의 실제 URL로 변경 필요
+					headers : {
+						'Content-Type' : 'application/json'
+					},
+					data : JSON.stringify(obj),
+					success : function(result) {
+						if (result == 1) {
+							buttonElement.text('스크랩 취소');
+							buttonElement.data('scrap-status', 'scraped');
+							increaseScrapCount(postId);
+							updateScrapVisibility();
+						} else {
+							alert("이미 스크랩하였습니다.");
+						}
+					},
+					error : function(xhr, status, error) {
+						console.error("스크랩 추가 실패:", status, error);
+					}
+				});
+			}
+
+			// AJAX로 스크랩 취소 요청
+			function cancelScrap(postId, buttonElement) {
+				var obj = {
+					'postId' : postId
+				};
+				$.ajax({
+					type : 'POST',
+					url : 'postCancelScrap', 
+					headers : {
+						'Content-Type' : 'application/json'
+					},
+					data : JSON.stringify(obj),
+					success : function(result) {
+						if (result == 1) {
+							buttonElement.text('스크랩');
+							buttonElement.data('scrap-status', 'not-scraped');
+							decreaseScrapCount(postId);
+							updateScrapVisibility();
+						} else {
+							alert("스크랩 취소에 실패하였습니다.");
+						}
+					},
+					error : function(xhr, status, error) {
+						console.error("스크랩 취소 실패:", status, error);
+					}
+				});
+			}
+			
+			// 서버에서 스크랩 상태 확인
+		    function checkScrapStatus(postId, buttonElement) {
+		    	var obj = {
+						'postId' : postId
+					};
+		        $.ajax({
+		            type: 'POST',
+		            url: 'getScrapStatus', // 서버의 실제 URL로 변경 필요
+		            headers: { 'Content-Type': 'application/json' },
+		            data : JSON.stringify(obj),
+		            success: function(result) {
+		                if (result == 1) {
+		                    buttonElement.text('스크랩 취소');
+		                    buttonElement.data('scrap-status', 'scraped');
+		                } else {
+		                    buttonElement.text('스크랩');
+		                    buttonElement.data('scrap-status', 'not-scraped');
+		                }
+		            },
+		            error: function(xhr, status, error) {
+		                console.error("스크랩 상태 확인 실패:", status, error);
+		            }
+		        });
+		    }
+
+			function increaseLikeCount(postId) {
+				var likeElement = $("#like-" + postId); // 공감 수를 표시하는 li 요소를 가져옴
+				var currentLikes = parseInt(likeElement.text());
+				var newLikes = currentLikes + 1;
+				likeElement.text(newLikes);
+			}
+
+			function increaseScrapCount(postId) {
+				var scrapElement = $("#scrap-" + postId); // 스크랩 수를 표시하는 li 요소를 가져옴
+				var currentScraps = parseInt(scrapElement.text());
+				var newScraps = currentScraps + 1;
+				scrapElement.text(newScraps);
+			}
+			
+			// 스크랩 수 감소
+		    function decreaseScrapCount(postId) {
+		        var scrapElement = $("#scrap-" + postId);
+		        var currentScraps = parseInt(scrapElement.text());
+		        var newScraps = currentScraps - 1;
+		        scrapElement.text(newScraps);
+		    }
 
 		}); // end document();
 	</script>

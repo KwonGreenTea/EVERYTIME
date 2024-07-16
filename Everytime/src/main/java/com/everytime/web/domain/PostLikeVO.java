@@ -12,9 +12,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class PostLikeVO {
-
-	
-	
 	private int postLikeNo;
 	private int postId;
 	private String memberId;

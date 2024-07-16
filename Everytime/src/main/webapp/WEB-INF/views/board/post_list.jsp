@@ -44,8 +44,10 @@
 			<div class="divider"></div>
 			<div class="group">
 				<ul>
-					<li><a href="/board/post_list" class="new">자유게시판</a></li>
-
+					<li><a href="../post/post_list?boardId=1" class="new">자유게시판</a></li>
+					<li><a href="../post/post_list?boardId=2" class="new">비밀게시판</a></li>
+					<li><a href="../post/post_list?boardId=3" class="new">졸업생게시판</a></li>
+					<li><a href="../post/post_list?boardId=4" class="new">새내기게시판</a></li>
 				</ul>
 			</div>
 			<div class="group">
@@ -78,7 +80,6 @@
 		<input type="hidden" id="communityCampusId" value="23">
 	</div>
 
-
 	<div id="container" class="article">
 		<input type="hidden" id="isUser" value="1"> <input
 			type="hidden" id="boardId" value="370449">
@@ -90,6 +91,54 @@
 				</h1>
 			</div>
 		</aside>
+		 <div class="rightside">
+         <form action="post/search/all" method="POST" class="search">
+            <input type="text" name="keyword" placeholder="전체 게시판의 글을 검색하세요!"
+               class="text">
+         </form>
+         <div class="card">
+            <div class="board">
+               <h3>
+                  <a href="../post/hotpost">HOT 게시물<span>더 보기</span></a>
+               </h3>
+               <c:forEach var="postVO" items="${hotPostList }" begin="0" end="3">
+						<a class="list" href="/370449/v/348440683">
+						<time>${postVO.postCreatedDate }</time>
+							<p>${postVO.postTitle }</p>
+							<hr> 
+						</a>
+					</c:forEach>
+            </div>
+         </div>
+         <div class="card">
+            <div class="board">
+               <h3>
+                  <a href="/bestarticle">BEST 게시판<span>더 보기</span></a>
+               </h3>
+            </div>
+         </div>
+         <div class="card">
+            <div class="board">
+               <h3>
+                  <a href="../lecture">최근 강의평<span>더 보기</span></a>
+               </h3>
+         
+                <c:forEach var="reviewVO" items="${reviewList }" begin="0" end="2">
+                  <a class="article" href="../view?courseId=${reviewVO.courseId}">
+                  <span class="star">
+                  	<span class="on" style="width :${20 * reviewVO.courseRate}%;">
+                  	</span>
+                  </span>
+                  <p class="title">${reviewVO.courseName } : ${reviewVO.professor }</p>
+                  <p class="small">${reviewVO.reviewContent }</p>
+                  <hr>
+                  </a>
+               </c:forEach>
+               
+             
+            </div>
+         </div>
+      </div>
 		<div class="wrap title">
 			<h1>
 				<a href="/370449">자유게시판</a>
@@ -172,15 +221,17 @@
 								<h3 class="small">익명</h3>
 							</div>
 							<hr>
-						</div> <c:forEach var="img" items="${postImgList}">
-							<c:if test="${post.postId == img.postId}">
-								<div class="attachthumbnail">
-									<img
-										src="<c:url value='/image/${img.postPath}/${img.postChgName}'/>"
-										alt="${img.postRealName}" />
-								</div>
-							</c:if>
-						</c:forEach>
+						</div> <c:choose>
+							<c:when test="${not empty postImgList}">
+								<c:forEach var="img" items="${postImgList}">
+									<c:if test="${postVO.postId == img.postId}">
+										<div class="attachthumbnail"
+											style="background-image: url('<c:url value="../${img.imgSource}" />');">
+										</div>
+									</c:if>
+								</c:forEach>
+							</c:when>
+						</c:choose>
 					</a>
 					<div class="comments"></div>
 				</article>
@@ -206,56 +257,56 @@
 	<hr>
 
 	<script type="text/javascript">
-		function handleFileSelect(event) {
-	        const files = event.target.files;
-	        const allowedExtensions = ['.jpg', '.jpeg', '.png'];
-	
-	        const imgPreview = document.getElementById('thumbnails');
-	        imgPreview.innerHTML = ''; 
-	        imgPreview.style.display = 'none'; 
-	
-	        for (let file of files) {
-	            const fileExtension = file.name.slice(((file.name.lastIndexOf(".") - 1) >>> 0) + 2).toLowerCase();
-	            if (allowedExtensions.includes('.' + fileExtension)) {
-	                let maxSize = 5 * 1024 * 1024; // 5 MB 
-	                if (file.size < maxSize) {
-	                    imgPreview.style.display = "block";
-	                    const reader = new FileReader();
-	                    reader.onload = function(e) {
-	                        const li = document.createElement('li');
-	                        li.className = 'thumbnail attached';
-	                        const img = document.createElement('img');
-	                        img.src = e.target.result;
-	                        li.appendChild(img);
-	                        imgPreview.appendChild(li);
-	                    };
-	                    reader.readAsDataURL(file);
-	                } else {
-	                    alert("파일 크기가 너무 큽니다. 최대 크기는 5MB입니다.");
-	                }
-	            } else {
-	                alert('허용되지 않는 파일 형식입니다.');
-	            }
-	        }
-	    }
-		
-	
-		$(document).ready(function() {
-			$('#attachBoard').click(function() {
-				$('#attachBoardFile').click();
-			});
-		 
-	        $(document).on('click', '#thumbnails .thumbnail img', function() {
-	            if(confirm("첨부된 이미지를 삭제할까요?")) {
-	                $(this).closest('li').remove();
-	            }
-	            
-	            if ($('#thumbnails li').length === 0) {
+      function handleFileSelect(event) {
+           const files = event.target.files;
+           const allowedExtensions = ['.jpg', '.jpeg', '.png'];
+   
+           const imgPreview = document.getElementById('thumbnails');
+           imgPreview.innerHTML = ''; 
+           imgPreview.style.display = 'none'; 
+   
+           for (let file of files) {
+               const fileExtension = file.name.slice(((file.name.lastIndexOf(".") - 1) >>> 0) + 2).toLowerCase();
+               if (allowedExtensions.includes('.' + fileExtension)) {
+                   let maxSize = 5 * 1024 * 1024; // 5 MB 
+                   if (file.size < maxSize) {
+                       imgPreview.style.display = "block";
+                       const reader = new FileReader();
+                       reader.onload = function(e) {
+                           const li = document.createElement('li');
+                           li.className = 'thumbnail attached';
+                           const img = document.createElement('img');
+                           img.src = e.target.result;
+                           li.appendChild(img);
+                           imgPreview.appendChild(li);
+                       };
+                       reader.readAsDataURL(file);
+                   } else {
+                       alert("파일 크기가 너무 큽니다. 최대 크기는 5MB입니다.");
+                   }
+               } else {
+                   alert('허용되지 않는 파일 형식입니다.');
+               }
+           }
+       }
+      
+   
+      $(document).ready(function() {
+         $('#attachBoard').click(function() {
+            $('#attachBoardFile').click();
+         });
+       
+           $(document).on('click', '#thumbnails .thumbnail img', function() {
+               if(confirm("첨부된 이미지를 삭제할까요?")) {
+                   $(this).closest('li').remove();
+               }
+               
+               if ($('#thumbnails li').length === 0) {
                     $('#thumbnails').hide();
                 }
-	        });
-	        
-	        $('#submitBtn').click(function(event) {
+           });
+           
+           $('#submitBtn').click(function(event) {
                 event.preventDefault();
                 const fileInput = document.getElementById('attachBoardFile');
                 const files = fileInput.files;
@@ -286,16 +337,16 @@
                     $('#write').submit(); 
                 }
             });
-	    });
-		</script>
+       });
+      </script>
 
 	<script type="text/javascript">
-			$(document).ready(function() {
-				$("#writeArticleButton").click(function() {
-					$("#write").show();
-				});
-			});
-		</script>
+         $(document).ready(function() {
+            $("#writeArticleButton").click(function() {
+               $("#write").show();
+            });
+         });
+      </script>
 
 </body>
 </html>

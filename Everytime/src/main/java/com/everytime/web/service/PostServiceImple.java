@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.everytime.web.domain.FileVO;
 import com.everytime.web.domain.PostVO;
+import com.everytime.web.domain.ReviewVO;
 import com.everytime.web.persistence.PostMapper;
+import com.everytime.web.persistence.ReviewMapper;
 import com.everytime.web.util.Pagination;
 
 import lombok.extern.log4j.Log4j;
@@ -20,6 +22,9 @@ public class PostServiceImple implements PostService {
     @Autowired
     private PostMapper postMapper;
     
+	@Autowired 
+	ReviewMapper reviewMapper;
+	
     @Override
     public int createPost(PostVO postVO) {
         log.info("createPost()");
@@ -88,6 +93,32 @@ public class PostServiceImple implements PostService {
 		return postMapper.postIdByMemberId(memberId);
 	}
 
+	@Override
+	public String getId(int boardId, int postId) {
+		return postMapper.getId(boardId, postId);
+	}
+
+	@Override
+	public PostVO getPostDataByPostId(int postId) {
+		return postMapper.getPostDataByPostId(postId);
+	}
+	
+	public List<PostVO> searchPost(String keyword) {
+		log.info("searchPost()");
+		return postMapper.searchPost(keyword);
+	}
+
+	@Override
+	public List<ReviewVO> selectReview() {
+		log.info("selectReview");
+		return reviewMapper.selectReview();
+	}
+
+	@Override
+	public List<PostVO> selectHotPost() {
+		log.info("selectHotPost()");
+		return postMapper.selectHopPost();
+	}
 	
 
 	

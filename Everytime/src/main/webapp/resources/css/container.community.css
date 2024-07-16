@@ -153,10 +153,10 @@
 	color: #05BCBC; background-image: url('/images/new/container.articles.comment.png');
 }
 #container div.card > div.board > a.article > span.star {
-	display: block; margin-bottom: 5px; width: 60px; height: 12px; background: transparent url('/images/app.subject.rating.details.star.off.png') no-repeat; background-size: 60px 12px;
+	display: block; margin-bottom: 5px; width: 60px; height: 12px; background: transparent url('../images/rightSideStarOff.png') no-repeat; background-size: 60px 12px;
 }
 #container div.card > div.board > a.article > span.star > span.on {
-	float: left; display: block; height: 12px; background: transparent url('/images/app.subject.rating.details.star.on.png') no-repeat; background-size: 60px 12px;
+	float: left; display: block; height: 12px; background: transparent url('../images/rightSideStar.png') no-repeat; background-size: 60px 12px;
 }
 #container div.card > div.board > a.photo {
 	float: left; position: relative; border-right: 1px solid #e3e3e3; width: 50%; height: 152px; background-size: cover; background-position: center center; box-sizing: border-box;

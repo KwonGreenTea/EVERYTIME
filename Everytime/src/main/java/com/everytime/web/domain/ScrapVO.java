@@ -11,14 +11,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class FileVO {
-	private int boardId;
+public class ScrapVO {
+	private int postScrapNo;
 	private int postId;
-	// 이미지 파일 관련 VO
-	private String postPath;
-	private String postRealName;
-	private String postChgName;
-	private String postExtension;
+	private String memberId;
 	
-	private String imgSource;
 }
