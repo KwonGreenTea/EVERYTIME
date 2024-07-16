@@ -32,7 +32,7 @@
 	<%@ include file="../header.jspf"%>
 
 	<div class="container" data-v-f688a188="">
-	
+
 		<div data-v-f688a188="" class="side">
 			<div data-v-f688a188="" class="searchbox">
 				<form id="search-form" data-v-f688a188="" class="searchbar"
@@ -45,19 +45,11 @@
 				</form>
 			</div>
 			<!---->
-			<section data-v-f688a188="" class="point">
-				<div data-v-f688a188="" href="/lecture/point">
-					<span data-v-f688a188="" class="title">내 포인트 현황</span>
-					<div data-v-f688a188="" class="flexbox">
-						<span data-v-f688a188="" class="point">41 포인트</span> <span
-							data-v-f688a188="" class="arrow"></span>
-					</div>
-				</div>
-			</section>
 			<!---->
 			<!---->
 		</div>
 		<div class="articles" data-v-f688a188="">
+
 			<c:forEach var="reviewVO" items="${reviewList}">
 				<a href="view?courseId=${reviewVO.courseId}" class="article-link">
 					<div class="article" data-v-f688a188="">

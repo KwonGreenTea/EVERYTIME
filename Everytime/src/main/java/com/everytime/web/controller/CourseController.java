@@ -37,8 +37,9 @@ public class CourseController {
       } 
       List<CourseVO> courseList = courseService.selectCourse(type, keyword);
 	  log.info(courseList);
-    
-	  
+     
+	  log.info("type :" + type);
+	  model.addAttribute("type", type);
       model.addAttribute("keyword" , keyword);
       model.addAttribute("courseList", courseList);
       // model - keyword, type , list결과를 보내줌

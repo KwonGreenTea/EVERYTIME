@@ -476,8 +476,8 @@
 #container > div.articles > article div.buttons span.posvote {
 	background-image: url('/images/container.articles.buttons.posvote.png');
 }
-#container > div.articles > article div.buttons span.scrap {
-	background-image: url('/images/container.articles.buttons.scrap.png');
+#container > div.articles > article div.buttons span.posScrap {
+	background-image: url('../images/buttons.scrap.png');
 }
 #container > div.articles > article div.buttons span.removescrap {
 	padding-left: 12px;

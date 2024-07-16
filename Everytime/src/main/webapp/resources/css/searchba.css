@@ -359,7 +359,7 @@ div.container div.lectures div.alert[data-v-4713bb84] {
 
 div.container div.lectures div.alert p.noresult[data-v-4713bb84] {
     padding-top: 56px;
-    background-image: url("/images/common/icn_l_noresult_gray400_light.png") ;
+    background-image: url("../images/noresult.png") ;
     background-repeat: no-repeat;
     background-position: top center;
     background-size: 48px 48px
