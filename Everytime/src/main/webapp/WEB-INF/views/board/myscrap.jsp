@@ -115,7 +115,7 @@
 			<div class="card">
 				<div class="board">
 					<h3>
-						<a href="../lecture">최근 강의평<span>더 보기</span></a>
+						<a href="lecture">최근 강의평<span>더 보기</span></a>
 					</h3>
 
 					<c:forEach var="reviewVO" items="${reviewList }" begin="0" end="2">
