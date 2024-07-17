@@ -66,7 +66,7 @@ div.container h1.logo[data-v-c80e0668] {
 
 @media (prefers-color-scheme: dark) {
     div.container h1.logo[data-v-c80e0668] {
-        background-image:url("/images/pages/login/logo_dark.png")
+        background-image:url("../images/login_logo.png")
     }
 }
 

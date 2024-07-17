@@ -31,7 +31,7 @@
 					data-v-c80e0668="" type="checkbox">
 					<figure data-v-c80e0668="" ></figure>
 					
-					 </label> <a data-v-c80e0668="" href="findId">아이디/비밀번호 찾기</a>
+					 </label> <a data-v-c80e0668="" href="findId">아이디 찾기</a>
 			</div>
 		</form>
 		<p data-v-c80e0668="" class="register">
@@ -48,15 +48,5 @@
 				© 에브리타임 </a>
 		</footer>
 	</div>
-
-<<<<<<< HEAD
-=======
-	<p>
-		아직 회원이 아니신가요? <a href="register">회원가입</a>
-	</p>
-	
-	<p><a href="findId">아이디 찾기</a></p>
->>>>>>> branch 'master' of https://github.com/KwonGreenTea/EVERYTIME
-
 </body>
 </html>
