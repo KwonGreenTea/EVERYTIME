@@ -5,6 +5,8 @@
 <head>
 <meta charset="EUC-KR">
 <title>아이디 찾기</title>
+<link rel="stylesheet"
+	href="resources/css/findId.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -34,8 +36,9 @@
                     success: function(data) {
                         if (data.status === "success") {
                             alert("안내 이메일을 발송하였습니다. 만약 메일이 오지 않는다면, 스팸 편지함을 확인해주세요.");
+                            window.location.href = 'login';
                         } else {
-                            alert("올바르지 않은 이메일 형식으로 가입된 아이디입니다. [문의하기]를 통해 별도 문의 바랍니다.");
+                            alert("올바르지 않은 이메일 형식으로 가입된 아이디입니다.");
                         }
                     },
                     error: function(xhr, status, error) {

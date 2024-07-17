@@ -24,7 +24,7 @@
 		아직 회원이 아니신가요? <a href="register">회원가입</a>
 	</p>
 	
-	<a href="findId">아이디/비밀번호 찾기</a>
+	<p><a href="findId">아이디 찾기</a></p>
 
 </body>
 </html>

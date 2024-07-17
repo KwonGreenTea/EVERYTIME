@@ -116,7 +116,7 @@
     
     <label for="password">비밀번호:</label>
     <input type="password" id="password" name="password" required><br>
-    <div class="error-message" id="passwordFormatError" style="display: none;">비밀번호는 영어 대문자, 소문자, 숫자를 모두 포함하여 최소 8자 이상이어야 합니다.</div><br>
+    <div class="error-message" id="passwordFormatError" style="display: none;">비밀번호는 영어 대문자, 소문자, 숫자, 특수문자를 모두 포함하여 최소 8자 이상이어야 합니다.</div><br>
     
     <label for="passwordConfirm">비밀번호 확인:</label>
     <input type="password" id="passwordConfirm" name="passwordConfirm" required><br>
@@ -152,12 +152,18 @@
         var isIdChecked = false; // 중복 확인 여부를 저장하는 변수
         var idPattern = /^[a-z0-9]{5,15}$/; // 아이디 유효성 검사 패턴
         var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$/;
+        var emailVerified = false; // 이메일 인증 여부를 저장하는 변수
 
         $('#registerForm').submit(function(e) {
             e.preventDefault(); // 기본 이벤트 방지
 
             if (!isIdChecked) {
                 alert('아이디 중복 확인을 해주세요.');
+                return false; // 가입 요청 중단
+            }
+
+            if (!emailVerified) {
+                alert('이메일 인증을 완료해주세요.');
                 return false; // 가입 요청 중단
             }
 
@@ -236,7 +242,7 @@
                 $('#idError').hide();
                 $('#idFormatError').hide();
                 $.ajax({
-                	url: 'checkId',
+                    url: 'checkId',
                     type: 'post',
                     data: { memberId: memberId },
                     success: function(result) {
@@ -290,7 +296,7 @@
         
         var confirmNumber;
         
-     	// 이메일 인증 번호 전송
+        // 이메일 인증 번호 전송
         $('#sendBtn').click(function() {
             var email = $('#email').val();
             if (email === "") {
@@ -317,18 +323,21 @@
             });
         });
 
+        // 이메일 인증 번호 확인
         $('#confirmBtn').click(function() {
-        	var emailConfirm = parseInt($('#emailConfirm').val());
+            var emailConfirm = parseInt($('#emailConfirm').val());
             console.log("입력된 인증번호:", emailConfirm);
             console.log("서버에서 받은 인증번호:", confirmNumber);
             if (emailConfirm === confirmNumber) {
+                emailVerified = true;
                 alert("이메일 확인이 완료되었습니다.");
             } else {
                 alert("인증 번호가 틀렸습니다.");
             }
         });
-	});
+    });
 </script>
+
 
 </body>
 </html>
