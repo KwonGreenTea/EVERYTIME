@@ -7,9 +7,14 @@ body {
 	background-color: #f8f9fa; /* 연한 그레이 */
 }
 
+nav {
+	position: relative; /* 위치 설정 */
+	z-index: 10; /* 다른 요소들보다 위에 보이도록 설정 */
+}
+
 .container {
-	width: 50%;
-	margin: 20px auto;
+	width: 60%;
+	margin: 20px auto 20px auto; /* 위쪽에 150px 간격 추가 */
 	background-color: #fff;
 	padding: 30px;
 	border-radius: 10px;
