@@ -49,6 +49,14 @@
 		</footer>
 	</div>
 
+<<<<<<< HEAD
+=======
+	<p>
+		아직 회원이 아니신가요? <a href="register">회원가입</a>
+	</p>
+	
+	<p><a href="findId">아이디 찾기</a></p>
+>>>>>>> branch 'master' of https://github.com/KwonGreenTea/EVERYTIME
 
 </body>
 </html>
