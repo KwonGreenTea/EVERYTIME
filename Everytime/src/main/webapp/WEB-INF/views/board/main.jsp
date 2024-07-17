@@ -150,7 +150,7 @@
 		</div>
 		<div class="banners">
 			<a href="https://www.youtube.com/shorts/mZPkoLfdGQg"> <img
-				src="/web/resources/images/chuchu.png"></a>
+				src="/web/resources/images/university.png"></a>
 		</div>
 		<div class="main">
 			<div class="card">
