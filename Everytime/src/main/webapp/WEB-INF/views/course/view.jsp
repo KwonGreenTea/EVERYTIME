@@ -252,6 +252,20 @@
 							class="text">ERICA캠퍼스</span>
 					</div>
 				</section>
+				<c:if test="${empty reviewListByCourseId and empty topLikeReviewList}">
+					<section data-v-cb953552="" class="empty review" style="order: 1;">
+						<div data-v-cb953552="" class="title">
+							<span data-v-cb953552="" class="average">0</span> <span
+								data-v-cb953552="" class="star"></span> <span data-v-cb953552=""
+								class="count"> (0개) </span>
+						</div>
+						<p data-v-cb953552="" class="text">아직 등록된 강의평이 없습니다.</p>
+						<a data-v-cb953552=""
+							href="write?courseId=${courseVO.courseId}" class="button">
+							강의평 등록하기 </a>
+					</section>
+				</c:if>
+				<c:if test="${!empty reviewListByCourseId or !empty topLikeReviewList}">
 				<section data-v-cb953552="" class="review" style="order: 1;">
 					<div data-v-cb953552="" class="rating">
 						<div data-v-cb953552="" class="title">
@@ -449,6 +463,7 @@
 					</div>
 
 				</section>
+				</c:if>
 			</div>
 		</div>
 	</div>

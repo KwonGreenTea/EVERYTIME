@@ -2206,7 +2206,7 @@ div.info_tab section.empty.review div.title span.star[data-v-cb953552] {
     display: inline-block;
     width: 120px;
     height: 24px;
-    background-image: url("/images/pages/lecture/star.large.off.light.png") ;
+    background-image: url("../images/bigstaroff.png") ;
     background-size: 24px 24px
 }
 

@@ -72,7 +72,9 @@
 					<span data-v-38263efc="" class="title">언제 수강했나요?</span> <select
 						data-v-38263efc="" class="menu" name="semester">
 						<option value="" disabled selected>수강 학기 선택</option>
-						<option value="2024년 2학기">2024년 2학기</option>
+						<option value="2024년 여름학기">2024년 여름학기</option>
+						<option value="2024년 1학기">2024년 1학기</option>
+						<option value="2023년 2학기">2023년 2학기</option>
 						<option value="2023년 1학기">2023년 1학기</option>
 					</select>
 				</div>
