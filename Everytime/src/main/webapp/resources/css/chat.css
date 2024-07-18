@@ -1,179 +1,217 @@
+/* ±âÁ¸ ½ºÅ¸ÀÏ À¯Áö */
 @charset "UTF-8";
 
 body {
-	font-family: Arial, sans-serif;
-	margin: 0;
-	padding: 0;
-	background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
 }
 
 #container {
-	display: flex;
-	width: 100%;
-	height: calc(100vh - 82px);
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 82px);
+}
+
+/* ¸®½ºÆ® ÄÁÅ×ÀÌ³Ê ½ºÅ¸ÀÏ */
+.listContainer {
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* ½ºÅ©·Ñ Ãß°¡ */
 }
 
 #roomList {
-	width: 20%;
-	border-right: 1px solid #ddd;
-	background-color: #fff;
-	display: flex;
-	flex-direction: column;
-	padding: 10px;
+    width: 20%;
+    border-right: 1px solid #ddd;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 #roomList h2 {
-	margin-top: 0;
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #333;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
 #roomList ul {
-	list-style-type: none;
-	padding-left: 0;
-	flex-grow: 1;
-	margin-bottom: 0;
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Ç×¸ñ °£ °£°Ý Ãß°¡ */
+    overflow-y: auto; /* ½ºÅ©·Ñ Ãß°¡ */
 }
 
 #roomList li {
-	padding: 8px;
-	border-bottom: 1px solid #ddd;
-	cursor: pointer;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, padding-left 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #roomList li:hover {
-	background-color: #f0f0f0;
+    background-color: #e9f1ff;
+    padding-left: 16px;
 }
 
 #newChatBtn {
-	padding: 10px 20px;
-	border: none;
-	background-color: #007bff;
-	color: white;
-	cursor: pointer;
-	margin-top: 10px;
-	border-radius: 4px;
-	text-align: center;
-	width: 100%;
-	box-sizing: border-box;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 4px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.3s;
 }
 
 #newChatBtn:hover {
-	background-color: #0056b3;
+    background-color: #0056b3;
 }
 
 #chatSection {
-	width: 80%;
-	display: flex;
-	flex-direction: column;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
 }
 
 #chatHeader {
-	padding: 10px;
-	background-color: #007bff;
-	color: white;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #chatArea {
-	flex-grow: 1;
-	overflow-y: auto;
-	padding: 10px;
-	background-color: #fff;
-	border-bottom: 1px solid #ddd;
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0 0 8px 8px;
 }
 
 #chatMessageArea {
-	overflow-y: auto;
+    overflow-y: auto;
 }
 
 #messageInput {
-	display: flex;
-	padding: 10px;
-	background-color: #f0f0f0;
+    display: flex;
+    padding: 10px;
+    background-color: #f0f0f0;
 }
 
 #message {
-	flex-grow: 1;
-	padding: 10px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 #sendBtn {
-	padding: 10px 20px;
-	border: none;
-	background-color: #007bff;
-	color: white;
-	cursor: pointer;
-	margin-left: 10px;
-	border-radius: 4px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
 }
 
 #sendBtn:hover {
-	background-color: #0056b3;
+    background-color: #0056b3;
 }
 
 .modal {
-	display: none;
-	position: fixed;
-	z-index: 100;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
-	background-color: #fff;
-	margin: auto;
-	padding: 20px;
-	border: 1px solid #888;
-	border-radius: 10px;
-	width: 60%;
-	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+    background-color: #fff;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    width: 60%;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .close {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
 }
 
 .close:hover, .close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 #createRoomBtn {
-	padding: 10px 20px;
-	border: none;
-	background-color: #007bff;
-	color: white;
-	cursor: pointer;
-	margin-top: 10px;
-	border-radius: 4px;
-	text-align: center;
-	width: 100%;
-	box-sizing: border-box;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 4px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.3s;
 }
 
 #createRoomBtn:hover {
-	background-color: #0056b3;
+    background-color: #0056b3;
 }
 
-/* ìž…ë ¥ ì¹¸ ìŠ¤íƒ€ì¼ */
+/* ÀÔ·Â Ä­ ½ºÅ¸ÀÏ */
 #newRoomName {
-	padding: 10px;
-	border: 1px solid #ddd;
-	border-radius: 20px;
-	background-color: #f0f0f0;
-	width: calc(100% - 22px); /* padding í¬ê¸°ë¥¼ ê³ ë ¤í•˜ì—¬ ë„ˆë¹„ ì¡°ì • */
-	margin-bottom: 10px;
-	outline: none; /* í¬ì»¤ìŠ¤ íš¨ê³¼ ì œê±° */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    width: calc(100% - 22px);
+    margin-bottom: 10px;
+    outline: none;
+}
+
+/* Ãß°¡µÈ ½ºÅ¸ÀÏ */
+#roomList > .listContainer {
+    flex: 1; /* °ø°£À» ¹Ý¹ÝÀ¸·Î ³ª´® */
+    overflow-y: auto; /* ½ºÅ©·Ñ Ãß°¡ */
 }

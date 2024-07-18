@@ -1,6 +1,7 @@
 package com.everytime.web.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,6 +22,7 @@ import com.everytime.web.domain.ChatVO;
 import com.everytime.web.domain.RegisterVO;
 import com.everytime.web.service.ChatListService;
 import com.everytime.web.service.ChatService;
+import com.everytime.web.service.MessageService;
 import com.everytime.web.service.RegisterService;
 
 import lombok.extern.log4j.Log4j;
@@ -31,14 +33,17 @@ import lombok.extern.log4j.Log4j;
 public class ChatController {
 
 	@Autowired
+	private RegisterService registerService;
+
+	@Autowired
 	private ChatService chatService;
 
 	@Autowired
 	private ChatListService chatListService;
 
 	@Autowired
-	private RegisterService registerService;
-
+	private MessageService messageService;
+	
 	@GetMapping("/chat")
 	public String chatGet(Model model, HttpServletRequest request) throws Exception {
 		log.info("chatGet()");
@@ -51,7 +56,9 @@ public class ChatController {
 		} else {
 			RegisterVO registerVO = registerService.getRegisterById(memberId);
 			List<ChatListVO> chatList = chatListService.allRoom();
+			Set<String> msgList = messageService.getMsgList(memberId);
 			
+			model.addAttribute("msgList", msgList);
 			model.addAttribute("chatList", chatList);
 			model.addAttribute("registerVO", registerVO);
 

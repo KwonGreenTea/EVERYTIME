@@ -10,13 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,11 +23,9 @@ import com.everytime.web.domain.FileVO;
 import com.everytime.web.domain.PostVO;
 import com.everytime.web.domain.ProfileVO;
 import com.everytime.web.domain.ReviewVO;
-import com.everytime.web.domain.ScrapVO;
 import com.everytime.web.service.PostService;
 import com.everytime.web.service.ProfileService;
 import com.everytime.web.service.RegisterService;
-import com.everytime.web.service.ScrapService;
 import com.everytime.web.util.FileUploadUtil;
 
 import lombok.extern.log4j.Log4j;
@@ -54,22 +49,21 @@ public class PostController {
 	@Autowired
 	private ProfileService profileService;
 
-	@Autowired
-	private ScrapService scrapService;
-
 	@GetMapping("post_list")
 	public String post_ListGET(Model model, Integer boardId, HttpServletRequest request) {
 		log.info("post_ListGET");
 
 		HttpSession session = request.getSession();
 		String memberId = (String) session.getAttribute("memberId");
-		String nickname = registerService.getNicknameById(memberId);
 
 		// 게시물 목록 조회
-		List<PostVO> postList = postService.getAllPosts(boardId);
+		List<PostVO> postListTmp = postService.getAllPosts(boardId);
 
-		if (postList.isEmpty()) {
-			log.info("postList 없어 !!!");
+		List<PostVO> postList = new ArrayList<>();
+		for (PostVO postVO : postListTmp) {
+			String nickname = registerService.getNicknameById(postVO.getMemberId());
+			postVO.setNickname(nickname);
+			postList.add(postVO);
 		}
 
 		// 게시물 ID별로 이미지 파일을 그룹화
@@ -115,7 +109,6 @@ public class PostController {
 		model.addAttribute("postList", postList);
 		model.addAttribute("postImgList", postImgList);
 		model.addAttribute("boardId", boardId);
-		model.addAttribute("nickname", nickname);
 		model.addAttribute("memberId", memberId);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("hotPostList", hotPostList);
@@ -193,9 +186,11 @@ public class PostController {
 
 		HttpSession session = request.getSession();
 		String memberId = (String) session.getAttribute("memberId");
-		String nickname = registerService.getNicknameById(memberId);
 
 		PostVO postVO = postService.getPostById(boardId, postId);
+
+		String nickname = registerService.getNicknameById(postVO.getMemberId());
+
 		List<FileVO> fileVO = postService.getImgById(boardId, postId);
 		ProfileVO profileVO = profileService.getProfileById(postService.getId(boardId, postId));
 		List<PostVO> hotPostList = postService.selectHotPost();
@@ -245,62 +240,14 @@ public class PostController {
 			}
 		}
 		model.addAttribute("nickname", nickname);
+		model.addAttribute("memberId", memberId);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("imgSource", imgSource);
 		model.addAttribute("profileImgSource", profileImgSource);
 		model.addAttribute("postVO", postVO);
 		model.addAttribute("hotPostList", hotPostList);
-		
+
 		return "/board/detail";
-	}
-
-	@PostMapping("postScrap")
-	public ResponseEntity<Integer> postScrapPost(@RequestBody ScrapVO scrapVO, HttpServletRequest request) {
-		log.info("postScrapPost");
-
-		HttpSession session = request.getSession();
-		String memberId = (String) session.getAttribute("memberId");
-
-		scrapVO.setMemberId(memberId);
-
-		int postId = scrapVO.getPostId();
-
-		int checkResult = scrapService.checkIfPostScraped(postId, memberId);
-
-		int result = 0;
-
-		if (checkResult == 0) {
-			result = scrapService.postScrap(scrapVO);
-
-			return new ResponseEntity<Integer>(result, HttpStatus.OK);
-		}
-
-		return new ResponseEntity<Integer>(result, HttpStatus.OK);
-
-	}
-
-	@PostMapping("postCancelScrap")
-	public ResponseEntity<Integer> postCancelScrap(@RequestBody ScrapVO scrapVO, HttpServletRequest request) {
-		log.info("postScrapPost");
-		HttpSession session = request.getSession();
-		String memberId = (String) session.getAttribute("memberId");
-		scrapVO.setMemberId(memberId);
-		int result = scrapService.postCancelScrap(scrapVO);
-
-		return new ResponseEntity<Integer>(result, HttpStatus.OK);
-
-	}
-
-	@PostMapping("getScrapStatus")
-	public ResponseEntity<Integer> getScrapStatus(@RequestBody ScrapVO scrapVO, HttpServletRequest request) {
-		log.info("getScrapStatus");
-		HttpSession session = request.getSession();
-		String memberId = (String) session.getAttribute("memberId");
-		scrapVO.setMemberId(memberId);
-		int result = scrapService.postChkScrap(scrapVO);
-
-		return new ResponseEntity<Integer>(result, HttpStatus.OK);
-
 	}
 
 	@PostMapping("/search/all")
@@ -339,24 +286,23 @@ public class PostController {
 	}
 
 	@GetMapping("myPost")
-		public String myPost(Model model,HttpServletRequest request) {
-		
+	public String myPost(Model model, HttpServletRequest request) {
+
 		HttpSession session = request.getSession();
 		String memberId = (String) session.getAttribute("memberId");
-		
+
 		log.info("myPost()");
-		
+
 		List<PostVO> myPostList = postService.selectMyPost(memberId);
 		List<ReviewVO> reviewList = postService.selectReview();
-		
+
 		// rightSide hot 게시글
-				List<PostVO> hotPostList = postService.selectHotPost();
-				
+		List<PostVO> hotPostList = postService.selectHotPost();
+
 		model.addAttribute("myPostList", myPostList);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("hotPostList", hotPostList);
-		
-		
+
 		return "board/myPost";
 	}
 }

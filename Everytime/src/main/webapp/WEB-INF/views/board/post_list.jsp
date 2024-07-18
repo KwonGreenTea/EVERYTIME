@@ -222,7 +222,7 @@
 								</time>
 								<c:choose>
 									<c:when test="${postVO.postAnonymous == 0}">
-										<h3 class="small">${nickname }</h3>
+										<h3 class="small">${postVO.nickname }</h3>
 									</c:when>
 									<c:when test="${postVO.postAnonymous == 1}">
 										<h3 class="small">익명</h3>

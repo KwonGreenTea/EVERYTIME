@@ -27,13 +27,23 @@
 	<input type="hidden" id="nickname" value="${registerVO.nickname }">
 	<div id="container">
 		<div id="roomList">
-			<h2>채팅방 리스트</h2>
-			<ul>
-				<c:forEach var="ChatListVO" items="${chatList}">
-					<li data-chatroomid="${ChatListVO.room_id}">${ChatListVO.chat_title}</li>
-				</c:forEach>
-			</ul>
-			<input type="button" id="newChatBtn" value="채팅방 만들기">
+			<div class="listContainer">
+				<h2>채팅방 리스트</h2>
+				<input type="button" id="newChatBtn" value="채팅방 만들기">
+				<ul>
+					<c:forEach var="ChatListVO" items="${chatList}">
+						<li data-chatroomid="${ChatListVO.room_id}">${ChatListVO.chat_title}</li>
+					</c:forEach>
+				</ul>
+			</div>
+			<div class="listContainer">
+				<h2>쪽지 리스트</h2>
+				<ul>
+					<c:forEach var="messageId" items="${msgList}">
+						<li data-messageid="${messageId}">${messageId}</li>
+					</c:forEach>
+				</ul>
+			</div>
 		</div>
 		<div id="chatSection">
 			<div id="chatHeader"></div>

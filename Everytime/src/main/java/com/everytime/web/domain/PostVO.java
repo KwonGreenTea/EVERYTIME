@@ -27,4 +27,5 @@ public class PostVO {
 	private String postAnonymous;
 	
 	private MultipartFile file;
+	private String nickname;
 }

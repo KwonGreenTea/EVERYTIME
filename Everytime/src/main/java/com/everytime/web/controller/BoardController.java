@@ -33,15 +33,9 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
-	
-	@Autowired
-	private RegisterService registerService;
 
 	@Autowired
 	private ProfileService profileService;
-
-	@Autowired
-	private ScrapService scrapService;
 
 	@Autowired
 	private PostService postService;
@@ -110,30 +104,4 @@ public class BoardController {
 		model.addAttribute("hotPostList", hotPostList);
 		return "board/main";
 	}
-
-	@GetMapping("/myscrap")
-	public String myscrapGet(Model model, HttpServletRequest request) {
-		log.info("myscrapGet()");
-		HttpSession session = request.getSession();
-		String memberId = (String) session.getAttribute("memberId");
-		String nickname = registerService.getNicknameById(memberId);
-
-		List<ReviewVO> reviewList = postService.selectReview();
-		List<Integer> scrapPostId = scrapService.selectScrapById(memberId);
-
-		List<PostVO> postList = new ArrayList<>();
-		for (int postId : scrapPostId) {
-			postList.add(postService.getPostDataByPostId(postId));
-		}
-		
-		List<PostVO> hotPostList = postService.selectHotPost();
-
-		model.addAttribute("nickname", nickname);
-		model.addAttribute("postList", postList);
-		model.addAttribute("reviewList", reviewList);
-		model.addAttribute("hotPostList", hotPostList);
-
-		return "board/myscrap";
-	}
-
 }

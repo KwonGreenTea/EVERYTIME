@@ -5,16 +5,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.everytime.web.persistence.MessageMapper">
 
-   <resultMap type="com.everytime.web.domain.MessageVO"
-      id="messageResultMap">
-      
-      <result property="messageId" column="MESSAGE_ID" /> 
-       <result property="sendMemberId" column="SEND_MEMBER_ID" />
-       <result property="recvMemberId" column="RECV_MEMBER_ID" />
-       <result property="messageContent" column="MESSAGE_CONTENT" />
-       <result property="messageDate" column="MESSAGE_DATE"/>
-   </resultMap>
+	<resultMap type="com.everytime.web.domain.MessageVO"
+		id="messageResultMap">
 
-   
+		<id property="messageNo" column="MESSAGE_NO" />
+		<result property="messageRequest" column="MESSAGE_REQUEST" />
+		<result property="messageResponse" column="MESSAGE_RESPONSE" />
+		<result property="content" column="CONTENT" />
+		<result property="messageCreatedDate"
+			column="MESSAGE_CREATED_DATE" />
+	</resultMap>
+
+	<select id="getResponseId" resultType="String">
+		SELECT MESSAGE_RESPONSE
+		FROM MESSAGE
+		WHERE MESSAGE_REQUEST = #{memberId}
+	</select>
+
+	<select id="getRequestId" resultType="String">
+		SELECT MESSAGE_REQUEST FROM
+		MESSAGE
+		WHERE MESSAGE_RESPONSE = #{memberId}
+	</select>
+
+	<select id="getAllDataByResponeId" resultMap="messageResultMap">
+		SELECT *
+		FROM MESSAGE
+		WHERE ((MESSAGE_REQUEST = #{messageRequest} AND MESSAGE_RESPONSE =
+		#{messageResponse})
+		OR (MESSAGE_RESPONSE = #{messageRequest} AND MESSAGE_REQUEST =
+		#{messageResponse}))
+		AND ROWNUM = 1
+		ORDER BY MESSAGE_NO DESC
+	</select>
+
+	<select id="getAllDateById" resultMap="messageResultMap">
+		SELECT * FROM MESSAGE
+		WHERE MESSAGE_REQUEST = #{messageRequest} AND MESSAGE_RESPONSE =
+		#{messageRequest}
+		OR MESSAGE_RESPONSE = #{messageRequest} AND
+		MESSAGE_REQUEST = #{messageRequest}
+		ORDER BY MESSAGE_CREATED_DATE DESC
+	</select>
+
+	<insert id="sendMsg">
+		INSERT INTO MESSAGE (MESSAGE_NO, MESSAGE_REQUEST,
+		MESSAGE_RESPONSE, CONTENT)
+		VALUES(MESSAGE_SEQ.NEXTVAL,
+		#{messageRequest}, #{messageResponse}, #{content})
+	</insert>
 
 </mapper>
